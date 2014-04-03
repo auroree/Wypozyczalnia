@@ -29,7 +29,7 @@ namespace Wypozyczalnia
                 // komunikacja z baza danych (?)
 
                 // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil)
-                MessageBox.Show("Dodano wpis", "Dodano");
+                MessageBox.Show("Dodano nowy wpis", "Dodano");
                 // zamkniecie formularza
                 form.Dispose();
             }
