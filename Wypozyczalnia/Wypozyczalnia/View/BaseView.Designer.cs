@@ -38,6 +38,7 @@
             this.clientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spacecraftsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rezerwacjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.warehouseCzęściToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordersListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,7 +54,6 @@
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.rezerwacjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -125,6 +125,13 @@
             this.spacecraftsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D3)));
             this.spacecraftsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.spacecraftsToolStripMenuItem.Text = "Statki";
+            // 
+            // rezerwacjeToolStripMenuItem
+            // 
+            this.rezerwacjeToolStripMenuItem.Name = "rezerwacjeToolStripMenuItem";
+            this.rezerwacjeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D4)));
+            this.rezerwacjeToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.rezerwacjeToolStripMenuItem.Text = "Rezerwacje";
             // 
             // warehouseCzęściToolStripMenuItem
             // 
@@ -209,6 +216,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 52);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(709, 419);
             this.dataGridView1.TabIndex = 1;
             // 
@@ -241,13 +249,6 @@
             this.buttonDelete.TabIndex = 5;
             this.buttonDelete.Text = "Usuń";
             this.buttonDelete.UseVisualStyleBackColor = true;
-            // 
-            // rezerwacjeToolStripMenuItem
-            // 
-            this.rezerwacjeToolStripMenuItem.Name = "rezerwacjeToolStripMenuItem";
-            this.rezerwacjeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D4)));
-            this.rezerwacjeToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.rezerwacjeToolStripMenuItem.Text = "Rezerwacje";
             // 
             // BaseView
             // 
