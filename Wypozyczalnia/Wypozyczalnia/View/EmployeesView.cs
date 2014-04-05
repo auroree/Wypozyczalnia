@@ -8,16 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Wypozyczalnia
+namespace Wypozyczalnia.View
 {
-    namespace View 
+    public partial class EmployeesView : BaseView
     {
-        public partial class EmployeesView : BaseView
+        public EmployeesView()
         {
-            public EmployeesView()
-            {
-                InitializeComponent();
-            }
+            InitializeComponent();
         }
     }
 }
