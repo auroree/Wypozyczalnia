@@ -8,65 +8,78 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Wypozyczalnia
+namespace Wypozyczalnia.View
 {
-    namespace View 
+    public partial class BaseView : Form
     {
-        public partial class BaseView : Form
+        protected Controller controller;
+
+        public BaseView()
         {
-            protected Controller controller;
+            InitializeComponent();
+            dataGridView1.RowHeadersVisible = false;
+        }
 
-            public BaseView()
-            {
-                InitializeComponent();
-            }
+        public void SetDataTable(DataTable dataTable) 
+        {
+            this.dataGridView1.DataSource = dataTable;
+        }
 
-            public void SetController(Controller controller)
-            {
-                this.controller = controller;
-            }
+        public void SetController(Controller controller)
+        {
+            this.controller = controller;
+        }
 
-            private void actionShowClientsView(object sender, EventArgs e)
-            {
-                controller.ShowClientsView();
-            }
+        private void ActionShowClientsView(object sender, EventArgs e)
+        {
+            controller.ShowClientsView();
+        }
 
-            private void actionShowEmployeesView(object sender, EventArgs e)
-            {
-                controller.ShowEmployeesView();
-            }
+        private void ActionShowEmployeesView(object sender, EventArgs e)
+        {
+            controller.ShowEmployeesView();
+        }
 
-            private void actionClose(object sender, FormClosingEventArgs e)
+        private void ActionClose(object sender, FormClosingEventArgs e)
+        {
+            if (!controller.IsClosing)
             {
-                if (!controller.Closing)
+                if (MessageBox.Show("Wyjść?", "Wypożyczalnia",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (MessageBox.Show("Wyjść?", "Wypożyczalnia",
-                        MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        controller.Closing = true;
-                        Application.Exit();
-                    }
-                    else
-                    {
-                        // Cancel the Closing event from closing the form.
-                        e.Cancel = true;
-                    }
+                    controller.IsClosing = true;
+                    Application.Exit();
+                }
+                else
+                {
+                    // Cancel the Closing event from closing the form.
+                    e.Cancel = true;
                 }
             }
+        }
 
-            private void actionExit(object sender, EventArgs e)
+        private void ActionExit(object sender, EventArgs e)
+        {
+            if (!controller.IsClosing)
             {
-                if (!controller.Closing)
+                if (MessageBox.Show("Wyjść?", "Wypożyczalnia",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (MessageBox.Show("Wyjść?", "Wypożyczalnia",
-                        MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        controller.Closing = true;
-                        Application.Exit();
-                    }
+                    controller.IsClosing = true;
+                    Application.Exit();
                 }
             }
+        }
 
+        private void ActionLoadData(object sender, EventArgs e)
+        {
+            controller.SelectAllAtActiveWindow();
+        }
+
+        public int GetActiveElementIndex()
+        {
+            return dataGridView1.CurrentRow.Index;
         }
     }
 }
+

@@ -1,35 +1,33 @@
-﻿namespace Wypozyczalnia
+﻿namespace Wypozyczalnia.View
 {
-    namespace View
+    partial class BaseView
     {
-        partial class BaseView
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            /// <summary>
-            /// Required designer variable.
-            /// </summary>
-            private System.ComponentModel.IContainer components = null;
-
-            /// <summary>
-            /// Clean up any resources being used.
-            /// </summary>
-            /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-            protected override void Dispose(bool disposing)
+            if (disposing && (components != null))
             {
-                if (disposing && (components != null))
-                {
-                    components.Dispose();
-                }
-                base.Dispose(disposing);
+                components.Dispose();
             }
+            base.Dispose(disposing);
+        }
 
-            #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-            /// <summary>
-            /// Required method for Designer support - do not modify
-            /// the contents of this method with the code editor.
-            /// </summary>
-            private void InitializeComponent()
-            {
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,7 +84,7 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.exitToolStripMenuItem.Text = "Wyjście";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.actionExit);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ActionExit);
             // 
             // daneToolStripMenuItem
             // 
@@ -109,7 +107,7 @@
             this.clientsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D1)));
             this.clientsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.clientsToolStripMenuItem.Text = "Klienci";
-            this.clientsToolStripMenuItem.Click += new System.EventHandler(this.actionShowClientsView);
+            this.clientsToolStripMenuItem.Click += new System.EventHandler(this.ActionShowClientsView);
             // 
             // employeesToolStripMenuItem
             // 
@@ -117,7 +115,7 @@
             this.employeesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D2)));
             this.employeesToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.employeesToolStripMenuItem.Text = "Pracownicy";
-            this.employeesToolStripMenuItem.Click += new System.EventHandler(this.actionShowEmployeesView);
+            this.employeesToolStripMenuItem.Click += new System.EventHandler(this.ActionShowEmployeesView);
             // 
             // spacecraftsToolStripMenuItem
             // 
@@ -158,6 +156,7 @@
             this.realoadDataToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.realoadDataToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.realoadDataToolStripMenuItem.Text = "Aktualizuj dane";
+            this.realoadDataToolStripMenuItem.Click += new System.EventHandler(this.ActionLoadData);
             // 
             // raportToolStripMenuItem
             // 
@@ -215,8 +214,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 52);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(709, 419);
             this.dataGridView1.TabIndex = 1;
             // 
@@ -265,41 +266,39 @@
             this.Name = "BaseView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wypożyczalnia";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.actionClose);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ActionClose);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-            }
-
-            #endregion
-
-            private System.Windows.Forms.MenuStrip menuStrip1;
-            private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem daneToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem clientsToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem employeesToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem spacecraftsToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem warehouseCzęściToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem ordersListToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem changeSettingsToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem viewHelpToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-            protected System.Windows.Forms.Button buttonAdd;
-            protected System.Windows.Forms.Button buttonEdit;
-            protected System.Windows.Forms.Button buttonDelete;
-            protected System.Windows.Forms.DataGridView dataGridView1;
-            private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-            private System.Windows.Forms.ToolStripMenuItem realoadDataToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem raportToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem printPreviewToolStripMenuItem;
-            private System.Windows.Forms.ToolStripMenuItem rezerwacjeToolStripMenuItem;
         }
+
+        #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem daneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem employeesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem spacecraftsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem warehouseCzęściToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ordersListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewHelpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        protected System.Windows.Forms.Button buttonAdd;
+        protected System.Windows.Forms.Button buttonEdit;
+        protected System.Windows.Forms.Button buttonDelete;
+        protected System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem realoadDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem raportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem printPreviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rezerwacjeToolStripMenuItem;
     }
 }
-

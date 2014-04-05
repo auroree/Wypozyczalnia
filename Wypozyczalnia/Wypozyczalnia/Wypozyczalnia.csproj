@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DatabaseConnection.cs" />
     <Compile Include="LoginController.cs" />
+    <Compile Include="Database\DBClient.cs" />
     <Compile Include="View\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>

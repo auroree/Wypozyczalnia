@@ -1,35 +1,33 @@
-﻿namespace Wypozyczalnia
+﻿namespace Wypozyczalnia.View
 {
-    namespace View
+    partial class BaseForm
     {
-        partial class BaseForm
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            /// <summary>
-            /// Required designer variable.
-            /// </summary>
-            private System.ComponentModel.IContainer components = null;
-
-            /// <summary>
-            /// Clean up any resources being used.
-            /// </summary>
-            /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-            protected override void Dispose(bool disposing)
+            if (disposing && (components != null))
             {
-                if (disposing && (components != null))
-                {
-                    components.Dispose();
-                }
-                base.Dispose(disposing);
+                components.Dispose();
             }
+            base.Dispose(disposing);
+        }
 
-            #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-            /// <summary>
-            /// Required method for Designer support - do not modify
-            /// the contents of this method with the code editor.
-            /// </summary>
-            private void InitializeComponent()
-            {
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,6 +35,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.buttonConfirm = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.title = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -89,11 +88,20 @@
             this.buttonCancel.Text = "Anuluj";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
+            // title
+            // 
+            this.title.Location = new System.Drawing.Point(13, 13);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(309, 23);
+            this.title.TabIndex = 101;
+            this.title.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 412);
+            this.Controls.Add(this.title);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonConfirm);
             this.Controls.Add(this.textBox2);
@@ -107,16 +115,16 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-            }
-
-            #endregion
-
-            protected System.Windows.Forms.Label label1;
-            protected System.Windows.Forms.Label label2;
-            protected System.Windows.Forms.TextBox textBox1;
-            protected System.Windows.Forms.TextBox textBox2;
-            protected System.Windows.Forms.Button buttonConfirm;
-            protected System.Windows.Forms.Button buttonCancel;
         }
+
+        #endregion
+
+        protected System.Windows.Forms.Label label1;
+        protected System.Windows.Forms.Label label2;
+        protected System.Windows.Forms.TextBox textBox1;
+        protected System.Windows.Forms.TextBox textBox2;
+        protected System.Windows.Forms.Button buttonConfirm;
+        protected System.Windows.Forms.Button buttonCancel;
+        protected System.Windows.Forms.Label title;
     }
 }

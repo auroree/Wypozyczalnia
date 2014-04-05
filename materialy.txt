@@ -1,0 +1,10 @@
+SQL Query:
+http://www.codeproject.com/Articles/4416/Beginners-guide-to-accessing-SQL-Server-through-C
+
+DataTable:
+http://www.dotnetperls.com/datatable
+
+Dziedziczenie:
+	public partial class EmployeesView : BaseView { .. }
+	
+jak co pytac skad sie co wzielo ;p
