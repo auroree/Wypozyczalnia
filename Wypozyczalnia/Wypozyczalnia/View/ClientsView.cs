@@ -20,21 +20,6 @@ namespace Wypozyczalnia.View
             InitColumns();
         }
 
-        private void ActionAdd(object sender, EventArgs e)
-        {
-            controller.ShowAddForm();
-        }
-
-        private void ActionEdit(object sender, EventArgs e)
-        {
-            controller.ShowEditForm();
-        }
-
-        private void ActionDelete(object sender, EventArgs e)
-        {
-            controller.ShowDeleteForm();
-        }
-
         private void InitColumns()
         {
             DataTable dataTable = new DataTable();

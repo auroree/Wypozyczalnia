@@ -21,6 +21,7 @@ namespace Wypozyczalnia.View
         public ClientForm(Client client)
         {
             InitializeComponent();
+
             textBox1.Text = "" + client.Id;
             textBox2.Text = client.Name;
             textBox3.Text = client.Surname;
@@ -47,6 +48,14 @@ namespace Wypozyczalnia.View
         private void ActionCorfirm(object sender, EventArgs e)
         {
             controller.Confirm();
+        }
+
+        public void DisableAllTextBoxes()
+        {
+            textBox1.ReadOnly = true;
+            textBox2.ReadOnly = true;
+            textBox3.ReadOnly = true;
+            textBox4.ReadOnly = true;
         }
     }
 }

@@ -25,6 +25,23 @@ namespace Wypozyczalnia
             form.SetController(this);
             this.operation = operation;
             SetFormTitle();
+            SetTextBoxesState();
+        }
+
+        private void SetTextBoxesState()
+        {
+            switch (operation)
+            {
+                case Operation.Add:
+                    form.EnabledTextBox1 = false;
+                    break;
+                case Operation.Edit:
+                    form.EnabledTextBox1 = false;
+                    break;
+                case Operation.Delete:
+                    form.DisableAllTextBoxes();
+                    break;
+            }
         }
 
         private void SetFormTitle()

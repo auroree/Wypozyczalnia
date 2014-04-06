@@ -36,18 +36,6 @@
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Click += new System.EventHandler(this.ActionAdd);
-            // 
-            // buttonEdit
-            // 
-            this.buttonEdit.Click += new System.EventHandler(this.ActionEdit);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Click += new System.EventHandler(this.ActionDelete);
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {

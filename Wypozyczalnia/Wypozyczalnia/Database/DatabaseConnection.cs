@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,10 @@ namespace Wypozyczalnia.Database
 
         public DatabaseConnection()
         {
-            this.ServerName = "HANIA-LAPTOP\\SQLEXPRESS";
-            this.DatabaseName = "Test2";
-            this.UserId = "sa";
-            this.Password = "Admin1";
+            this.ServerName = ConfigurationManager.AppSettings["server"];//"HANIA-LAPTOP\\SQLEXPRESS";
+            this.DatabaseName = ConfigurationManager.AppSettings["database"];//"Test2";
+            this.UserId = ConfigurationManager.AppSettings["user"];//"sa";
+            this.Password = ConfigurationManager.AppSettings["password"];//"Admin1";
             CreateConnectionString();
             Connection = new SqlConnection(connectionString);
         }
