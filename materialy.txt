@@ -7,4 +7,7 @@ http://www.dotnetperls.com/datatable
 Dziedziczenie:
 	public partial class EmployeesView : BaseView { .. }
 	
+Tooltip:
+Drag a tooltip control from the toolbox onto your form. You don't really need to give it any properties other than a name. Then, in the properties of the control you wish to have a tooltip on, look for a new property with the name of the tooltip control you just added. It will by default give you a tooltip when the cursor hovers the control.
+	
 jak co pytac skad sie co wzielo ;p

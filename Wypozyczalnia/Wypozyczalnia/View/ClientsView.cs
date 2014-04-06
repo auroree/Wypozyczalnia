@@ -86,5 +86,10 @@ namespace Wypozyczalnia.View
             SetColumns();
         }
 
+        private void ActionReservations(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
     }
 }

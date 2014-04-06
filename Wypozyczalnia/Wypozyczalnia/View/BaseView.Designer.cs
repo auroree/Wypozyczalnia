@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +56,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dbStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -173,7 +175,8 @@
             // printPreviewToolStripMenuItem
             // 
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.printPreviewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.printPreviewToolStripMenuItem.Text = "Podgląd wydruku";
             // 
             // settingsToolStripMenuItem
@@ -229,9 +232,9 @@
             // buttonAdd
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAdd.Location = new System.Drawing.Point(320, 464);
+            this.buttonAdd.Location = new System.Drawing.Point(299, 464);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(130, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(137, 23);
             this.buttonAdd.TabIndex = 3;
             this.buttonAdd.Text = "Dodaj nowy";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -240,9 +243,9 @@
             // buttonEdit
             // 
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEdit.Location = new System.Drawing.Point(456, 464);
+            this.buttonEdit.Location = new System.Drawing.Point(442, 464);
             this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(130, 23);
+            this.buttonEdit.Size = new System.Drawing.Size(137, 23);
             this.buttonEdit.TabIndex = 4;
             this.buttonEdit.Text = "Edytuj";
             this.buttonEdit.UseVisualStyleBackColor = true;
@@ -251,9 +254,9 @@
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Location = new System.Drawing.Point(592, 464);
+            this.buttonDelete.Location = new System.Drawing.Point(585, 464);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(130, 23);
+            this.buttonDelete.Size = new System.Drawing.Size(137, 23);
             this.buttonDelete.TabIndex = 5;
             this.buttonDelete.Text = "Usuń";
             this.buttonDelete.UseVisualStyleBackColor = true;
@@ -336,5 +339,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel dbStatusLabel;
+        protected System.Windows.Forms.ToolTip toolTip1;
     }
 }

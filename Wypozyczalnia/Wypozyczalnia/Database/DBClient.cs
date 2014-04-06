@@ -73,7 +73,8 @@ namespace Wypozyczalnia.Database
         {
             SqlCommand command = new SqlCommand();
             command.CommandText =
-                "SELECT [Klient_ID], [Imię], [Nazwisko], [Nr_dowodu] FROM [Klient]";
+                "SELECT [Klient_ID], [Imię], [Nazwisko], [Nr_dowodu] FROM [Klient]" +
+                "ORDER BY [Nazwisko]";
 
             return command;
         }

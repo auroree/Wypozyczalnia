@@ -85,15 +85,22 @@ namespace Wypozyczalnia
             try
             {
                 // sprawdzenie poprawnosci danych (w osobnej funkcji (?))
-                Client client = new Client(form.TextBox2, form.TextBox3, form.TextBox4);
-                // komunikacja z baza danych
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBClient.InsertQuery(client));
-                dc.CloseConnection();
-                // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
-                MessageBox.Show("Dodano nowy wpis", "Dodano");
-                // zamkniecie formularza
-                form.Dispose();
+                if (IsDataCorrect())
+                {
+                    Client client = new Client(form.TextBox2, form.TextBox3, form.TextBox4);
+                    // komunikacja z baza danych
+                    dc.OpenConnection();
+                    dc.ExecuteQuery(DBClient.InsertQuery(client));
+                    dc.CloseConnection();
+                    // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
+                    MessageBox.Show("Dodano nowy wpis", "Dodano");
+                    // zamkniecie formularza
+                    form.Dispose();
+                }
+                else
+                {
+                    MessageBox.Show("Błędne dane.", "Błąd");
+                }
             }
             //catch (FormatException ex)
             //{
@@ -110,16 +117,23 @@ namespace Wypozyczalnia
         {
             try
             {
-                // sprawdzenie poprawnosci danych (w osobnej funkcji (?))
-                Client client = new Client(Convert.ToInt32(form.TextBox1), form.TextBox2, form.TextBox3, form.TextBox4);
-                // komunikacja z baza danych
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBClient.UpdateQuery(client));
-                dc.CloseConnection();
-                // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
-                MessageBox.Show("Zaktualizowano wpis", "Zaktualizowano");
-                // zamkniecie formularza
-                form.Dispose();
+                if (IsDataCorrect())
+                {
+                    // sprawdzenie poprawnosci danych (w osobnej funkcji (?))
+                    Client client = new Client(Convert.ToInt32(form.TextBox1), form.TextBox2, form.TextBox3, form.TextBox4);
+                    // komunikacja z baza danych
+                    dc.OpenConnection();
+                    dc.ExecuteQuery(DBClient.UpdateQuery(client));
+                    dc.CloseConnection();
+                    // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
+                    MessageBox.Show("Zaktualizowano wpis", "Zaktualizowano");
+                    // zamkniecie formularza
+                    form.Dispose();
+                }
+                else
+                {
+                    MessageBox.Show("Błędne dane.", "Błąd");
+                }
             }
             catch (FormatException ex)
             {
@@ -152,6 +166,23 @@ namespace Wypozyczalnia
             {
                 MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
             }
+        }
+
+        public Boolean IsDataCorrect()
+        {
+            if (form.TextBox2.Length <= 0)
+            {
+                return false;
+            }
+            if (form.TextBox3.Length <= 0)
+            {
+                return false;
+            }
+            if (form.TextBox4.Length <= 0)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
