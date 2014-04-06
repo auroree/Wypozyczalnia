@@ -20,14 +20,40 @@ namespace Wypozyczalnia.View
             dataGridView1.RowHeadersVisible = false;
         }
 
-        public void SetDataTable(DataTable dataTable) 
-        {
-            this.dataGridView1.DataSource = dataTable;
-        }
-
         public void SetController(Controller controller)
         {
             this.controller = controller;
+        }
+
+        public string DBStatus
+        {
+            get { return dbStatusLabel.Text; }
+            set { dbStatusLabel.Text = value; }
+        }
+
+        public void ClearTable()
+        {
+            // TODO
+        }
+
+        private void ActionAdd(object sender, EventArgs e)
+        {
+            controller.ShowAddForm();
+        }
+
+        private void ActionEdit(object sender, EventArgs e)
+        {
+            controller.ShowEditForm();
+        }
+
+        private void ActionDelete(object sender, EventArgs e)
+        {
+            controller.ShowDeleteForm();
+        }
+
+        public void SetDataTable(DataTable dataTable)
+        {
+            this.dataGridView1.DataSource = dataTable;
         }
 
         private void ActionShowClientsView(object sender, EventArgs e)
@@ -80,6 +106,12 @@ namespace Wypozyczalnia.View
         {
             return dataGridView1.CurrentRow.Index;
         }
+
+        private void ActionChangeDBSettings(object sender, EventArgs e)
+        {
+            controller.ChangeDBSettings();
+        }
+
     }
 }
 

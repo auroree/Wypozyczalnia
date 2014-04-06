@@ -33,20 +33,21 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.buttonReservations = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Click += new System.EventHandler(this.ActionAdd);
+            this.toolTip1.SetToolTip(this.buttonAdd, "Dodaj nowego klienta");
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Click += new System.EventHandler(this.ActionEdit);
+            this.toolTip1.SetToolTip(this.buttonEdit, "Edytuj wybranego klienta");
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Click += new System.EventHandler(this.ActionDelete);
+            this.toolTip1.SetToolTip(this.buttonDelete, "Usuń wybranego klienta");
             // 
             // toolStrip1
             // 
@@ -81,11 +82,23 @@
             this.toolStripButton1.Text = "Szukaj";
             this.toolStripButton1.Click += new System.EventHandler(this.ActionSearchBySurname);
             // 
+            // buttonReservations
+            // 
+            this.buttonReservations.Location = new System.Drawing.Point(156, 464);
+            this.buttonReservations.Name = "buttonReservations";
+            this.buttonReservations.Size = new System.Drawing.Size(137, 23);
+            this.buttonReservations.TabIndex = 7;
+            this.buttonReservations.Text = "Rezerwacje klienta";
+            this.toolTip1.SetToolTip(this.buttonReservations, "Pokaż rezerwacje wybranego klienta");
+            this.buttonReservations.UseVisualStyleBackColor = true;
+            this.buttonReservations.Click += new System.EventHandler(this.ActionReservations);
+            // 
             // ClientsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 512);
+            this.Controls.Add(this.buttonReservations);
             this.Controls.Add(this.toolStrip1);
             this.Name = "ClientsView";
             this.SizeChanged += new System.EventHandler(this.ActionResized);
@@ -93,6 +106,7 @@
             this.Controls.SetChildIndex(this.buttonEdit, 0);
             this.Controls.SetChildIndex(this.buttonDelete, 0);
             this.Controls.SetChildIndex(this.toolStrip1, 0);
+            this.Controls.SetChildIndex(this.buttonReservations, 0);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -106,6 +120,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.Button buttonReservations;
     }
 
 }
