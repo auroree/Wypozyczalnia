@@ -40,14 +40,17 @@
             // buttonAdd
             // 
             this.toolTip1.SetToolTip(this.buttonAdd, "Dodaj nowego klienta");
+            this.buttonAdd.Click += new System.EventHandler(this.ActionAdd);
             // 
             // buttonEdit
             // 
             this.toolTip1.SetToolTip(this.buttonEdit, "Edytuj wybranego klienta");
+            this.buttonEdit.Click += new System.EventHandler(this.ActionEdit);
             // 
             // buttonDelete
             // 
             this.toolTip1.SetToolTip(this.buttonDelete, "Usuń wybranego klienta");
+            this.buttonDelete.Click += new System.EventHandler(this.ActionDelete);
             // 
             // toolStrip1
             // 

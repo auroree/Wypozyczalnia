@@ -32,9 +32,11 @@ namespace Wypozyczalnia
         public Controller(BaseView initForm)
         {
             activeView = initForm;
+            // TODO: sprawdzenie typu przekazanego parametru
             clients = (ClientsView)initForm;
-            employees = new EmployeesView();
 
+            // zainicjalizowanie pozostalych okienek
+            employees = new EmployeesView();
             clients.SetController(this);
             employees.SetController(this);
             IsClosing = false;
@@ -42,6 +44,7 @@ namespace Wypozyczalnia
             // KONSTRUKTOR POLACZENIA Z BAZA DANYCH
             // PODAC PARAMETRY BAZY!!
             // w pliku konfiguracyjnym App.config
+            // Uwaga! zmiana ustawien przy debugowaniu nie zostanie zapamietana
             dc = new DatabaseConnection();
 
             // inicjalizacja danych w domslnym okienku
@@ -50,23 +53,8 @@ namespace Wypozyczalnia
             clients.SetColumns();
         }
 
-        public void UpdateDBStatus()
-        {
-            if (ConfigurationManager.AppSettings["database"] != activeView.DBStatus)
-            {
-                try
-                {
-                    dc.OpenConnection();
-                    activeView.DBStatus = ConfigurationManager.AppSettings["database"];
-                    dc.CloseConnection();
-                }
-                catch (SqlException ex)
-                {
-                    activeView.DBStatus = "brak połączenia";
-                }
-            }
-        }
-
+        // --- --- --- --- --- ZMIANA AKTYWNEGO OKNA --- --- --- --- --- // 
+ 
         public void ShowClientsView()
         {
             if (activeView != clients)
@@ -91,6 +79,8 @@ namespace Wypozyczalnia
             }
         }
 
+        // Zmiana ustawien bazy danych i zastosowanie nowych
+        //
         public void ChangeDBSettings()
         {
             DatabaseSettingsForm form = new DatabaseSettingsForm();
@@ -100,59 +90,22 @@ namespace Wypozyczalnia
             UpdateDBStatus();
         }
 
-        public void ShowAddForm()
+        // Sprawdzenie czy parametry konfiguracji pozwalaja na polaczenie z baza danych
+        //
+        public void UpdateDBStatus()
         {
-            if (activeView == clients)
+            if (ConfigurationManager.AppSettings["database"] != activeView.DBStatus)
             {
-                ClientForm form = new ClientForm();
-                ClientFormController formController = new ClientFormController(form, Operation.Add);
-                formController.SetConnection(dc);
-                form.ShowDialog();
-                // odswiezenie danych
-                SelectAllAtActiveWindow();
-            }
-        }
-
-        public void ShowEditForm()
-        {
-            try
-            {
-                if (activeView == clients)
+                try
                 {
-                    Client client = clients.GetActiveElement();
-                    ClientForm form = new ClientForm(client);
-                    ClientFormController formController = new ClientFormController(form, Operation.Edit);
-                    formController.SetConnection(dc);
-                    form.ShowDialog();
+                    dc.OpenConnection();
+                    activeView.DBStatus = ConfigurationManager.AppSettings["database"];
+                    dc.CloseConnection();
                 }
-                // TODO: sprawdzenie czy nie kliknieto "Anuluj"
-                // odswiezenie danych
-                SelectAllAtActiveWindow();
-            }
-            catch (NullReferenceException ex)
-            {
-                // pusta tabela/?
-            }
-        }
-
-        public void ShowDeleteForm()
-        {
-            try
-            {
-                if (activeView == clients)
+                catch (SqlException ex)
                 {
-                    Client client = clients.GetActiveElement();
-                    ClientForm form = new ClientForm(client);
-                    ClientFormController formController = new ClientFormController(form, Operation.Delete);
-                    formController.SetConnection(dc);
-                    form.ShowDialog();
-                    // odswiezenie danych
-                    SelectAllAtActiveWindow();
+                    activeView.DBStatus = "brak połączenia";
                 }
-            }
-            catch (NullReferenceException ex)
-            {
-
             }
         }
 
@@ -167,7 +120,7 @@ namespace Wypozyczalnia
                 myReader = dc.ExecuteQueryReader(query);
                 DataTable dt = new DataTable();
                 dt.Load(myReader);
-                activeView.SetDataTable(dt);
+                activeView.DataTable = dt;
             }
             catch (NullReferenceException ex)
             {
@@ -181,6 +134,8 @@ namespace Wypozyczalnia
             dc.CloseConnection();
         }
 
+        // Wybranie wszystkich rekordow aktywnej tabeli
+        //
         public void SelectAllAtActiveWindow()
         {
             SqlCommand query = null;
@@ -195,6 +150,56 @@ namespace Wypozyczalnia
             }
 
             LoadData(query);
+        }
+
+        // --- --- --- --- --- FORMULARZE --- --- --- --- --- // 
+
+        // --- KLIENT
+        public void ShowClientAddForm()
+        {
+            ClientForm form = new ClientForm();
+            ClientFormController formController = new ClientFormController(form, Operation.Add);
+            formController.SetConnection(dc);
+            form.ShowDialog();
+            // odswiezenie danych
+            SelectAllAtActiveWindow();
+        }
+
+        public void ShowClientEditForm()
+        {
+            try
+            {
+                Client client = clients.GetActiveElement();
+                ClientForm form = new ClientForm(client);
+                ClientFormController formController = new ClientFormController(form, Operation.Edit);
+                formController.SetConnection(dc);
+                form.ShowDialog();
+                // TODO: sprawdzenie czy nie kliknieto "Anuluj"
+                // odswiezenie danych
+                SelectAllAtActiveWindow();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+        }
+
+        public void ShowClientDeleteForm()
+        {
+            try
+            {
+                Client client = clients.GetActiveElement();
+                ClientForm form = new ClientForm(client);
+                ClientFormController formController = new ClientFormController(form, Operation.Delete);
+                formController.SetConnection(dc);
+                form.ShowDialog();
+                // odswiezenie danych
+                SelectAllAtActiveWindow();
+            }
+            catch (NullReferenceException ex)
+            {
+
+            }
         }
 
         // --- --- --- --- --- FILTRY --- --- --- --- --- // 

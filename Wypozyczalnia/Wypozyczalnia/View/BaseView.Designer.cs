@@ -238,7 +238,6 @@
             this.buttonAdd.TabIndex = 3;
             this.buttonAdd.Text = "Dodaj nowy";
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.ActionAdd);
             // 
             // buttonEdit
             // 
@@ -249,7 +248,6 @@
             this.buttonEdit.TabIndex = 4;
             this.buttonEdit.Text = "Edytuj";
             this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.ActionEdit);
             // 
             // buttonDelete
             // 
@@ -260,7 +258,6 @@
             this.buttonDelete.TabIndex = 5;
             this.buttonDelete.Text = "Usuń";
             this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.ActionDelete);
             // 
             // statusStrip1
             // 
