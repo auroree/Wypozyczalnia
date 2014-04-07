@@ -20,42 +20,6 @@ namespace Wypozyczalnia.View
             dataGridView1.RowHeadersVisible = false;
         }
 
-        public void SetController(Controller controller)
-        {
-            this.controller = controller;
-        }
-
-        public string DBStatus
-        {
-            get { return dbStatusLabel.Text; }
-            set { dbStatusLabel.Text = value; }
-        }
-
-        public void ClearTable()
-        {
-            // TODO
-        }
-
-        private void ActionAdd(object sender, EventArgs e)
-        {
-            controller.ShowAddForm();
-        }
-
-        private void ActionEdit(object sender, EventArgs e)
-        {
-            controller.ShowEditForm();
-        }
-
-        private void ActionDelete(object sender, EventArgs e)
-        {
-            controller.ShowDeleteForm();
-        }
-
-        public void SetDataTable(DataTable dataTable)
-        {
-            this.dataGridView1.DataSource = dataTable;
-        }
-
         private void ActionShowClientsView(object sender, EventArgs e)
         {
             controller.ShowClientsView();
@@ -102,14 +66,36 @@ namespace Wypozyczalnia.View
             controller.SelectAllAtActiveWindow();
         }
 
+        private void ActionChangeDBSettings(object sender, EventArgs e)
+        {
+            controller.ChangeDBSettings();
+        }
+
+        public void SetController(Controller controller)
+        {
+            this.controller = controller;
+        }
+
         public int GetActiveElementIndex()
         {
             return dataGridView1.CurrentRow.Index;
         }
 
-        private void ActionChangeDBSettings(object sender, EventArgs e)
+        // Nazwa bazy danych w pasku statusu
+        public string DBStatus
         {
-            controller.ChangeDBSettings();
+            get { return dbStatusLabel.Text; }
+            set { dbStatusLabel.Text = value; }
+        }
+
+        public void ClearTable()
+        {
+            // TODO
+        }
+
+        public DataTable DataTable
+        {
+            set { this.dataGridView1.DataSource = value; }
         }
 
     }

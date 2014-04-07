@@ -17,17 +17,44 @@ namespace Wypozyczalnia.View
         public ClientsView()
         {
             InitializeComponent();
-            InitColumns();
+            //InitColumns();
         }
 
-        private void InitColumns()
+        //private void InitColumns()
+        //{
+        //    DataTable dataTable = new DataTable();
+        //    dataTable.Columns.Add("ID", typeof(int));
+        //    dataTable.Columns.Add("Imię", typeof(string));
+        //    dataTable.Columns.Add("Nazwisko", typeof(string));
+        //    dataTable.Columns.Add("Nr_dowodu", typeof(string));
+        //    dataGridView1.DataSource = dataTable;
+        //}
+
+        // Wywolanie funkcji obslugujacych zdarzenia
+
+        private void ActionAdd(object sender, EventArgs e)
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("ID", typeof(int));
-            dataTable.Columns.Add("Imię", typeof(string));
-            dataTable.Columns.Add("Nazwisko", typeof(string));
-            dataTable.Columns.Add("Nr_dowodu", typeof(string));
-            dataGridView1.DataSource = dataTable;
+            controller.ShowClientAddForm();
+        }
+
+        private void ActionEdit(object sender, EventArgs e)
+        {
+            controller.ShowClientEditForm();
+        }
+
+        private void ActionDelete(object sender, EventArgs e)
+        {
+            controller.ShowClientDeleteForm();
+        }
+
+        private void ActionResized(object sender, EventArgs e)
+        {
+            SetColumns();
+        }
+
+        private void ActionReservations(object sender, EventArgs e)
+        {
+            // TODO
         }
 
         private void ActionSearchBySurname(object sender, EventArgs e)
@@ -35,12 +62,7 @@ namespace Wypozyczalnia.View
             controller.SearchClientBySurname();
         }
 
-        public string ClientFilterSurname
-        {
-            get { return toolStripTextBox1.Text; }
-        }
-
-        // pobranie z tabeli danych i utworzenie obiektu Client
+        // Pobranie z tabeli danych i utworzenie obiektu Client
         public Client GetActiveElement()
         {
             try
@@ -59,6 +81,7 @@ namespace Wypozyczalnia.View
             return null;
         }
 
+        // Ustawienie szerokosci kolumn oraz naglowkow
         public void SetColumns()
         {
             try
@@ -81,14 +104,9 @@ namespace Wypozyczalnia.View
             
         }
 
-        private void ActionResized(object sender, EventArgs e)
+        public string ClientFilterSurname
         {
-            SetColumns();
-        }
-
-        private void ActionReservations(object sender, EventArgs e)
-        {
-            // TODO
+            get { return toolStripTextBox1.Text; }
         }
 
     }
