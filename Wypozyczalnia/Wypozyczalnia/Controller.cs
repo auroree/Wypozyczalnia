@@ -22,6 +22,7 @@ namespace Wypozyczalnia
         // okienka
         private ClientsView clients;
         private EmployeesView employees;
+        private WarehouseView warehouse;
         // referencja do aktywnego obiektu
         private BaseView activeView;
         // polaczenie do bazy danych
@@ -37,8 +38,10 @@ namespace Wypozyczalnia
 
             // zainicjalizowanie pozostalych okienek
             employees = new EmployeesView();
+            warehouse = new WarehouseView();
             clients.SetController(this);
             employees.SetController(this);
+            warehouse.SetController(this);
             IsClosing = false;
 
             // KONSTRUKTOR POLACZENIA Z BAZA DANYCH
@@ -74,6 +77,18 @@ namespace Wypozyczalnia
                 activeView.Hide();
                 activeView = employees;
                 employees.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+        }
+
+        public void ShowWarehouseView()
+        {
+            if (activeView != warehouse)
+            {
+                activeView.Hide();
+                activeView = warehouse;
+                warehouse.Show();
                 SelectAllAtActiveWindow();
                 UpdateDBStatus();
             }

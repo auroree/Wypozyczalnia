@@ -30,6 +30,11 @@ namespace Wypozyczalnia.View
             controller.ShowEmployeesView();
         }
 
+        private void ActionShowWarehouseView(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseView();
+        }
+
         private void ActionClose(object sender, FormClosingEventArgs e)
         {
             if (!controller.IsClosing)
