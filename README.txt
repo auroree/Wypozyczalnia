@@ -13,3 +13,5 @@ Microsoft Sql Server Management Studio 2012 - na dobrychprogramach jest, na micr
 Visual Studio 2013 Express
 
 ¯eby utworzyæ bazê danych uruchamiacie zapytania z folderu queries w odpowiedniej kolejnoœci, na pocz¹tku oczywiœcie ddl.sql, a potem reszta.
+
+Commit dla Hani
