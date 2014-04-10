@@ -1,17 +1,18 @@
-Podzia³ obowi¹zków wg okienek:
+Podziaï¿½ obowiï¿½zkï¿½w wg okienek:
 
 Hania - pracownicy
-Pawe³ - statki
-Tomek - czêœci
+Paweï¿½ - statki
+Tomek - czï¿½ï¿½ci
 Krzysiek - rezerwacje
-Krystian - lista zamówieñ
+Krystian - lista zamï¿½wieï¿½
 
-Wzorujcie siê na rozwi¹zaniu Hani.
+Wzorujcie siï¿½ na rozwiï¿½zaniu Hani.
 
-Narzêdzia:
-Microsoft Sql Server Management Studio 2012 - na dobrychprogramach jest, na microsofcie coœ nie dzia³a
+Narzï¿½dzia:
+Microsoft Sql Server Management Studio 2012 - na dobrychprogramach jest, na microsofcie coï¿½ nie dziaï¿½a
 Visual Studio 2013 Express
 
-¯eby utworzyæ bazê danych uruchamiacie zapytania z folderu queries w odpowiedniej kolejnoœci, na pocz¹tku oczywiœcie ddl.sql, a potem reszta.
+ï¿½eby utworzyï¿½ bazï¿½ danych uruchamiacie zapytania z folderu queries w odpowiedniej kolejnoï¿½ci, na poczï¿½tku oczywiï¿½cie ddl.sql, a potem reszta.
 
 Commit dla Hani
+Drugi commit dla Hani
