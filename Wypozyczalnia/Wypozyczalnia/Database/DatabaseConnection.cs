@@ -20,10 +20,10 @@ namespace Wypozyczalnia.Database
 
         public DatabaseConnection()
         {
-            this.ServerName = ConfigurationManager.AppSettings["server"];//"HANIA-LAPTOP\\SQLEXPRESS";
-            this.DatabaseName = ConfigurationManager.AppSettings["database"];//"Test2";
-            this.UserId = ConfigurationManager.AppSettings["user"];//"sa";
-            this.Password = ConfigurationManager.AppSettings["password"];//"Admin1";
+            this.ServerName = ConfigurationManager.AppSettings["server"];
+            this.DatabaseName = ConfigurationManager.AppSettings["database"];
+            this.UserId = ConfigurationManager.AppSettings["user"];
+            this.Password = ConfigurationManager.AppSettings["password"];
             CreateConnectionString();
             Connection = new SqlConnection(connectionString);
         }
@@ -38,17 +38,16 @@ namespace Wypozyczalnia.Database
             Connection = new SqlConnection(connectionString);
         }
 
-        private void CreateConnectionString()
-        {
-            connectionString = "Server=" + ServerName + ";" +
-                            "Database=" + DatabaseName + ";" +
-                            "User Id=" + UserId + ";" +
-                            "Password=" + Password + ";";
-        }
-
         public void OpenConnection()
         {
-            Connection.Open();
+            try
+            {
+                Connection.Open();
+            }
+            catch (InvalidOperationException ex)
+            {
+
+            }
         }
 
         public void CloseConnection()
@@ -68,6 +67,14 @@ namespace Wypozyczalnia.Database
             command.Connection = Connection;
             myReader = command.ExecuteReader();
             return myReader;
+        }
+
+        private void CreateConnectionString()
+        {
+            connectionString = "Server=" + ServerName + ";" +
+                            "Database=" + DatabaseName + ";" +
+                            "User Id=" + UserId + ";" +
+                            "Password=" + Password + ";";
         }
 
     }

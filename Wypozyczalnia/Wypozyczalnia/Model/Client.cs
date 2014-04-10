@@ -14,14 +14,13 @@ namespace Wypozyczalnia.Model
         public Client(string name, string surname, string idNumber)
             : base(name, surname)
         {
-            IdNumber = idNumber;
+            this.IdNumber = idNumber;
         }
 
         public Client(int id, string name, string surname, string idNumber)
             : base(id, name, surname)
         {
-            IdNumber = idNumber;
-
+            this.IdNumber = idNumber;
         }
     }
 }

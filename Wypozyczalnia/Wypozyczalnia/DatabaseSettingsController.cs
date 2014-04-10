@@ -20,8 +20,8 @@ namespace Wypozyczalnia
 
         public void Confirm()
         {
-            if ((form.TextBox1.Length > 0) || (form.TextBox2.Length > 0) ||
-                (form.TextBox3.Length > 0) || (form.TextBox4.Length > 0))
+            if ((form.TextBox1.Length > 0) && (form.TextBox2.Length > 0) &&
+                (form.TextBox3.Length > 0) && (form.TextBox4.Length > 0))
             {
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 config.AppSettings.Settings["server"].Value = form.TextBox1;
@@ -34,6 +34,12 @@ namespace Wypozyczalnia
 
                 form.Dispose();
             }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Pola nie mogą być puste", "Błąd");
+                form.DialogResult = System.Windows.Forms.DialogResult.None;
+            }
         }
+
     }
 }

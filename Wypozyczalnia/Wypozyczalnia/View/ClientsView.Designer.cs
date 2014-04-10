@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientsView));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.filterSurname = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.buttonReservations = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
@@ -56,7 +56,7 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.toolStripTextBox1,
+            this.filterSurname,
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
@@ -70,10 +70,10 @@
             this.toolStripLabel1.Size = new System.Drawing.Size(60, 22);
             this.toolStripLabel1.Text = "Nazwisko:";
             // 
-            // toolStripTextBox1
+            // filterSurname
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
+            this.filterSurname.Name = "filterSurname";
+            this.filterSurname.Size = new System.Drawing.Size(100, 25);
             // 
             // toolStripButton1
             // 
@@ -87,6 +87,7 @@
             // 
             // buttonReservations
             // 
+            this.buttonReservations.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonReservations.Location = new System.Drawing.Point(156, 464);
             this.buttonReservations.Name = "buttonReservations";
             this.buttonReservations.Size = new System.Drawing.Size(137, 23);
@@ -121,7 +122,7 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripTextBox filterSurname;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.Button buttonReservations;
     }

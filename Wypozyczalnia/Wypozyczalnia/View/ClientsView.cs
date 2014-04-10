@@ -17,18 +17,48 @@ namespace Wypozyczalnia.View
         public ClientsView()
         {
             InitializeComponent();
-            //InitColumns();
         }
 
-        //private void InitColumns()
-        //{
-        //    DataTable dataTable = new DataTable();
-        //    dataTable.Columns.Add("ID", typeof(int));
-        //    dataTable.Columns.Add("Imię", typeof(string));
-        //    dataTable.Columns.Add("Nazwisko", typeof(string));
-        //    dataTable.Columns.Add("Nr_dowodu", typeof(string));
-        //    dataGridView1.DataSource = dataTable;
-        //}
+        // Pobranie z tabeli danych i utworzenie obiektu Client
+        public Client GetActiveElement()
+        {
+            try
+            {
+                int index = dataGridView1.CurrentRow.Index;
+
+                return new Client(
+                    Convert.ToInt32(dataGridView1[0, index].Value),
+                    dataGridView1[1, index].Value.ToString(),
+                    dataGridView1[2, index].Value.ToString(),
+                    dataGridView1[3, index].Value.ToString());
+            }
+            catch (FormatException ex)
+            {
+                return null;
+            }
+        }
+
+        // Ustawienie szerokosci kolumn oraz naglowkow
+        public override void SetColumnsWidth()
+        {
+            try
+            {
+                double width = dataGridView1.Width - 20;
+                dataGridView1.Columns[0].Width = (int)(0.1 * width);
+                dataGridView1.Columns[1].Width = (int)(0.3 * width);
+                dataGridView1.Columns[2].Width = (int)(0.3 * width);
+                dataGridView1.Columns[3].Width = (int)(0.3 * width);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+
+            }  
+        }
+
+        public string FilterSurname
+        {
+            get { return filterSurname.Text; }
+        }
 
         // Wywolanie funkcji obslugujacych zdarzenia
 
@@ -60,53 +90,6 @@ namespace Wypozyczalnia.View
         private void ActionSearchBySurname(object sender, EventArgs e)
         {
             controller.SearchClientBySurname();
-        }
-
-        // Pobranie z tabeli danych i utworzenie obiektu Client
-        public Client GetActiveElement()
-        {
-            try
-            {
-                int index = dataGridView1.CurrentRow.Index;
-
-                return new Client(
-                    Convert.ToInt32(dataGridView1[0, index].Value),
-                    dataGridView1[1, index].Value.ToString(),
-                    dataGridView1[2, index].Value.ToString(),
-                    dataGridView1[3, index].Value.ToString());
-            }
-            catch (FormatException ex)
-            {
-            }
-            return null;
-        }
-
-        // Ustawienie szerokosci kolumn oraz naglowkow
-        public void SetColumns()
-        {
-            try
-            {
-                double width = dataGridView1.Width - 20;
-                dataGridView1.Columns[0].Width = (int)(0.1 * width);
-                dataGridView1.Columns[1].Width = (int)(0.3 * width);
-                dataGridView1.Columns[2].Width = (int)(0.3 * width);
-                dataGridView1.Columns[3].Width = (int)(0.3 * width);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-
-            }
-
-            DataGridViewColumnCollection columns = dataGridView1.Columns;
-            foreach (DataGridViewColumn column in columns) {
-                column.HeaderText = column.HeaderText.Replace('_',' ');
-            }
-            
-        }
-
-        public string ClientFilterSurname
-        {
-            get { return toolStripTextBox1.Text; }
         }
 
     }

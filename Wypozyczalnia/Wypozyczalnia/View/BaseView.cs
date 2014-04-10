@@ -20,6 +20,73 @@ namespace Wypozyczalnia.View
             dataGridView1.RowHeadersVisible = false;
         }
 
+        public void SetController(Controller controller)
+        {
+            this.controller = controller;
+        }
+
+        public int GetActiveElementIndex()
+        {
+            return dataGridView1.CurrentRow.Index;
+        }
+
+        // Nazwa bazy danych w pasku statusu
+        public string DBStatus
+        {
+            get { return dbStatusLabel.Text; }
+            set { dbStatusLabel.Text = value; }
+        }
+
+        public System.Drawing.Color DBStatusColor
+        {
+            set { dbStatusLabel.ForeColor = value; }
+        }
+
+        public void ClearTable()
+        {
+            dataGridView1.DataSource = null;
+        }
+
+        public DataTable DataTable
+        {
+            set { this.dataGridView1.DataSource = value; }
+        }
+
+        public void CopyWindowState(BaseView baseView)
+        {
+
+            if (baseView.WindowState == FormWindowState.Maximized)
+            {
+                this.WindowState = baseView.WindowState;
+            }
+            else
+            {
+                this.Width = baseView.Width;
+                this.Height = baseView.Height;
+                this.Location = baseView.Location;
+            }
+        }
+
+        public void SetColumnNames()
+        {
+            DataGridViewColumnCollection columns = dataGridView1.Columns;
+            foreach (DataGridViewColumn column in columns)
+            {
+                column.HeaderText = column.HeaderText.Replace('_', ' ');
+            }
+        }
+
+        public virtual void SetColumnsWidth()
+        {
+
+        }
+
+        public void SetColumns()
+        {
+            SetColumnNames();
+            SetColumnsWidth();
+        }
+
         private void ActionShowClientsView(object sender, EventArgs e)
         {
             controller.ShowClientsView();
@@ -28,11 +95,6 @@ namespace Wypozyczalnia.View
         private void ActionShowEmployeesView(object sender, EventArgs e)
         {
             controller.ShowEmployeesView();
-        }
-
-        private void ActionShowWarehouseView(object sender, EventArgs e)
-        {
-            controller.ShowWarehouseView();
         }
 
         private void ActionClose(object sender, FormClosingEventArgs e)
@@ -74,33 +136,6 @@ namespace Wypozyczalnia.View
         private void ActionChangeDBSettings(object sender, EventArgs e)
         {
             controller.ChangeDBSettings();
-        }
-
-        public void SetController(Controller controller)
-        {
-            this.controller = controller;
-        }
-
-        public int GetActiveElementIndex()
-        {
-            return dataGridView1.CurrentRow.Index;
-        }
-
-        // Nazwa bazy danych w pasku statusu
-        public string DBStatus
-        {
-            get { return dbStatusLabel.Text; }
-            set { dbStatusLabel.Text = value; }
-        }
-
-        public void ClearTable()
-        {
-            // TODO
-        }
-
-        public DataTable DataTable
-        {
-            set { this.dataGridView1.DataSource = value; }
         }
 
     }

@@ -40,23 +40,14 @@ namespace Wypozyczalnia.View
             set { textBox4.Text = value; }
         }
 
-        private void ActionCancel(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void ActionCorfirm(object sender, EventArgs e)
-        {
-            controller.Confirm();
-        }
-
-        public void DisableAllTextBoxes()
+        public override void DisableAllFields()
         {
             textBox1.ReadOnly = true;
             textBox2.ReadOnly = true;
             textBox3.ReadOnly = true;
             textBox4.ReadOnly = true;
         }
+
     }
 }
 

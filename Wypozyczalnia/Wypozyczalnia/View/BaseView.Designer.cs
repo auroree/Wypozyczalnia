@@ -143,7 +143,6 @@
             this.warehouseCzęściToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D5)));
             this.warehouseCzęściToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.warehouseCzęściToolStripMenuItem.Text = "Magazyn części";
-            this.warehouseCzęściToolStripMenuItem.Click += new System.EventHandler(this.ActionShowWarehouseView);
             // 
             // ordersListToolStripMenuItem
             // 
