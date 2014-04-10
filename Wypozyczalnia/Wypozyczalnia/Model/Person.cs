@@ -13,16 +13,16 @@ namespace Wypozyczalnia.Model
 
         public Person(string name, string surname)
         {
-            Id = 0;
-            Name = name;
-            Surname = surname;
+            this.Id = 0;
+            this.Name = name;
+            this.Surname = surname;
         }
 
         public Person(int id, string name, string surname)
         {
-            Id = id;
-            Name = name;
-            Surname = surname;
+            this.Id = id;
+            this.Name = name;
+            this.Surname = surname;
         }
     }
 }

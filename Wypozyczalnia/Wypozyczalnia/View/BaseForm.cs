@@ -51,6 +51,21 @@ namespace Wypozyczalnia.View
             set { title.Text = value; }
         }
 
+        public virtual void DisableAllFields()
+        {
+
+        }
+
+        private void ActionCancel(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void ActionCorfirm(object sender, EventArgs e)
+        {
+            controller.Confirm();
+        }
+
     }
 }
 

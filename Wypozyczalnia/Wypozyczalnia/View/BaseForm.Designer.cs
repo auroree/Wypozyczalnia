@@ -72,21 +72,25 @@
             // 
             // buttonConfirm
             // 
-            this.buttonConfirm.Location = new System.Drawing.Point(196, 377);
+            this.buttonConfirm.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonConfirm.Location = new System.Drawing.Point(192, 377);
             this.buttonConfirm.Name = "buttonConfirm";
-            this.buttonConfirm.Size = new System.Drawing.Size(126, 23);
+            this.buttonConfirm.Size = new System.Drawing.Size(130, 23);
             this.buttonConfirm.TabIndex = 100;
             this.buttonConfirm.Text = "Zawierdź";
             this.buttonConfirm.UseVisualStyleBackColor = true;
+            this.buttonConfirm.Click += new System.EventHandler(this.ActionCorfirm);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(15, 377);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(126, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(130, 23);
             this.buttonCancel.TabIndex = 99;
             this.buttonCancel.Text = "Anuluj";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.ActionCancel);
             // 
             // title
             // 
@@ -98,8 +102,10 @@
             // 
             // BaseForm
             // 
+            this.AcceptButton = this.buttonConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(334, 412);
             this.Controls.Add(this.title);
             this.Controls.Add(this.buttonCancel);
@@ -108,7 +114,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "BaseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Formularz";

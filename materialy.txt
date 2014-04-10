@@ -10,4 +10,12 @@ Dziedziczenie:
 Tooltip:
 Drag a tooltip control from the toolbox onto your form. You don't really need to give it any properties other than a name. Then, in the properties of the control you wish to have a tooltip on, look for a new property with the name of the tooltip control you just added. It will by default give you a tooltip when the cursor hovers the control.
 	
+DialogResult
+1. w glownym kontrolerze jest juz funkcja, ktora odswieza tabelke, jesli DR == OK
+2. formularz zamyka sie w razie bledu, chyba ze po wykryciu bledu (np. wyjatek) ustawimy DR = None
+lub na poczatku wykonywania funkcji
+http://support.microsoft.com/kb/816145
+
+
+
 jak co pytac skad sie co wzielo ;p

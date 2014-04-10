@@ -31,22 +31,34 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeesView));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.filterFunction = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.filterSurname = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Click += new System.EventHandler(this.ActionAdd);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Click += new System.EventHandler(this.ActionEdit);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Click += new System.EventHandler(this.ActionDelete);
             // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.toolStripComboBox1,
+            this.filterFunction,
             this.toolStripSeparator1,
             this.toolStripLabel2,
-            this.toolStripTextBox1,
+            this.filterSurname,
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
@@ -60,14 +72,12 @@
             this.toolStripLabel1.Size = new System.Drawing.Size(48, 22);
             this.toolStripLabel1.Text = "Funkcja";
             // 
-            // toolStripComboBox1
+            // filterFunction
             // 
-            this.toolStripComboBox1.Items.AddRange(new object[] {
-            "Każda",
-            "Pilot",
-            "Serwisant"});
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.filterFunction.Name = "filterFunction";
+            this.filterFunction.Size = new System.Drawing.Size(121, 25);
+            this.filterFunction.Text = "Funkcja";
+            this.filterFunction.TextChanged += new System.EventHandler(this.ActionSearchByFunction);
             // 
             // toolStripSeparator1
             // 
@@ -80,10 +90,10 @@
             this.toolStripLabel2.Size = new System.Drawing.Size(57, 22);
             this.toolStripLabel2.Text = "Nazwisko";
             // 
-            // toolStripTextBox1
+            // filterSurname
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
+            this.filterSurname.Name = "filterSurname";
+            this.filterSurname.Size = new System.Drawing.Size(100, 25);
             // 
             // toolStripButton1
             // 
@@ -93,6 +103,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "Szukaj";
+            this.toolStripButton1.Click += new System.EventHandler(this.ActionSearchBySurname);
             // 
             // EmployeesView
             // 
@@ -101,6 +112,7 @@
             this.ClientSize = new System.Drawing.Size(734, 512);
             this.Controls.Add(this.toolStrip1);
             this.Name = "EmployeesView";
+            this.SizeChanged += new System.EventHandler(this.ActionResized);
             this.Controls.SetChildIndex(this.buttonAdd, 0);
             this.Controls.SetChildIndex(this.buttonEdit, 0);
             this.Controls.SetChildIndex(this.buttonDelete, 0);
@@ -116,9 +128,9 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox filterFunction;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripTextBox filterSurname;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 

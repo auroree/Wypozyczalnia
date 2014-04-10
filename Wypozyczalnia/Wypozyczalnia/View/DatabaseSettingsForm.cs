@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Wypozyczalnia.View
 {
-    public partial class DatabaseSettingsForm : BaseForm
+    public partial class DatabaseSettingsForm : Form
     {
-        private DatabaseSettingsController settingsContoller;
+        private DatabaseSettingsController contoller;
 
         public DatabaseSettingsForm()
         {
@@ -23,7 +23,7 @@ namespace Wypozyczalnia.View
 
         public void SetController(DatabaseSettingsController controller)
         {
-            this.settingsContoller = controller;
+            this.contoller = controller;
         }
 
         public void InitTextBoxes()
@@ -32,6 +32,18 @@ namespace Wypozyczalnia.View
             textBox2.Text = ConfigurationManager.AppSettings["database"];
             textBox3.Text = ConfigurationManager.AppSettings["user"];
             textBox4.Text = ConfigurationManager.AppSettings["password"];
+        }
+
+        public string TextBox1
+        {
+            get { return textBox1.Text; }
+            set { textBox1.Text = value; }
+        }
+
+        public string TextBox2
+        {
+            get { return textBox2.Text; }
+            set { textBox2.Text = value; }
         }
 
         public string TextBox3
@@ -48,12 +60,13 @@ namespace Wypozyczalnia.View
 
         private void ActionConfirm(object sender, EventArgs e)
         {
-            settingsContoller.Confirm();
+            contoller.Confirm();
         }
 
-        private void ActionCancel(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
+
     }
 }

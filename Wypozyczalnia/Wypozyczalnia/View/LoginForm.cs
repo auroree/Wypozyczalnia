@@ -34,12 +34,12 @@ namespace Wypozyczalnia.View
             get { return textBox2.Text; }
         }
 
-        private void actionConfirm(object sender, EventArgs e)
+        private void ActionConfirm(object sender, EventArgs e)
         {
             controller.Login();
         }
 
-        private void actionExit(object sender, EventArgs e)
+        private void ActionExit(object sender, EventArgs e)
         {
             Application.Exit();
         }

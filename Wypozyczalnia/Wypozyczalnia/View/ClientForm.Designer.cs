@@ -44,14 +44,6 @@
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.Text = "Imię";
             // 
-            // buttonConfirm
-            // 
-            this.buttonConfirm.Click += new System.EventHandler(this.ActionCorfirm);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Click += new System.EventHandler(this.ActionCancel);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
