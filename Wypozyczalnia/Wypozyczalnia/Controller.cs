@@ -13,6 +13,7 @@ using Wypozyczalnia.View;
 
 namespace Wypozyczalnia
 {
+    // Typ operacji formularza
     public enum Operation { Add, Edit, Delete }
 
     // Glowny kontroler programu
