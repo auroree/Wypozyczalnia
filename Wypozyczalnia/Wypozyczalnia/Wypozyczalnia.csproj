@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,7 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseSettingsController.cs" />
+    <Compile Include="Database\DBEmployee.cs" />
+    <Compile Include="DataIncorrect.cs" />
+    <Compile Include="EmployeeFormController.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="View\DatabaseSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DatabaseSettingsForm.Designer.cs">
+      <DependentUpon>DatabaseSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DatabaseConnection.cs" />
     <Compile Include="LoginController.cs" />
+    <Compile Include="Database\DBClient.cs" />
     <Compile Include="View\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +88,12 @@
       <DependentUpon>ClientsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller.cs" />
+    <Compile Include="View\EmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\EmployeeForm.Designer.cs">
+      <DependentUpon>EmployeeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EmployeesView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +111,9 @@
     <Compile Include="Model\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="View\DatabaseSettingsForm.resx">
+      <DependentUpon>DatabaseSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -102,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ClientsView.resx">
       <DependentUpon>ClientsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\EmployeeForm.resx">
+      <DependentUpon>EmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\EmployeesView.resx">
       <DependentUpon>EmployeesView.cs</DependentUpon>

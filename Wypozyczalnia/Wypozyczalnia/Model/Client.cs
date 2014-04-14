@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wypozyczalnia
+﻿
+namespace Wypozyczalnia.Model
 {
-    namespace Model
+    public class Client : Person
     {
-        class Client : Person
+        public string IdNumber { get; set; }
+
+        public Client()
+            : base()
         {
-            public int ClientNumber { get; set; }
 
-            public Client()
-                : base()
-            {
+        }
 
-            }
+        public Client(string name, string surname, string idNumber)
+            : base(name, surname)
+        {
+            this.IdNumber = idNumber;
+        }
 
-            public Client(int id, string name, string surname, int yearOfBirth, int clientNumber)
-                : base(id, name, surname, yearOfBirth)
-            {
-                ClientNumber = clientNumber;
-            }
+        public Client(int id, string name, string surname, string idNumber)
+            : base(id, name, surname)
+        {
+            this.IdNumber = idNumber;
         }
     }
 }

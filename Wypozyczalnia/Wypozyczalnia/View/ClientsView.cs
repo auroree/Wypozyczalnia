@@ -7,35 +7,90 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Wypozyczalnia.Model;
 
-namespace Wypozyczalnia
+namespace Wypozyczalnia.View
 {
-    namespace View
+    public partial class ClientsView : BaseView
     {
-        public partial class ClientsView : BaseView
+
+        public ClientsView()
         {
-            private DataTable dt;
+            InitializeComponent();
+        }
 
-            public ClientsView()
+        // Pobranie z tabeli danych i utworzenie obiektu Client
+        public Client GetActiveElement()
+        {
+            try
             {
-                InitializeComponent();
-                InitColumns();
+                int index = dataGridView1.CurrentRow.Index;
+
+                return new Client(
+                    Convert.ToInt32(dataGridView1[0, index].Value),
+                    dataGridView1[1, index].Value.ToString(),
+                    dataGridView1[2, index].Value.ToString(),
+                    dataGridView1[3, index].Value.ToString());
             }
-
-            private void actionAdd(object sender, EventArgs e)
+            catch (FormatException ex)
             {
-                controller.ShowForm();
-            }
-
-            private void InitColumns()
-            {
-                dt = new DataTable();
-                dt.Columns.Add("ID", typeof(int));
-                dt.Columns.Add("Imię", typeof(string));
-                dt.Columns.Add("Nazwisko", typeof(string));
-                dt.Columns.Add("Rok urodzenia", typeof(string));
-                dataGridView1.DataSource = dt;
+                return null;
             }
         }
+
+        // Ustawienie szerokosci kolumn oraz naglowkow
+        public override void SetColumnsWidth()
+        {
+            try
+            {
+                double width = dataGridView1.Width - 20;
+                dataGridView1.Columns[0].Width = (int)(0.1 * width);
+                dataGridView1.Columns[1].Width = (int)(0.3 * width);
+                dataGridView1.Columns[2].Width = (int)(0.3 * width);
+                dataGridView1.Columns[3].Width = (int)(0.3 * width);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+
+            }  
+        }
+
+        public string FilterSurname
+        {
+            get { return filterSurname.Text; }
+        }
+
+        // Wywolanie funkcji obslugujacych zdarzenia
+
+        private void ActionAdd(object sender, EventArgs e)
+        {
+            controller.ShowClientAddForm();
+        }
+
+        private void ActionEdit(object sender, EventArgs e)
+        {
+            controller.ShowClientEditForm();
+        }
+
+        private void ActionDelete(object sender, EventArgs e)
+        {
+            controller.ShowClientDeleteForm();
+        }
+
+        private void ActionResized(object sender, EventArgs e)
+        {
+            SetColumns();
+        }
+
+        private void ActionReservations(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void ActionSearchBySurname(object sender, EventArgs e)
+        {
+            controller.SearchClientBySurname();
+        }
+
     }
 }

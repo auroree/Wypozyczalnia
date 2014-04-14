@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Wypozyczalnia.Database;
 using Wypozyczalnia.View;
 
 namespace Wypozyczalnia
@@ -22,8 +23,9 @@ namespace Wypozyczalnia
         {
             if ((form.UserName == "login") && (form.Password == "haslo"))
             {
+                DatabaseConnection dc = new DatabaseConnection();
                 BaseView initForm = new ClientsView();
-                Controller controller = new Controller(initForm);
+                Controller controller = new Controller(dc, initForm);
                 initForm.Show();
                 form.Hide();
             }
