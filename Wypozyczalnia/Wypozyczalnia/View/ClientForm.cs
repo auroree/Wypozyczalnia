@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Wypozyczalnia.Model;
 
 namespace Wypozyczalnia.View
 {
@@ -18,14 +17,14 @@ namespace Wypozyczalnia.View
             InitializeComponent();
         }
 
-        public ClientForm(Client client)
+        public ClientForm(Klient client)
         {
             InitializeComponent();
 
-            textBox1.Text = "" + client.Id;
-            textBox2.Text = client.Name;
-            textBox3.Text = client.Surname;
-            textBox4.Text = client.IdNumber;
+            textBox1.Text = "" + client.Klient_ID;
+            textBox2.Text = client.Imię;
+            textBox3.Text = client.Nazwisko;
+            textBox4.Text = client.Nr_dowodu;
         }
 
         public string TextBox3

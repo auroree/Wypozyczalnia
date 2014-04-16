@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -8,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Wypozyczalnia.Database;
-using Wypozyczalnia.Model;
 using Wypozyczalnia.View;
 
 namespace Wypozyczalnia
 {
+    // Typ operacji formularza
     public enum Operation { Add, Edit, Delete }
 
     // Glowny kontroler programu
@@ -24,18 +25,21 @@ namespace Wypozyczalnia
         private EmployeesView employees;
         // referencja do aktywnego obiektu
         private BaseView activeView;
-        // polaczenie do bazy danych
-        private DatabaseConnection dc;
         // informacja czy aplikacja ma zostac zamknieta
         public Boolean IsClosing { get; set; }
         // lista funkcji pracownika
         private List<string> functions = null;
         // wynik dzialania forularza
-        DialogResult dr;
+        private DialogResult dr;
+        // mapowanie bd
+        private WypozyczalniaDataClassesDataContext dbContext;
+        private QueriesClient queriesClient;
+        private QueriesEmployee queriesEmployee;
 
-        public Controller(DatabaseConnection dc, BaseView initForm)
+        public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
         {
             activeView = initForm;
+            this.dbContext = dbContext;
             // TODO: sprawdzenie typu przekazanego parametru
             clients = (ClientsView)initForm;
 
@@ -45,21 +49,16 @@ namespace Wypozyczalnia
             employees.SetController(this);
             IsClosing = false;
 
-            // KONSTRUKTOR POLACZENIA Z BAZA DANYCH
-            // PODAC PARAMETRY BAZY!!
-            // w pliku konfiguracyjnym App.config
-            // Uwaga! zmiana ustawien przy debugowaniu nie zostanie zapamietana
-            // w LoginContoller zostanie zaimplementowana docelowa wersja ustawiania polaczenia
-            // dlatego powinna byc przekazywana do tego kontrolera
-            this.dc = dc;
+            // inicjalizacja obiektow dbContext
+            queriesClient = new QueriesClient(dbContext);
+            queriesEmployee = new QueriesEmployee(dbContext);
 
             // inicjalizacja DialogResult
             dr = DialogResult.None;
 
-            // inicjalizacja danych w domslnym okienku
+            // inicjalizacja danych w domyslnym okienku
             SelectAllAtActiveWindow();
             UpdateDBStatus();
-            //clients.SetColumns();
         }
 
         // --- --- --- --- --- ZMIANA AKTYWNEGO OKNA --- --- --- --- --- // 
@@ -86,19 +85,11 @@ namespace Wypozyczalnia
                 employees.CopyWindowState(activeView);
                 activeView = employees;
                 // lista funkcji
-                SqlDataReader myReader = null;
                 if (functions == null)
                 {
                     try
                     {
-                        dc.OpenConnection();
-                        myReader = dc.ExecuteQueryReader(DBEmployee.SelectFunctions());
-                        functions = new List<string>();
-                        while (myReader.Read())
-                        {
-                            functions.Add(myReader.GetString(0));
-                        }
-                        dc.CloseConnection();
+                        functions = queriesEmployee.GetAllFunctions();
                         employees.FillFunctionsList(functions);
                     }
                     catch (SqlException ex)
@@ -116,31 +107,34 @@ namespace Wypozyczalnia
         // --- --- --- --- --- OBSLUGA BD --- --- --- --- --- // 
         #region Obsluga BD
 
-        // Zmiana ustawien bazy danych i zastosowanie nowych
-        //
+        /// <summary>
+        /// Wywolania okna dialogowego do zmiany ustawien bazy danych i zastosowanie ich
+        /// </summary>
         public void ChangeDBSettings()
         {
             DatabaseSettingsForm form = new DatabaseSettingsForm();
             DatabaseSettingsController formController = new DatabaseSettingsController(form);
+            formController.DbContext = dbContext;
             DialogResult dr = form.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                dc = new DatabaseConnection();
                 UpdateDBStatus();
             }
         }
 
-        // Sprawdzenie czy parametry konfiguracji pozwalaja na polaczenie z baza danych
-        //
+        /// <summary>
+        /// Sprawdzenie czy parametry konfiguracji pozwalaja na polaczenie z baza danych
+        /// </summary>
         public void UpdateDBStatus()
         {
-            //if (ConfigurationManager.AppSettings["database"] != activeView.DBStatus)
-            //{
+            if (ConfigurationManager.AppSettings["database"] != activeView.DBStatus)
+            {
                 try
                 {
-                    dc.OpenConnection();
+                    // sprawdzenie polaczenia
+                    dbContext.Connection.Open();
                     activeView.DBStatus = ConfigurationManager.AppSettings["database"];
-                    dc.CloseConnection();
+                    dbContext.Connection.Close();
                     activeView.DBStatusColor = new System.Drawing.Color();
                 }
                 catch (SqlException ex)
@@ -148,55 +142,38 @@ namespace Wypozyczalnia
                     activeView.DBStatus = "brak połączenia";
                     activeView.DBStatusColor = System.Drawing.Color.Red;
                 }
-            //}
+            }
         }
 
-        // Zaladowanie do widoku danych uzyskanych w odpowiedzi na zapytanie SQL 
-        //
-        public void LoadData(SqlCommand query)
+        /// <summary>
+        /// Wybranie wszystkich rekordow aktywnej tabeli i zaladowanie do widoku
+        /// </summary>
+        public void SelectAllAtActiveWindow()
         {
-            SqlDataReader myReader = null;
             try
             {
-                dc.OpenConnection();
-                myReader = dc.ExecuteQueryReader(query);
-                DataTable dt = new DataTable();
-                dt.Load(myReader);
-                activeView.DataTable = dt;
-            }
-            catch (NullReferenceException ex)
-            {
+                // wybor zapytania do bazy danych
+                if (activeView == clients)
+                {
+                    activeView.DataTable = queriesClient.SelectAll();
+                }
+                else if (activeView == employees)
+                {
+                    activeView.DataTable = queriesEmployee.SelectAll();
+                }
 
+                activeView.SetColumns();
             }
             catch (SqlException ex)
             {
                 MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
                 activeView.ClearTable();
             }
-            dc.CloseConnection();
         }
-
-        // Wybranie wszystkich rekordow aktywnej tabeli
-        //
-        public void SelectAllAtActiveWindow()
-        {
-            SqlCommand query = null;
-            // wybor zapytania do bazy danych
-            if (activeView == clients)
-            {
-                query = DBClient.SelectAllQuery();
-            }
-            else if (activeView == employees)
-            {
-                query = DBEmployee.SelectAllQuery();
-            }
-
-            LoadData(query);
-            activeView.SetColumns();
-        }
-
-        // Sprawdza czy ostatni formularz zwrocil OK, jesli tak, odswieza dane w tabeli
-        //
+ 
+        /// <summary>
+        /// Sprawdza czy ostatni formularz zwrocil OK, jesli tak, odswieza dane w tabeli 
+        /// </summary>
         public void ReloadIfFormReturnedOK()
         {
             if (dr == DialogResult.OK)
@@ -218,7 +195,7 @@ namespace Wypozyczalnia
         {
             ClientForm form = new ClientForm();
             ClientFormController formController = new ClientFormController(form, Operation.Add);
-            formController.SetConnection(dc);
+            formController.Queries = queriesClient;
             dr = form.ShowDialog();
             // odswiezenie danych
             ReloadIfFormReturnedOK();
@@ -228,10 +205,10 @@ namespace Wypozyczalnia
         {
             try
             {
-                Client client = clients.GetActiveElement();
+                Klient client = clients.GetActiveElement();
                 ClientForm form = new ClientForm(client);
                 ClientFormController formController = new ClientFormController(form, Operation.Edit);
-                formController.SetConnection(dc);
+                formController.Queries = queriesClient;
                 dr = form.ShowDialog();
                 // odswiezenie danych
                 ReloadIfFormReturnedOK();
@@ -246,10 +223,10 @@ namespace Wypozyczalnia
         {
             try
             {
-                Client client = clients.GetActiveElement();
+                Klient client = clients.GetActiveElement();
                 ClientForm form = new ClientForm(client);
                 ClientFormController formController = new ClientFormController(form, Operation.Delete);
-                formController.SetConnection(dc);
+                formController.Queries = queriesClient;
                 dr = form.ShowDialog();
                 // odswiezenie danych
                 ReloadIfFormReturnedOK();
@@ -264,7 +241,16 @@ namespace Wypozyczalnia
 
         public void SearchClientBySurname()
         {
-            LoadData(DBClient.SelectBySurnameQuery(clients.FilterSurname));
+            string surname = clients.FilterSurname;
+            if (surname.Length > 0)
+            {
+                activeView.DataTable = queriesClient.SelectBySurname(surname);
+            }
+            else
+            {
+                activeView.DataTable = queriesClient.SelectAll();
+            }
+            activeView.SetColumns();
         }
 
         #endregion
@@ -272,12 +258,12 @@ namespace Wypozyczalnia
         // --- --- --- --- --- PRACOWNIK --- --- --- --- --- // 
         #region Pracownik
         // --- FORMULARZE
-        
+
         public void ShowEmployeeAddForm()
         {
             EmployeeForm form = new EmployeeForm(functions);
             EmployeeFormController formController = new EmployeeFormController(form, Operation.Add);
-            formController.SetConnection(dc);
+            formController.Queries = queriesEmployee;
             dr = form.ShowDialog();
             // odswiezenie danych
             ReloadIfFormReturnedOK();
@@ -287,10 +273,10 @@ namespace Wypozyczalnia
         {
             try
             {
-                Employee employee = employees.GetActiveElement();
+                Pracownik employee = employees.GetActiveElement();
                 EmployeeForm form = new EmployeeForm(employee, functions);
                 EmployeeFormController formController = new EmployeeFormController(form, Operation.Edit);
-                formController.SetConnection(dc);
+                formController.Queries = queriesEmployee;
                 dr = form.ShowDialog();
                 // odswiezenie danych
                 ReloadIfFormReturnedOK();
@@ -305,10 +291,10 @@ namespace Wypozyczalnia
         {
             try
             {
-                Employee employee = employees.GetActiveElement();
+                Pracownik employee = employees.GetActiveElement();
                 EmployeeForm form = new EmployeeForm(employee, functions);
                 EmployeeFormController formController = new EmployeeFormController(form, Operation.Delete);
-                formController.SetConnection(dc);
+                formController.Queries = queriesEmployee;
                 form.ShowDialog();
                 // odswiezenie danych
                 SelectAllAtActiveWindow();
@@ -323,7 +309,16 @@ namespace Wypozyczalnia
 
         public void SelectEmployeeBySurname()
         {
-            LoadData(DBEmployee.SelectBySurnameQuery(employees.FilterSurname));
+            string surname = employees.FilterSurname;
+            if (surname.Length > 0)
+            {
+                activeView.DataTable = queriesEmployee.SelectBySurname(surname);
+            }
+            else
+            {
+                activeView.DataTable = queriesEmployee.SelectAll();
+            }
+            activeView.SetColumns();
         }
 
         public void SelectEmployeeByFunction()
@@ -331,12 +326,13 @@ namespace Wypozyczalnia
             string function = employees.FilterFunction;
             if (functions.Contains(function))
             {
-                LoadData(DBEmployee.SelectByFunctionQuery(function));
+                activeView.DataTable = queriesEmployee.SelectByFunction(function);
             }
             else
             {
-                LoadData(DBEmployee.SelectAllQuery());
+                activeView.DataTable = queriesEmployee.SelectAll();
             }
+            activeView.SetColumns();
         }
 
         #endregion

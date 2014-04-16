@@ -1,8 +1,9 @@
-SQL Query:
+SQL Query: (zastapione przez LINQ)
 http://www.codeproject.com/Articles/4416/Beginners-guide-to-accessing-SQL-Server-through-C
 
 DataTable:
 http://www.dotnetperls.com/datatable
+bedzie trzeba tylko ustawic sszerokosci kolumn, ewentualnie nazwy
 
 Dziedziczenie:
 	public partial class EmployeesView : BaseView { .. }
@@ -16,6 +17,11 @@ DialogResult
 lub na poczatku wykonywania funkcji
 http://support.microsoft.com/kb/816145
 
+LINQ
+http://www.dreamincode.net/forums/topic/224102-linq-to-sql-primer/
+http://www.codeproject.com/Articles/26657/Simple-LINQ-to-SQL-in-C
+http://csharp-guide.blogspot.com/2012/05/linq-to-sql-select-specific-columns.html
+http://msdn.microsoft.com/en-us/library/bb882642.aspx 	- chyba wszystkie uzyteczne komendy w 1 miejscu
 
 
 jak co pytac skad sie co wzielo ;p
