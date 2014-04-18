@@ -21,8 +21,6 @@ namespace Wypozyczalnia
 
         public void Login()
         {
-            //if ((form.UserName == "login") && (form.Password == "haslo"))
-            //{
             WypozyczalniaDataClassesDataContext dbContext = new WypozyczalniaDataClassesDataContext(
                 //"Data Source=HANIA-LAPTOP\\SQLEXPRESS;Initial Catalog=Test2;User ID=sa;Password=Admin1");
                 DatabaseSettings.CreateConnectionString(form.UserName, form.Password));
@@ -32,11 +30,6 @@ namespace Wypozyczalnia
             Controller controller = new Controller(dbContext, initForm);
             initForm.Show();
             form.Hide();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Niepoprawna nazwa użytkownika lub hasło", "Błąd");
-            //}
 
         }
     }
