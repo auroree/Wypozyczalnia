@@ -23,6 +23,7 @@ namespace Wypozyczalnia
         // okienka
         private ClientsView clients;
         private EmployeesView employees;
+        private WarehouseView warehouse;
         // referencja do aktywnego obiektu
         private BaseView activeView;
         // informacja czy aplikacja ma zostac zamknieta
@@ -45,8 +46,10 @@ namespace Wypozyczalnia
 
             // zainicjalizowanie pozostalych okienek
             employees = new EmployeesView();
+            warehouse = new WarehouseView();
             clients.SetController(this);
             employees.SetController(this);
+            warehouse.SetController(this);
             IsClosing = false;
 
             // inicjalizacja obiektow dbContext
@@ -98,6 +101,19 @@ namespace Wypozyczalnia
                     }
                 }
                 employees.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+        }
+
+        public void ShowWarehouseView()
+        {
+            if (activeView != warehouse)
+            {
+                activeView.Hide();
+                warehouse.CopyWindowState(activeView);
+                activeView = warehouse;
+                warehouse.Show();
                 SelectAllAtActiveWindow();
                 UpdateDBStatus();
             }
