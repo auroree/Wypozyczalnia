@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Wypozyczalnia.Model;
 
 namespace Wypozyczalnia.View
 {
@@ -24,18 +23,18 @@ namespace Wypozyczalnia.View
             FillFunctionList(functions);
         }
 
-        public EmployeeForm(Employee employee, List<string> functions)
+        public EmployeeForm(Pracownik employee, List<string> functions)
         {
             InitializeComponent();
 
-            textBox1.Text = "" + employee.Id;
-            textBox2.Text = employee.Name;
-            textBox3.Text = employee.Surname;
-            textBox4.Text = employee.DateOfBirth.Date.ToString();
-            textBox5.Text = employee.PlaceOfBirth;
-            textBox6.Text = employee.Salary.ToString();
+            textBox1.Text = "" + employee.Pracownik_ID;
+            textBox2.Text = employee.Imię;
+            textBox3.Text = employee.Nazwisko;
+            textBox4.Text = employee.Data_urodzenia.Date.ToString();
+            textBox5.Text = employee.Miejsce_urodzenia;
+            textBox6.Text = employee.Pensja.ToString();
             FillFunctionList(functions);
-            comboBox1.SelectedItem = employee.Function;
+            comboBox1.SelectedItem = employee.Funkcja.Nazwa_funkcji;
         }
 
         public override void DisableAllFields()
@@ -46,7 +45,7 @@ namespace Wypozyczalnia.View
             textBox4.ReadOnly = true;
             textBox5.ReadOnly = true;
             textBox6.ReadOnly = true;
-            
+            comboBox1.Enabled = false;
         }
 
         public string TextBox3

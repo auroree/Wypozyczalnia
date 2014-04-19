@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using Wypozyczalnia.Database;
-using Wypozyczalnia.Model;
 using Wypozyczalnia.View;
 
 namespace Wypozyczalnia
@@ -11,8 +10,8 @@ namespace Wypozyczalnia
     {
         private ClientForm form;
         private Operation operation;
-        private DatabaseConnection dc;
-
+        private QueriesClient qc;
+        
         public ClientFormController(ClientForm form)
         {
             this.form = form;
@@ -28,9 +27,9 @@ namespace Wypozyczalnia
             SetTextBoxesState();
         }
 
-        public void SetConnection(DatabaseConnection dc)
+        public QueriesClient Queries
         {
-            this.dc = dc;
+            set { this.qc = value; }
         }
 
         public void Confirm()
@@ -56,14 +55,14 @@ namespace Wypozyczalnia
             {
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
-
-                Client client = new Client(form.TextBox2, form.TextBox3, form.TextBox4);
-                // komunikacja z baza danych
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBClient.InsertQuery(client));
-                dc.CloseConnection();
-                // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
-                MessageBox.Show("Dodano nowy wpis", "Dodano");
+                // LINQ
+                Klient client = new Klient
+                {
+                    Imię = form.TextBox2,
+                    Nazwisko = form.TextBox3,
+                    Nr_dowodu = form.TextBox4
+                };
+                qc.Insert(client);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
@@ -72,10 +71,6 @@ namespace Wypozyczalnia
             {
                 MessageBox.Show(ex.Message, "Błąd");
             }
-            //catch (FormatException ex)
-            //{
-            //    MessageBox.Show("Błędne dane.", "Błąd");
-            //}
             catch (SqlException ex)
             {
                 //nie udalo sie polaczyc/bledna skladnia zapytania/bledne dane w zapytaniu/?
@@ -90,13 +85,15 @@ namespace Wypozyczalnia
             {
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
-                Client client = new Client(Convert.ToInt32(form.TextBox1), form.TextBox2, form.TextBox3, form.TextBox4);
-                // komunikacja z baza danych
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBClient.UpdateQuery(client));
-                dc.CloseConnection();
-                // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
-                MessageBox.Show("Zaktualizowano wpis", "Zaktualizowano");
+                // LINQ
+                Klient client = new Klient
+                {
+                    Klient_ID = Convert.ToInt32(form.TextBox1),
+                    Imię = form.TextBox2,
+                    Nazwisko = form.TextBox3,
+                    Nr_dowodu = form.TextBox4
+                };
+                qc.Edit(client);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
@@ -121,12 +118,16 @@ namespace Wypozyczalnia
             form.DialogResult = DialogResult.None;
             try
             {
-                Client client = new Client(Convert.ToInt32(form.TextBox1), form.TextBox2, form.TextBox3, form.TextBox4);
-
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBClient.DeleteQuery(client));
-                dc.CloseConnection();
-
+                // LINQ
+                Klient client = new Klient
+                {
+                    Klient_ID = Convert.ToInt32(form.TextBox1),
+                    Imię = form.TextBox2,
+                    Nazwisko = form.TextBox3,
+                    Nr_dowodu = form.TextBox4
+                };
+                qc.Delete(client);
+                // zamkniecie formularza
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
             }

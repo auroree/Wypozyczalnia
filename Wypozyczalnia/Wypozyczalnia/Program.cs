@@ -14,7 +14,7 @@ namespace Wypozyczalnia
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             LoginForm loginForm = new LoginForm();
             LoginController controller = new LoginController(loginForm);
             Application.Run(loginForm);

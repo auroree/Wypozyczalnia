@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Wypozyczalnia.Model;
 
 namespace Wypozyczalnia.View
 {
@@ -65,22 +64,28 @@ namespace Wypozyczalnia.View
             }
         }
 
-        // Pobranie z tabeli danych i utworzenie obiektu Employee
-        public Employee GetActiveElement()
+        /// <summary>
+        /// Pobranie z tabeli danych i utworzenie obiektu Pracownik
+        /// </summary>
+        /// <returns></returns>
+        public Pracownik GetActiveElement()
         {
             try
             {
                 int index = dataGridView1.CurrentRow.Index;
 
-                return new Employee(
-                    Convert.ToInt32(dataGridView1[0, index].Value),
-                    dataGridView1[1, index].Value.ToString(),
-                    dataGridView1[2, index].Value.ToString(),
-                    Convert.ToDateTime(dataGridView1[3, index].Value),
-                    dataGridView1[4, index].Value.ToString(),
-                    Convert.ToSingle(dataGridView1[5, index].Value),
-                    dataGridView1[6, index].Value.ToString()
-                    );
+                return new Pracownik()
+                {
+                    Pracownik_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                    Imię = dataGridView1[1, index].Value.ToString(),
+                    Nazwisko = dataGridView1[2, index].Value.ToString(),
+                    Data_urodzenia = Convert.ToDateTime(dataGridView1[3, index].Value),
+                    Miejsce_urodzenia = dataGridView1[4, index].Value.ToString(),
+                    Pensja = Convert.ToSingle(dataGridView1[5, index].Value),
+                    Funkcja = new Funkcja() {
+                        Nazwa_funkcji = dataGridView1[6, index].Value.ToString()
+                    }
+                };
             }
             catch (FormatException ex)
             {

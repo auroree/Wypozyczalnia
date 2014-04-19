@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Wypozyczalnia.Database;
-using Wypozyczalnia.Model;
 using Wypozyczalnia.View;
 
 namespace Wypozyczalnia
@@ -15,7 +14,7 @@ namespace Wypozyczalnia
     {
         private EmployeeForm form;
         private Operation operation;
-        private DatabaseConnection dc;
+        private QueriesEmployee qe;
 
         public EmployeeFormController(EmployeeForm form)
         {
@@ -32,9 +31,9 @@ namespace Wypozyczalnia
             SetTextBoxesState();
         }
 
-        public void SetConnection(DatabaseConnection dc)
+        public QueriesEmployee Queries
         {
-            this.dc = dc;
+            set { this.qe = value; }
         }
 
         public void Confirm()
@@ -60,15 +59,17 @@ namespace Wypozyczalnia
             {
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
-
-                Employee employee = new Employee(form.TextBox2, form.TextBox3, Convert.ToDateTime(form.TextBox4),
-                    form.TextBox5, Convert.ToSingle(form.TextBox6), form.ComboBox1);
-                // komunikacja z baza danych
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBEmployee.InsertQuery(employee));
-                dc.CloseConnection();
-                // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
-                MessageBox.Show("Dodano nowy wpis", "Dodano");
+                // LINQ
+                Pracownik employee = new Pracownik
+                {
+                    Imię = form.TextBox2,
+                    Nazwisko = form.TextBox3,
+                    Data_urodzenia = Convert.ToDateTime(form.TextBox4),
+                    Miejsce_urodzenia = form.TextBox5,
+                    Pensja = Convert.ToSingle(form.TextBox6),
+                    Funkcja = qe.GetFunction(form.ComboBox1)
+                };
+                qe.Insert(employee);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
@@ -95,16 +96,18 @@ namespace Wypozyczalnia
             {
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
-
-                Employee employee = new Employee(Convert.ToInt32(form.TextBox1), form.TextBox2,
-                    form.TextBox3, Convert.ToDateTime(form.TextBox4),
-                    form.TextBox5, Convert.ToSingle(form.TextBox6), form.ComboBox1);
-                // komunikacja z baza danych
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBEmployee.UpdateQuery(employee));
-                dc.CloseConnection();
-                // komunikat o wyniku operacji (lub tylko bledzie jesli wystapil ?)
-                MessageBox.Show("Dodano nowy wpis", "Dodano");
+                // LINQ
+                Pracownik employee = new Pracownik
+                {
+                    Pracownik_ID = Convert.ToInt32(form.TextBox1),
+                    Imię = form.TextBox2,
+                    Nazwisko = form.TextBox3,
+                    Data_urodzenia = Convert.ToDateTime(form.TextBox4),
+                    Miejsce_urodzenia = form.TextBox5,
+                    Pensja = Convert.ToSingle(form.TextBox6),
+                    Funkcja_Funkcja_ID = qe.GetFunction(form.ComboBox1).Funkcja_ID
+                };
+                qe.Edit(employee);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK; ;
                 form.Dispose();
@@ -129,14 +132,19 @@ namespace Wypozyczalnia
             form.DialogResult = DialogResult.None;
             try
             {
-                Employee employee = new Employee(Convert.ToInt32(form.TextBox1), form.TextBox2,
-                        form.TextBox3, Convert.ToDateTime(form.TextBox4),
-                        form.TextBox5, Convert.ToSingle(form.TextBox6), form.ComboBox1);
-
-                dc.OpenConnection();
-                dc.ExecuteQuery(DBEmployee.DeleteQuery(employee));
-                dc.CloseConnection();
-
+                // LINQ
+                Pracownik employee = new Pracownik
+                {
+                    Pracownik_ID = Convert.ToInt32(form.TextBox1),
+                    Imię = form.TextBox2,
+                    Nazwisko = form.TextBox3,
+                    Data_urodzenia = Convert.ToDateTime(form.TextBox4),
+                    Miejsce_urodzenia = form.TextBox5,
+                    Pensja = Convert.ToSingle(form.TextBox6),
+                    Funkcja_Funkcja_ID = qe.GetFunction(form.ComboBox1).Funkcja_ID
+                };
+                qe.Delete(employee);
+                // zakmniecie formularza
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
             }

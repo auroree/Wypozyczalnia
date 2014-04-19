@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wypozyczalnia.Database;
 using Wypozyczalnia.View;
 
 namespace Wypozyczalnia
@@ -11,6 +12,7 @@ namespace Wypozyczalnia
     public class DatabaseSettingsController
     {
         private DatabaseSettingsForm form;
+        private WypozyczalniaDataClassesDataContext dbContext;
 
         public DatabaseSettingsController(DatabaseSettingsForm form)
         {
@@ -18,20 +20,20 @@ namespace Wypozyczalnia
             form.SetController(this);
         }
 
+        public WypozyczalniaDataClassesDataContext DbContext
+        {
+            set { this.dbContext = value; }
+        }
+
         public void Confirm()
         {
             if ((form.TextBox1.Length > 0) && (form.TextBox2.Length > 0) &&
                 (form.TextBox3.Length > 0) && (form.TextBox4.Length > 0))
             {
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.AppSettings.Settings["server"].Value = form.TextBox1;
-                config.AppSettings.Settings["database"].Value = form.TextBox2;
-                config.AppSettings.Settings["user"].Value = form.TextBox3;
-                config.AppSettings.Settings["password"].Value = form.TextBox4;
+                DatabaseSettings.Save(form.TextBox1, form.TextBox2, form.TextBox3);
 
-                config.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection("appSettings");
-
+                dbContext.Connection.ConnectionString
+                    = DatabaseSettings.CreateConnectionString(form.TextBox1, form.TextBox2, form.TextBox3, form.TextBox4);
                 form.Dispose();
             }
             else
