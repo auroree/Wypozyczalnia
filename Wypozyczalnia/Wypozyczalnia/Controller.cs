@@ -30,12 +30,14 @@ namespace Wypozyczalnia
         public Boolean IsClosing { get; set; }
         // lista funkcji pracownika
         private List<string> functions = null;
+        private List<string> statuses = null;
         // wynik dzialania forularza
         private DialogResult dr;
         // mapowanie bd
         private WypozyczalniaDataClassesDataContext dbContext;
         private QueriesClient queriesClient;
         private QueriesEmployee queriesEmployee;
+        private QueriesWarehouse queriesWarehouse;
 
         public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
         {
@@ -55,6 +57,7 @@ namespace Wypozyczalnia
             // inicjalizacja obiektow dbContext
             queriesClient = new QueriesClient(dbContext);
             queriesEmployee = new QueriesEmployee(dbContext);
+            queriesWarehouse = new QueriesWarehouse(dbContext);
 
             // inicjalizacja DialogResult
             dr = DialogResult.None;
@@ -113,6 +116,19 @@ namespace Wypozyczalnia
                 activeView.Hide();
                 warehouse.CopyWindowState(activeView);
                 activeView = warehouse;
+                // lista funkcji
+                if (statuses == null)
+                {
+                    try
+                    {
+                        statuses = queriesWarehouse.GetAllFunctions();
+                        warehouse.FillStatusList(statuses);
+                    }
+                    catch (SqlException ex)
+                    {
+                        // TODO: co teraz?
+                    }
+                }
                 warehouse.Show();
                 SelectAllAtActiveWindow();
                 UpdateDBStatus();

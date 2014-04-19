@@ -57,6 +57,7 @@
     <Compile Include="Database\Extensions.cs" />
     <Compile Include="Database\QueriesClient.cs" />
     <Compile Include="Database\QueriesEmployee.cs" />
+    <Compile Include="Database\QueriesWarehouse.cs" />
     <Compile Include="DataIncorrect.cs" />
     <Compile Include="FormController\EmployeeFormController.cs" />
     <Compile Include="View\DatabaseSettingsForm.cs">

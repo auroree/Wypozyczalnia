@@ -12,6 +12,7 @@ namespace Wypozyczalnia.View
 {
     public partial class WarehouseView : BaseView
     {
+        #region Elementy widoku
         private ToolStrip toolStrip1;
         private ToolStripLabel toolStripLabel1;
         private ToolStripComboBox filterStatus;
@@ -19,10 +20,16 @@ namespace Wypozyczalnia.View
         private ToolStripLabel toolStripLabel2;
         private ToolStripTextBox filterName;
         private ToolStripButton toolStripButton1;
+        #endregion
+
+        private List<string> statuses = null;
+        private string everyStatus = "Każda";
     
         public WarehouseView()
         {
             InitializeComponent();
+            filterStatus.Items.Add(everyStatus);
+            filterStatus.SelectedItem = everyStatus;
         }
 
         public override void SetColumnsWidth()
@@ -42,11 +49,24 @@ namespace Wypozyczalnia.View
             }
         }
 
+        public void FillStatusList(List<string> statuses)
+        {
+            this.statuses = statuses;
+            filterStatus.Items.Clear();
+            filterStatus.Items.Add(everyStatus);
+            filterStatus.SelectedItem = everyStatus;
+            foreach (string status in statuses)
+            {
+                filterStatus.Items.Add(status);
+            }
+        }
+
         private void ActionResized(object sender, EventArgs e)
         {
             this.SetColumns();
         }
 
+        #region InitializeComponent()
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WarehouseView));
@@ -129,5 +149,7 @@ namespace Wypozyczalnia.View
             this.PerformLayout();
 
         }
+
+        #endregion
     }
 }

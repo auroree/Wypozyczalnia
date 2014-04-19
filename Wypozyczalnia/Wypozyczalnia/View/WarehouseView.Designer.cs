@@ -1,4 +1,6 @@
-﻿namespace Wypozyczalnia.View
+﻿using System.Windows.Forms;
+
+namespace Wypozyczalnia.View
 {
     partial class WarehouseView
     {
@@ -6,6 +8,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        
 
         /// <summary>
         /// Clean up any resources being used.
