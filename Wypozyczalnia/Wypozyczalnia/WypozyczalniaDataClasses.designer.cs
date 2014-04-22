@@ -22,7 +22,7 @@ namespace Wypozyczalnia
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Test2")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Wypozyczalnia")]
 	public partial class WypozyczalniaDataClassesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -30,6 +30,9 @@ namespace Wypozyczalnia
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertCzęść(Część instance);
+    partial void UpdateCzęść(Część instance);
+    partial void DeleteCzęść(Część instance);
     partial void InsertFunkcja(Funkcja instance);
     partial void UpdateFunkcja(Funkcja instance);
     partial void DeleteFunkcja(Funkcja instance);
@@ -39,12 +42,12 @@ namespace Wypozyczalnia
     partial void InsertKlient(Klient instance);
     partial void UpdateKlient(Klient instance);
     partial void DeleteKlient(Klient instance);
-    partial void InsertPracownik(Pracownik instance);
-    partial void UpdatePracownik(Pracownik instance);
-    partial void DeletePracownik(Pracownik instance);
     partial void Insertpilotuje(pilotuje instance);
     partial void Updatepilotuje(pilotuje instance);
     partial void Deletepilotuje(pilotuje instance);
+    partial void InsertPracownik(Pracownik instance);
+    partial void UpdatePracownik(Pracownik instance);
+    partial void DeletePracownik(Pracownik instance);
     partial void InsertRezerwacja(Rezerwacja instance);
     partial void UpdateRezerwacja(Rezerwacja instance);
     partial void DeleteRezerwacja(Rezerwacja instance);
@@ -63,7 +66,7 @@ namespace Wypozyczalnia
     #endregion
 		
 		public WypozyczalniaDataClassesDataContext() : 
-				base(global::Wypozyczalnia.Properties.Settings.Default.Test2ConnectionString, mappingSource)
+				base(global::Wypozyczalnia.Properties.Settings.Default.WypozyczalniaConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -124,19 +127,19 @@ namespace Wypozyczalnia
 			}
 		}
 		
-		public System.Data.Linq.Table<Pracownik> Pracowniks
-		{
-			get
-			{
-				return this.GetTable<Pracownik>();
-			}
-		}
-		
 		public System.Data.Linq.Table<pilotuje> pilotujes
 		{
 			get
 			{
 				return this.GetTable<pilotuje>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Pracownik> Pracowniks
+		{
+			get
+			{
+				return this.GetTable<Pracownik>();
 			}
 		}
 		
@@ -182,8 +185,10 @@ namespace Wypozyczalnia
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Część")]
-	public partial class Część
+	public partial class Część : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _Nazwa;
 		
@@ -195,8 +200,38 @@ namespace Wypozyczalnia
 		
 		private decimal _Zamówienie_Zamówienie_ID;
 		
+		private decimal _Część_ID;
+		
+		private EntityRef<Statek> _Statek;
+		
+		private EntityRef<Status_części> _Status_części;
+		
+		private EntityRef<Zamówienie> _Zamówienie;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNazwaChanging(string value);
+    partial void OnNazwaChanged();
+    partial void OnCenaChanging(System.Nullable<float> value);
+    partial void OnCenaChanged();
+    partial void OnStatus_części_Status_części_IDChanging(decimal value);
+    partial void OnStatus_części_Status_części_IDChanged();
+    partial void OnStatek_Statek_IDChanging(System.Nullable<decimal> value);
+    partial void OnStatek_Statek_IDChanged();
+    partial void OnZamówienie_Zamówienie_IDChanging(decimal value);
+    partial void OnZamówienie_Zamówienie_IDChanged();
+    partial void OnCzęść_IDChanging(decimal value);
+    partial void OnCzęść_IDChanged();
+    #endregion
+		
 		public Część()
 		{
+			this._Statek = default(EntityRef<Statek>);
+			this._Status_części = default(EntityRef<Status_części>);
+			this._Zamówienie = default(EntityRef<Zamówienie>);
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nazwa", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
@@ -210,7 +245,11 @@ namespace Wypozyczalnia
 			{
 				if ((this._Nazwa != value))
 				{
+					this.OnNazwaChanging(value);
+					this.SendPropertyChanging();
 					this._Nazwa = value;
+					this.SendPropertyChanged("Nazwa");
+					this.OnNazwaChanged();
 				}
 			}
 		}
@@ -226,7 +265,11 @@ namespace Wypozyczalnia
 			{
 				if ((this._Cena != value))
 				{
+					this.OnCenaChanging(value);
+					this.SendPropertyChanging();
 					this._Cena = value;
+					this.SendPropertyChanged("Cena");
+					this.OnCenaChanged();
 				}
 			}
 		}
@@ -242,7 +285,15 @@ namespace Wypozyczalnia
 			{
 				if ((this._Status_części_Status_części_ID != value))
 				{
+					if (this._Status_części.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStatus_części_Status_części_IDChanging(value);
+					this.SendPropertyChanging();
 					this._Status_części_Status_części_ID = value;
+					this.SendPropertyChanged("Status_części_Status_części_ID");
+					this.OnStatus_części_Status_części_IDChanged();
 				}
 			}
 		}
@@ -258,7 +309,15 @@ namespace Wypozyczalnia
 			{
 				if ((this._Statek_Statek_ID != value))
 				{
+					if (this._Statek.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStatek_Statek_IDChanging(value);
+					this.SendPropertyChanging();
 					this._Statek_Statek_ID = value;
+					this.SendPropertyChanged("Statek_Statek_ID");
+					this.OnStatek_Statek_IDChanged();
 				}
 			}
 		}
@@ -274,8 +333,158 @@ namespace Wypozyczalnia
 			{
 				if ((this._Zamówienie_Zamówienie_ID != value))
 				{
+					if (this._Zamówienie.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnZamówienie_Zamówienie_IDChanging(value);
+					this.SendPropertyChanging();
 					this._Zamówienie_Zamówienie_ID = value;
+					this.SendPropertyChanged("Zamówienie_Zamówienie_ID");
+					this.OnZamówienie_Zamówienie_IDChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Część_ID", DbType="Decimal(28,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal Część_ID
+		{
+			get
+			{
+				return this._Część_ID;
+			}
+			set
+			{
+				if ((this._Część_ID != value))
+				{
+					this.OnCzęść_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Część_ID = value;
+					this.SendPropertyChanged("Część_ID");
+					this.OnCzęść_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statek_Część", Storage="_Statek", ThisKey="Statek_Statek_ID", OtherKey="Statek_ID", IsForeignKey=true)]
+		public Statek Statek
+		{
+			get
+			{
+				return this._Statek.Entity;
+			}
+			set
+			{
+				Statek previousValue = this._Statek.Entity;
+				if (((previousValue != value) 
+							|| (this._Statek.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Statek.Entity = null;
+						previousValue.Częśćs.Remove(this);
+					}
+					this._Statek.Entity = value;
+					if ((value != null))
+					{
+						value.Częśćs.Add(this);
+						this._Statek_Statek_ID = value.Statek_ID;
+					}
+					else
+					{
+						this._Statek_Statek_ID = default(Nullable<decimal>);
+					}
+					this.SendPropertyChanged("Statek");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Status_części_Część", Storage="_Status_części", ThisKey="Status_części_Status_części_ID", OtherKey="Status_części_ID", IsForeignKey=true)]
+		public Status_części Status_części
+		{
+			get
+			{
+				return this._Status_części.Entity;
+			}
+			set
+			{
+				Status_części previousValue = this._Status_części.Entity;
+				if (((previousValue != value) 
+							|| (this._Status_części.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Status_części.Entity = null;
+						previousValue.Częśćs.Remove(this);
+					}
+					this._Status_części.Entity = value;
+					if ((value != null))
+					{
+						value.Częśćs.Add(this);
+						this._Status_części_Status_części_ID = value.Status_części_ID;
+					}
+					else
+					{
+						this._Status_części_Status_części_ID = default(decimal);
+					}
+					this.SendPropertyChanged("Status_części");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Zamówienie_Część", Storage="_Zamówienie", ThisKey="Zamówienie_Zamówienie_ID", OtherKey="Zamówienie_ID", IsForeignKey=true)]
+		public Zamówienie Zamówienie
+		{
+			get
+			{
+				return this._Zamówienie.Entity;
+			}
+			set
+			{
+				Zamówienie previousValue = this._Zamówienie.Entity;
+				if (((previousValue != value) 
+							|| (this._Zamówienie.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Zamówienie.Entity = null;
+						previousValue.Częśćs.Remove(this);
+					}
+					this._Zamówienie.Entity = value;
+					if ((value != null))
+					{
+						value.Częśćs.Add(this);
+						this._Zamówienie_Zamówienie_ID = value.Zamówienie_ID;
+					}
+					else
+					{
+						this._Zamówienie_Zamówienie_ID = default(decimal);
+					}
+					this.SendPropertyChanged("Zamówienie");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -724,309 +933,6 @@ namespace Wypozyczalnia
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Pracownik")]
-	public partial class Pracownik : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Imię;
-		
-		private string _Nazwisko;
-		
-		private System.DateTime _Data_urodzenia;
-		
-		private string _Miejsce_urodzenia;
-		
-		private float _Pensja;
-		
-		private decimal _Pracownik_ID;
-		
-		private decimal _Funkcja_Funkcja_ID;
-		
-		private EntitySet<jest_serwisowany> _jest_serwisowanies;
-		
-		private EntitySet<pilotuje> _pilotujes;
-		
-		private EntityRef<Funkcja> _Funkcja;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnImięChanging(string value);
-    partial void OnImięChanged();
-    partial void OnNazwiskoChanging(string value);
-    partial void OnNazwiskoChanged();
-    partial void OnData_urodzeniaChanging(System.DateTime value);
-    partial void OnData_urodzeniaChanged();
-    partial void OnMiejsce_urodzeniaChanging(string value);
-    partial void OnMiejsce_urodzeniaChanged();
-    partial void OnPensjaChanging(float value);
-    partial void OnPensjaChanged();
-    partial void OnPracownik_IDChanging(decimal value);
-    partial void OnPracownik_IDChanged();
-    partial void OnFunkcja_Funkcja_IDChanging(decimal value);
-    partial void OnFunkcja_Funkcja_IDChanged();
-    #endregion
-		
-		public Pracownik()
-		{
-			this._jest_serwisowanies = new EntitySet<jest_serwisowany>(new Action<jest_serwisowany>(this.attach_jest_serwisowanies), new Action<jest_serwisowany>(this.detach_jest_serwisowanies));
-			this._pilotujes = new EntitySet<pilotuje>(new Action<pilotuje>(this.attach_pilotujes), new Action<pilotuje>(this.detach_pilotujes));
-			this._Funkcja = default(EntityRef<Funkcja>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imię", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Imię
-		{
-			get
-			{
-				return this._Imię;
-			}
-			set
-			{
-				if ((this._Imię != value))
-				{
-					this.OnImięChanging(value);
-					this.SendPropertyChanging();
-					this._Imię = value;
-					this.SendPropertyChanged("Imię");
-					this.OnImięChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nazwisko", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nazwisko
-		{
-			get
-			{
-				return this._Nazwisko;
-			}
-			set
-			{
-				if ((this._Nazwisko != value))
-				{
-					this.OnNazwiskoChanging(value);
-					this.SendPropertyChanging();
-					this._Nazwisko = value;
-					this.SendPropertyChanged("Nazwisko");
-					this.OnNazwiskoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Data_urodzenia", DbType="Date NOT NULL")]
-		public System.DateTime Data_urodzenia
-		{
-			get
-			{
-				return this._Data_urodzenia;
-			}
-			set
-			{
-				if ((this._Data_urodzenia != value))
-				{
-					this.OnData_urodzeniaChanging(value);
-					this.SendPropertyChanging();
-					this._Data_urodzenia = value;
-					this.SendPropertyChanged("Data_urodzenia");
-					this.OnData_urodzeniaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Miejsce_urodzenia", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Miejsce_urodzenia
-		{
-			get
-			{
-				return this._Miejsce_urodzenia;
-			}
-			set
-			{
-				if ((this._Miejsce_urodzenia != value))
-				{
-					this.OnMiejsce_urodzeniaChanging(value);
-					this.SendPropertyChanging();
-					this._Miejsce_urodzenia = value;
-					this.SendPropertyChanged("Miejsce_urodzenia");
-					this.OnMiejsce_urodzeniaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pensja", DbType="Real NOT NULL")]
-		public float Pensja
-		{
-			get
-			{
-				return this._Pensja;
-			}
-			set
-			{
-				if ((this._Pensja != value))
-				{
-					this.OnPensjaChanging(value);
-					this.SendPropertyChanging();
-					this._Pensja = value;
-					this.SendPropertyChanged("Pensja");
-					this.OnPensjaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pracownik_ID", AutoSync=AutoSync.OnInsert, DbType="Decimal(28,0) NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public decimal Pracownik_ID
-		{
-			get
-			{
-				return this._Pracownik_ID;
-			}
-			set
-			{
-				if ((this._Pracownik_ID != value))
-				{
-					this.OnPracownik_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Pracownik_ID = value;
-					this.SendPropertyChanged("Pracownik_ID");
-					this.OnPracownik_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Funkcja_Funkcja_ID", DbType="Decimal(28,0) NOT NULL")]
-		public decimal Funkcja_Funkcja_ID
-		{
-			get
-			{
-				return this._Funkcja_Funkcja_ID;
-			}
-			set
-			{
-				if ((this._Funkcja_Funkcja_ID != value))
-				{
-					if (this._Funkcja.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFunkcja_Funkcja_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Funkcja_Funkcja_ID = value;
-					this.SendPropertyChanged("Funkcja_Funkcja_ID");
-					this.OnFunkcja_Funkcja_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Pracownik_jest_serwisowany", Storage="_jest_serwisowanies", ThisKey="Pracownik_ID", OtherKey="Pracownik_Pracownik_ID")]
-		public EntitySet<jest_serwisowany> jest_serwisowanies
-		{
-			get
-			{
-				return this._jest_serwisowanies;
-			}
-			set
-			{
-				this._jest_serwisowanies.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Pracownik_pilotuje", Storage="_pilotujes", ThisKey="Pracownik_ID", OtherKey="Pracownik_Pracownik_ID")]
-		public EntitySet<pilotuje> pilotujes
-		{
-			get
-			{
-				return this._pilotujes;
-			}
-			set
-			{
-				this._pilotujes.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Funkcja_Pracownik", Storage="_Funkcja", ThisKey="Funkcja_Funkcja_ID", OtherKey="Funkcja_ID", IsForeignKey=true)]
-		public Funkcja Funkcja
-		{
-			get
-			{
-				return this._Funkcja.Entity;
-			}
-			set
-			{
-				Funkcja previousValue = this._Funkcja.Entity;
-				if (((previousValue != value) 
-							|| (this._Funkcja.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Funkcja.Entity = null;
-						previousValue.Pracowniks.Remove(this);
-					}
-					this._Funkcja.Entity = value;
-					if ((value != null))
-					{
-						value.Pracowniks.Add(this);
-						this._Funkcja_Funkcja_ID = value.Funkcja_ID;
-					}
-					else
-					{
-						this._Funkcja_Funkcja_ID = default(decimal);
-					}
-					this.SendPropertyChanged("Funkcja");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_jest_serwisowanies(jest_serwisowany entity)
-		{
-			this.SendPropertyChanging();
-			entity.Pracownik = this;
-		}
-		
-		private void detach_jest_serwisowanies(jest_serwisowany entity)
-		{
-			this.SendPropertyChanging();
-			entity.Pracownik = null;
-		}
-		
-		private void attach_pilotujes(pilotuje entity)
-		{
-			this.SendPropertyChanging();
-			entity.Pracownik = this;
-		}
-		
-		private void detach_pilotujes(pilotuje entity)
-		{
-			this.SendPropertyChanging();
-			entity.Pracownik = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.pilotuje")]
 	public partial class pilotuje : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1192,6 +1098,333 @@ namespace Wypozyczalnia
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Pracownik")]
+	public partial class Pracownik : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Imię;
+		
+		private string _Nazwisko;
+		
+		private System.DateTime _Data_urodzenia;
+		
+		private string _Miejsce_urodzenia;
+		
+		private float _Pensja;
+		
+		private decimal _Pracownik_ID;
+		
+		private decimal _Funkcja_Funkcja_ID;
+		
+		private string _Miejsce_urodzenia2;
+		
+		private EntitySet<jest_serwisowany> _jest_serwisowanies;
+		
+		private EntitySet<pilotuje> _pilotujes;
+		
+		private EntityRef<Funkcja> _Funkcja;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnImięChanging(string value);
+    partial void OnImięChanged();
+    partial void OnNazwiskoChanging(string value);
+    partial void OnNazwiskoChanged();
+    partial void OnData_urodzeniaChanging(System.DateTime value);
+    partial void OnData_urodzeniaChanged();
+    partial void OnMiejsce_urodzeniaChanging(string value);
+    partial void OnMiejsce_urodzeniaChanged();
+    partial void OnPensjaChanging(float value);
+    partial void OnPensjaChanged();
+    partial void OnPracownik_IDChanging(decimal value);
+    partial void OnPracownik_IDChanged();
+    partial void OnFunkcja_Funkcja_IDChanging(decimal value);
+    partial void OnFunkcja_Funkcja_IDChanged();
+    partial void OnMiejsce_urodzenia2Changing(string value);
+    partial void OnMiejsce_urodzenia2Changed();
+    #endregion
+		
+		public Pracownik()
+		{
+			this._jest_serwisowanies = new EntitySet<jest_serwisowany>(new Action<jest_serwisowany>(this.attach_jest_serwisowanies), new Action<jest_serwisowany>(this.detach_jest_serwisowanies));
+			this._pilotujes = new EntitySet<pilotuje>(new Action<pilotuje>(this.attach_pilotujes), new Action<pilotuje>(this.detach_pilotujes));
+			this._Funkcja = default(EntityRef<Funkcja>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Imię", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Imię
+		{
+			get
+			{
+				return this._Imię;
+			}
+			set
+			{
+				if ((this._Imię != value))
+				{
+					this.OnImięChanging(value);
+					this.SendPropertyChanging();
+					this._Imię = value;
+					this.SendPropertyChanged("Imię");
+					this.OnImięChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nazwisko", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nazwisko
+		{
+			get
+			{
+				return this._Nazwisko;
+			}
+			set
+			{
+				if ((this._Nazwisko != value))
+				{
+					this.OnNazwiskoChanging(value);
+					this.SendPropertyChanging();
+					this._Nazwisko = value;
+					this.SendPropertyChanged("Nazwisko");
+					this.OnNazwiskoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Data_urodzenia", DbType="Date NOT NULL")]
+		public System.DateTime Data_urodzenia
+		{
+			get
+			{
+				return this._Data_urodzenia;
+			}
+			set
+			{
+				if ((this._Data_urodzenia != value))
+				{
+					this.OnData_urodzeniaChanging(value);
+					this.SendPropertyChanging();
+					this._Data_urodzenia = value;
+					this.SendPropertyChanged("Data_urodzenia");
+					this.OnData_urodzeniaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Miejsce_urodzenia", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Miejsce_urodzenia
+		{
+			get
+			{
+				return this._Miejsce_urodzenia;
+			}
+			set
+			{
+				if ((this._Miejsce_urodzenia != value))
+				{
+					this.OnMiejsce_urodzeniaChanging(value);
+					this.SendPropertyChanging();
+					this._Miejsce_urodzenia = value;
+					this.SendPropertyChanged("Miejsce_urodzenia");
+					this.OnMiejsce_urodzeniaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pensja", DbType="Real NOT NULL")]
+		public float Pensja
+		{
+			get
+			{
+				return this._Pensja;
+			}
+			set
+			{
+				if ((this._Pensja != value))
+				{
+					this.OnPensjaChanging(value);
+					this.SendPropertyChanging();
+					this._Pensja = value;
+					this.SendPropertyChanged("Pensja");
+					this.OnPensjaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pracownik_ID", AutoSync=AutoSync.OnInsert, DbType="Decimal(28,0) NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public decimal Pracownik_ID
+		{
+			get
+			{
+				return this._Pracownik_ID;
+			}
+			set
+			{
+				if ((this._Pracownik_ID != value))
+				{
+					this.OnPracownik_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Pracownik_ID = value;
+					this.SendPropertyChanged("Pracownik_ID");
+					this.OnPracownik_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Funkcja_Funkcja_ID", DbType="Decimal(28,0) NOT NULL")]
+		public decimal Funkcja_Funkcja_ID
+		{
+			get
+			{
+				return this._Funkcja_Funkcja_ID;
+			}
+			set
+			{
+				if ((this._Funkcja_Funkcja_ID != value))
+				{
+					if (this._Funkcja.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFunkcja_Funkcja_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Funkcja_Funkcja_ID = value;
+					this.SendPropertyChanged("Funkcja_Funkcja_ID");
+					this.OnFunkcja_Funkcja_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Miejsce_urodzenia2", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Miejsce_urodzenia2
+		{
+			get
+			{
+				return this._Miejsce_urodzenia2;
+			}
+			set
+			{
+				if ((this._Miejsce_urodzenia2 != value))
+				{
+					this.OnMiejsce_urodzenia2Changing(value);
+					this.SendPropertyChanging();
+					this._Miejsce_urodzenia2 = value;
+					this.SendPropertyChanged("Miejsce_urodzenia2");
+					this.OnMiejsce_urodzenia2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Pracownik_jest_serwisowany", Storage="_jest_serwisowanies", ThisKey="Pracownik_ID", OtherKey="Pracownik_Pracownik_ID")]
+		public EntitySet<jest_serwisowany> jest_serwisowanies
+		{
+			get
+			{
+				return this._jest_serwisowanies;
+			}
+			set
+			{
+				this._jest_serwisowanies.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Pracownik_pilotuje", Storage="_pilotujes", ThisKey="Pracownik_ID", OtherKey="Pracownik_Pracownik_ID")]
+		public EntitySet<pilotuje> pilotujes
+		{
+			get
+			{
+				return this._pilotujes;
+			}
+			set
+			{
+				this._pilotujes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Funkcja_Pracownik", Storage="_Funkcja", ThisKey="Funkcja_Funkcja_ID", OtherKey="Funkcja_ID", IsForeignKey=true)]
+		public Funkcja Funkcja
+		{
+			get
+			{
+				return this._Funkcja.Entity;
+			}
+			set
+			{
+				Funkcja previousValue = this._Funkcja.Entity;
+				if (((previousValue != value) 
+							|| (this._Funkcja.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Funkcja.Entity = null;
+						previousValue.Pracowniks.Remove(this);
+					}
+					this._Funkcja.Entity = value;
+					if ((value != null))
+					{
+						value.Pracowniks.Add(this);
+						this._Funkcja_Funkcja_ID = value.Funkcja_ID;
+					}
+					else
+					{
+						this._Funkcja_Funkcja_ID = default(decimal);
+					}
+					this.SendPropertyChanged("Funkcja");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_jest_serwisowanies(jest_serwisowany entity)
+		{
+			this.SendPropertyChanging();
+			entity.Pracownik = this;
+		}
+		
+		private void detach_jest_serwisowanies(jest_serwisowany entity)
+		{
+			this.SendPropertyChanging();
+			entity.Pracownik = null;
+		}
+		
+		private void attach_pilotujes(pilotuje entity)
+		{
+			this.SendPropertyChanging();
+			entity.Pracownik = this;
+		}
+		
+		private void detach_pilotujes(pilotuje entity)
+		{
+			this.SendPropertyChanging();
+			entity.Pracownik = null;
 		}
 	}
 	
@@ -1479,6 +1712,8 @@ namespace Wypozyczalnia
 		
 		private decimal _Typ_statku_Typ_statku_ID;
 		
+		private EntitySet<Część> _Częśćs;
+		
 		private EntitySet<jest_serwisowany> _jest_serwisowanies;
 		
 		private EntitySet<Rezerwacja> _Rezerwacjas;
@@ -1503,6 +1738,7 @@ namespace Wypozyczalnia
 		
 		public Statek()
 		{
+			this._Częśćs = new EntitySet<Część>(new Action<Część>(this.attach_Częśćs), new Action<Część>(this.detach_Częśćs));
 			this._jest_serwisowanies = new EntitySet<jest_serwisowany>(new Action<jest_serwisowany>(this.attach_jest_serwisowanies), new Action<jest_serwisowany>(this.detach_jest_serwisowanies));
 			this._Rezerwacjas = new EntitySet<Rezerwacja>(new Action<Rezerwacja>(this.attach_Rezerwacjas), new Action<Rezerwacja>(this.detach_Rezerwacjas));
 			this._Typ_statku = default(EntityRef<Typ_statku>);
@@ -1613,6 +1849,19 @@ namespace Wypozyczalnia
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statek_Część", Storage="_Częśćs", ThisKey="Statek_ID", OtherKey="Statek_Statek_ID")]
+		public EntitySet<Część> Częśćs
+		{
+			get
+			{
+				return this._Częśćs;
+			}
+			set
+			{
+				this._Częśćs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statek_jest_serwisowany", Storage="_jest_serwisowanies", ThisKey="Statek_ID", OtherKey="Statek_Statek_ID")]
 		public EntitySet<jest_serwisowany> jest_serwisowanies
 		{
@@ -1693,6 +1942,18 @@ namespace Wypozyczalnia
 			}
 		}
 		
+		private void attach_Częśćs(Część entity)
+		{
+			this.SendPropertyChanging();
+			entity.Statek = this;
+		}
+		
+		private void detach_Częśćs(Część entity)
+		{
+			this.SendPropertyChanging();
+			entity.Statek = null;
+		}
+		
 		private void attach_jest_serwisowanies(jest_serwisowany entity)
 		{
 			this.SendPropertyChanging();
@@ -1728,6 +1989,8 @@ namespace Wypozyczalnia
 		
 		private decimal _Status_części_ID;
 		
+		private EntitySet<Część> _Częśćs;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1740,6 +2003,7 @@ namespace Wypozyczalnia
 		
 		public Status_części()
 		{
+			this._Częśćs = new EntitySet<Część>(new Action<Część>(this.attach_Częśćs), new Action<Część>(this.detach_Częśćs));
 			OnCreated();
 		}
 		
@@ -1783,6 +2047,19 @@ namespace Wypozyczalnia
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Status_części_Część", Storage="_Częśćs", ThisKey="Status_części_ID", OtherKey="Status_części_Status_części_ID")]
+		public EntitySet<Część> Częśćs
+		{
+			get
+			{
+				return this._Częśćs;
+			}
+			set
+			{
+				this._Częśćs.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1801,6 +2078,18 @@ namespace Wypozyczalnia
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Częśćs(Część entity)
+		{
+			this.SendPropertyChanging();
+			entity.Status_części = this;
+		}
+		
+		private void detach_Częśćs(Część entity)
+		{
+			this.SendPropertyChanging();
+			entity.Status_części = null;
 		}
 	}
 	
@@ -1930,6 +2219,8 @@ namespace Wypozyczalnia
 		
 		private decimal _Zamówienie_ID;
 		
+		private EntitySet<Część> _Częśćs;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1944,6 +2235,7 @@ namespace Wypozyczalnia
 		
 		public Zamówienie()
 		{
+			this._Częśćs = new EntitySet<Część>(new Action<Część>(this.attach_Częśćs), new Action<Część>(this.detach_Częśćs));
 			OnCreated();
 		}
 		
@@ -2007,6 +2299,19 @@ namespace Wypozyczalnia
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Zamówienie_Część", Storage="_Częśćs", ThisKey="Zamówienie_ID", OtherKey="Zamówienie_Zamówienie_ID")]
+		public EntitySet<Część> Częśćs
+		{
+			get
+			{
+				return this._Częśćs;
+			}
+			set
+			{
+				this._Częśćs.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2025,6 +2330,18 @@ namespace Wypozyczalnia
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Częśćs(Część entity)
+		{
+			this.SendPropertyChanging();
+			entity.Zamówienie = this;
+		}
+		
+		private void detach_Częśćs(Część entity)
+		{
+			this.SendPropertyChanging();
+			entity.Zamówienie = null;
 		}
 	}
 }

@@ -26,10 +26,20 @@ namespace Wypozyczalnia.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HANIA-LAPTOP\\SQLEXPRESS;Initial Catalog=Test2;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FELIX-PC\\SQLEXPRESS;Initial Catalog=Test2;")]
         public string Test2ConnectionString {
             get {
                 return ((string)(this["Test2ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HANIA-LAPTOP\\SQLEXPRESS;Initial Catalog=Wypozyczalnia;User ID=sa")]
+        public string WypozyczalniaConnectionString {
+            get {
+                return ((string)(this["WypozyczalniaConnectionString"]));
             }
         }
     }
