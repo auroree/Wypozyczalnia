@@ -39,7 +39,7 @@
         <classShapeMoniker Id="c819d31c-fccd-439e-b250-5938d68d8f2b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5 : 4.75); (1.5 : 4.2)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 4.75); (1.5 : 4.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Funkcja/Funkcja_Pracownik" />
       <nodes>
         <classShapeMoniker Id="d66ac736-2d3b-4de7-920e-d6c26630b211" />
@@ -72,7 +72,7 @@
         <classShapeMoniker Id="8a526eaf-16b0-4be9-afb6-773347cceb06" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.4375 : 4.125); (4.4375 : 3.2)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.4375 : 4.125); (4.4375 : 3.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Klient/Klient_Rezerwacja" />
       <nodes>
         <classShapeMoniker Id="b88ce5de-8bea-4cdc-a353-93887e81affe" />
@@ -92,14 +92,14 @@
         <classShapeMoniker Id="04f39c5d-e31c-4ef3-a743-17a43b013f4e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.65625 : 2); (1.65625 : 0.95)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.65625 : 2); (1.65625 : 0.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Statek/Statek_jest_serwisowany" />
       <nodes>
         <classShapeMoniker Id="e1b9cfe8-6fc2-4808-ad12-53a683e76155" />
         <classShapeMoniker Id="c819d31c-fccd-439e-b250-5938d68d8f2b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.875 : 2.3687525); (5 : 2.3687525); (5 : 2.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.875 : 2.3687525); (5 : 2.3687525); (5 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Statek/Statek_Rezerwacja" />
       <nodes>
         <classShapeMoniker Id="e1b9cfe8-6fc2-4808-ad12-53a683e76155" />
@@ -125,7 +125,7 @@
         <elementListCompartment Id="a1d9972a-222d-486a-83a1-806e799f8752" absoluteBounds="3.3899999999999997, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.1875 : 0.95); (4.1875 : 2.0812475); (2.875 : 2.0812475)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.1875 : 0.95); (4.1875 : 2.0812475); (2.875 : 2.0812475)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Typ_statku/Typ_statku_Statek" />
       <nodes>
         <classShapeMoniker Id="800e937b-2f7c-4178-b534-d5eb4fdd6490" />

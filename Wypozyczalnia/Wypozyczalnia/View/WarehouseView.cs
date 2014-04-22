@@ -32,6 +32,16 @@ namespace Wypozyczalnia.View
             filterStatus.SelectedItem = everyStatus;
         }
 
+        public string FilterName
+        {
+            get { return filterName.Text; }
+        }
+
+        public string FilterStatus
+        {
+            get { return filterStatus.SelectedItem.ToString(); }
+        }
+
         public override void SetColumnsWidth()
         {
             try
@@ -59,6 +69,32 @@ namespace Wypozyczalnia.View
             {
                 filterStatus.Items.Add(status);
             }
+        }
+
+        public Część GetActiveElement()
+        {
+            try
+            {
+                int index = dataGridView1.CurrentRow.Index;
+
+                return new Część()
+                {
+                    Nazwa = dataGridView1[0, index].Value.ToString(),
+                    Status_części_Status_części_ID = Convert.ToInt32(dataGridView1[1, index].Value),
+                    Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[0, index].Value),                  
+                    Cena = Convert.ToSingle(dataGridView1[3, index].Value.ToString()),
+                    Statek_Statek_ID = Convert.ToInt32(dataGridView1[4, index]),
+                };
+            }
+            catch (FormatException ex)
+            {
+                return null;
+            }
+        }
+
+        private void ActionSearchByName(object sender, EventArgs e)
+        {
+            controller.SelectPartsByName();
         }
 
         private void ActionResized(object sender, EventArgs e)

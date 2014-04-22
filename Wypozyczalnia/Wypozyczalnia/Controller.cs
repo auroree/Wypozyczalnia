@@ -368,5 +368,39 @@ namespace Wypozyczalnia
         }
 
         #endregion
+
+        // --- --- --- --- --- MAGAZYN --- --- --- --- --- //
+        #region Magazyn
+
+        // --- FILTRY
+
+        public void SelectPartsByName()
+        {
+            string name = warehouse.FilterName;
+            if (name.Length > 0)
+            {
+                activeView.DataTable = queriesWarehouse.SelectByName(name);
+            }
+            else
+            {
+                activeView.DataTable = queriesWarehouse.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        public void SelectPartsByStatus()
+        {
+            string status = warehouse.FilterStatus;
+            if (statuses.Contains(status))
+            {
+                activeView.DataTable = queriesWarehouse.SelectByStatus(status);
+            }
+            else
+            {
+                activeView.DataTable = queriesWarehouse.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+        #endregion
     }
 }
