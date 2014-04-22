@@ -71,5 +71,23 @@ namespace Wypozyczalnia.Database
             DataTable dt = Extensions.ToDataTable(query);
             return dt;
         }
+
+        public DataTable SelectByStatus(string status)
+        {
+            var query = from cz in db.Częśćs
+                        where cz. == status
+                        select new
+                        {
+                            e.Pracownik_ID,
+                            e.Imię,
+                            e.Nazwisko,
+                            e.Data_urodzenia,
+                            e.Miejsce_urodzenia,
+                            e.Pensja,
+                            e.Funkcja.Nazwa_funkcji
+                        };
+            DataTable dt = Extensions.ToDataTable(query);
+            return dt;
+        }
     }
 }
