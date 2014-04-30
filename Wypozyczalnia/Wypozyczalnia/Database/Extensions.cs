@@ -89,7 +89,7 @@ namespace Wypozyczalnia.Database
             }
             else
             {
-                // TODO:
+                //TODO:
                 // 1. Convert lists of type System.Object to a data table.
                 // 2. Handle objects with nested objects (make the column name the name of the object and print "system.object" as the value).
 
