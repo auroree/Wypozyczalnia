@@ -22,7 +22,7 @@ namespace Wypozyczalnia
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Wypozyczalnia")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Test2")]
 	public partial class WypozyczalniaDataClassesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -66,7 +66,7 @@ namespace Wypozyczalnia
     #endregion
 		
 		public WypozyczalniaDataClassesDataContext() : 
-				base(global::Wypozyczalnia.Properties.Settings.Default.WypozyczalniaConnectionString, mappingSource)
+				base(global::Wypozyczalnia.Properties.Settings.Default.Test2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
