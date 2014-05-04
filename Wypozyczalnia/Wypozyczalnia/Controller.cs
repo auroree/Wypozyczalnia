@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Wypozyczalnia.Database;
 using Wypozyczalnia.View;
+using Wypozyczalnia.FormController;
 
 namespace Wypozyczalnia
 {
@@ -377,6 +378,51 @@ namespace Wypozyczalnia
         #region Magazyn
 
         // --- FILTRY
+        public void ShowWarehouseAddForm()
+        {
+            WarehouseForm form = new WarehouseForm(statuses);
+            WarehouseFormController formController = new WarehouseFormController(form, Operation.Add);
+            formController.Queries = queriesWarehouse;
+            dr = form.ShowDialog();
+            // odswiezenie danych
+            ReloadIfFormReturnedOK();
+        }
+
+        public void ShowWarehouseEditForm()
+        {
+            try
+            {
+                Część part = warehouse.GetActiveElement();
+                WarehouseForm form = new WarehouseForm(part, statuses);
+                WarehouseFormController formController = new WarehouseFormController(form, Operation.Edit);
+                formController.Queries = queriesWarehouse;
+                dr = form.ShowDialog();
+                // odswiezenie danych
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+        }
+
+        public void ShowWarehouseDeleteForm()
+        {
+            try
+            {
+                Część part = warehouse.GetActiveElement();
+                WarehouseForm form = new WarehouseForm(part, statuses);
+                WarehouseFormController formController = new WarehouseFormController(form, Operation.Delete);
+                formController.Queries = queriesWarehouse;
+                form.ShowDialog();
+                // odswiezenie danych
+                SelectAllAtActiveWindow();
+            }
+            catch (NullReferenceException ex)
+            {
+
+            }
+        }
 
         public void SelectPartsByName()
         {

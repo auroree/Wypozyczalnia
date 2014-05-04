@@ -94,6 +94,21 @@ namespace Wypozyczalnia.View
             }
         }
 
+        private void ActionAdd(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseAddForm();
+        }
+
+        private void ActionEdit(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseEditForm();
+        }
+
+        private void ActionDelete(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseDeleteForm();
+        }
+
         private void ActionSearchByName(object sender, EventArgs e)
         {
             controller.SelectPartsByName();
@@ -129,6 +144,18 @@ namespace Wypozyczalnia.View
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Click += new System.EventHandler(this.ActionAdd);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Click += new System.EventHandler(this.ActionEdit);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Click += new System.EventHandler(this.ActionDelete);
             // 
             // toolStrip1
             // 

@@ -87,5 +87,29 @@ namespace Wypozyczalnia.Database
             DataTable dt = Extensions.ToDataTable(query);
             return dt;
         }
+
+        public void Insert(Część part)
+        {
+            db.Częśćs.InsertOnSubmit(part);
+            db.SubmitChanges();
+        }
+
+        public void Edit(Część e)
+        {
+            var record = db.Częśćs.Single(part => part.Część_ID == e.Część_ID);
+            record.Nazwa = e.Nazwa;
+            record.Zamówienie_Zamówienie_ID = e.Zamówienie_Zamówienie_ID;
+            record.Cena = e.Cena;
+            record.Statek_Statek_ID = e.Statek_Statek_ID;
+            record.Status_części = e.Status_części;
+            db.SubmitChanges();
+        }
+
+        public void Delete(Część e)
+        {
+            var record = db.Częśćs.Single(part => part.Część_ID == e.Część_ID);
+            db.Częśćs.DeleteOnSubmit(record);
+            db.SubmitChanges();
+        }
     }
 }
