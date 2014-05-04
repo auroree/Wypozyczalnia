@@ -33,6 +33,7 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.filterSurname = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.buttonEmployees = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,10 +82,22 @@
             this.toolStripButton1.Text = "Szukaj";
             this.toolStripButton1.Click += new System.EventHandler(this.ActionSearchBySurname);
             // 
+            // buttonEmployees
+            // 
+            this.buttonEmployees.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEmployees.Location = new System.Drawing.Point(156, 464);
+            this.buttonEmployees.Name = "buttonEmployees";
+            this.buttonEmployees.Size = new System.Drawing.Size(137, 22);
+            this.buttonEmployees.TabIndex = 8;
+            this.buttonEmployees.Text = "Pokaż pracowników";
+            this.buttonEmployees.UseVisualStyleBackColor = true;
+            this.buttonEmployees.Click += new System.EventHandler(this.ActionShowEmploees);
+            // 
             // ReservationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(734, 512);
+            this.Controls.Add(this.buttonEmployees);
             this.Controls.Add(this.toolStrip1);
             this.Name = "ReservationsView";
             this.SizeChanged += new System.EventHandler(this.ActionResized);
@@ -92,6 +105,7 @@
             this.Controls.SetChildIndex(this.buttonEdit, 0);
             this.Controls.SetChildIndex(this.buttonDelete, 0);
             this.Controls.SetChildIndex(this.toolStrip1, 0);
+            this.Controls.SetChildIndex(this.buttonEmployees, 0);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -105,6 +119,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox filterSurname;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.Button buttonEmployees;
 
     }
 }

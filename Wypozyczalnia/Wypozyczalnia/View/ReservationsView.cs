@@ -15,6 +15,13 @@ namespace Wypozyczalnia.View
             InitializeComponent();
         }
 
+        public int GetActiveElementId()
+        {
+            int index = dataGridView1.CurrentRow.Index;
+            int CurrentId = Convert.ToInt32(dataGridView1[0, index].Value);
+
+            return CurrentId;
+        }
 
         public override void SetColumnsWidth()
         {
@@ -53,7 +60,10 @@ namespace Wypozyczalnia.View
 
         private void ActionDelete(object sender, EventArgs e)
         {
-
+            if (dataGridView1.RowCount > 1)
+            {
+                controller.DeleteReservation();
+            }
         }
 
         private void ActionResized(object sender, EventArgs e)
@@ -64,6 +74,14 @@ namespace Wypozyczalnia.View
         private void ActionSearchBySurname(object sender, EventArgs e)
         {
             controller.SearchReservationsBySurname();
+        }
+
+        private void ActionShowEmploees(object sender, EventArgs e)
+        {
+            if (dataGridView1.RowCount > 1)
+            {
+                controller.ShowReservationEmploeesForm();
+            }
         }
     }
 }

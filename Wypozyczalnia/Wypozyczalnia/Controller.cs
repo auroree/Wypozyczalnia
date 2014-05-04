@@ -446,7 +446,14 @@ namespace Wypozyczalnia
         //----------------------REZERWACJA---------------------//
         #region Rezerwacja
         // --- FORMULARZE
-
+        public void ShowReservationEmploeesForm()
+        {
+            int id = reservations.GetActiveElementId();
+            ReservationEmployeesForm form = new ReservationEmployeesForm();
+            form.DataTable = queriesReservation.SelectReservationEmployee(id);
+            form.SetColumns();
+            dr = form.ShowDialog();
+        }
 
         // --- FILTRY
         public void SearchReservationsBySurname()
@@ -462,6 +469,21 @@ namespace Wypozyczalnia
             }
             activeView.SetColumns();
         }
+
+        // --- Delete
+
+        public void DeleteReservation()
+        {
+                if (MessageBox.Show("Czy chcesz usunąć rezerwacje?", "Wypożyczalnia",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    int id = reservations.GetActiveElementId();
+                    queriesReservation.Delete(id);
+                    dr = DialogResult.OK;
+                    ReloadIfFormReturnedOK();
+                }
+        }
+
         #endregion
     }
 }

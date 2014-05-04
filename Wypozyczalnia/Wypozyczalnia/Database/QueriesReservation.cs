@@ -25,15 +25,16 @@ namespace Wypozyczalnia.Database
                         join c in db.Klients on r.Klient_Klient_ID equals c.Klient_ID
                         join s in db.Stateks on r.Statek_Statek_ID equals s.Statek_ID
                         join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                        join p in db.pilotujes on r.Statek_Statek_ID equals p.Rezerwacja_Rezerwacja_ID
-                        join e in db.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
+                        //join p in db.pilotujes on r.Statek_Statek_ID equals p.Rezerwacja_Rezerwacja_ID
+                       // join e in db.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
 
                         select new
                         {
+                            //Check = 0,
                             r.Rezerwacja_ID,
                             Imie_Klienta = c.Imię,
                             Nazwisko_Klienta = c.Nazwisko,
-                            Pracownik_Nazwisko = e.Nazwisko,
+                           // Pracownik_Nazwisko = e.Nazwisko,
                             Typ_Statku = t.Nazwa_typu,
                             Cena_za_dobe = s.Cena_za_dobę,
                             r.Data_wypożyczenia,
@@ -77,21 +78,56 @@ namespace Wypozyczalnia.Database
                         join c in db.Klients on r.Klient_Klient_ID equals c.Klient_ID
                         join s in db.Stateks on r.Statek_Statek_ID equals s.Statek_ID
                         join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                        join p in db.pilotujes on r.Statek_Statek_ID equals p.Rezerwacja_Rezerwacja_ID
-                        join e in db.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
+                        //join p in db.pilotujes on r.Statek_Statek_ID equals p.Rezerwacja_Rezerwacja_ID
+                        //join e in db.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
                         where r.Klient_Klient_ID == id
                         select new
                         {
                             r.Rezerwacja_ID,
                             Imie_Klienta = c.Imię,
                             Nazwisko_Klienta = c.Nazwisko,
-                            Pracownik_Nazwisko = e.Nazwisko,
+                           // Pracownik_Nazwisko = e.Nazwisko,
                             Typ_Statku = t.Nazwa_typu,
                             Cena_za_dobe = s.Cena_za_dobę,
                             r.Data_wypożyczenia,
                             r.Data_zwrotu
                         };
 
+            DataTable dt = Extensions.ToDataTable(query);
+            return dt;
+        }
+
+        public void Delete(int id)
+        {
+            var toRemove = from p in db.pilotujes
+                           where p.Rezerwacja_Rezerwacja_ID == id
+                           select p;
+
+            var elements = toRemove.ToList();
+
+            foreach (var element in elements)
+                db.pilotujes.DeleteOnSubmit(element);
+
+           var record = db.Rezerwacjas.Single(reservation => reservation.Rezerwacja_ID == id);
+           db.Rezerwacjas.DeleteOnSubmit(record);
+           db.SubmitChanges();
+        }
+
+        public DataTable SelectReservationEmployee(int id)
+        {
+            var query = from p in db.pilotujes
+                        join e in db.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
+                        where p.Rezerwacja_Rezerwacja_ID == id
+                        select new
+                        {
+                            e.Pracownik_ID,
+                            e.Imię,
+                            e.Nazwisko,
+                            e.Data_urodzenia,
+                            e.Miejsce_urodzenia,
+                            e.Pensja,
+                            e.Funkcja.Nazwa_funkcji
+                        };
             DataTable dt = Extensions.ToDataTable(query);
             return dt;
         }
