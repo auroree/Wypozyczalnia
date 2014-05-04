@@ -121,7 +121,7 @@ namespace Wypozyczalnia
                 {
                     try
                     {
-                        statuses = queriesWarehouse.GetAllFunctions();
+                        statuses = queriesWarehouse.GetAllStatuses();
                         warehouse.FillStatusList(statuses);
                     }
                     catch (SqlException ex)
@@ -192,6 +192,10 @@ namespace Wypozyczalnia
                 else if (activeView == employees)
                 {
                     activeView.DataTable = queriesEmployee.SelectAll();
+                }
+                else if (activeView == warehouse)
+                {
+                    activeView.DataTable = queriesWarehouse.SelectAll();
                 }
 
                 activeView.SetColumns();
@@ -367,6 +371,40 @@ namespace Wypozyczalnia
             activeView.SetColumns();
         }
 
+        #endregion
+
+        // --- --- --- --- --- MAGAZYN --- --- --- --- --- //
+        #region Magazyn
+
+        // --- FILTRY
+
+        public void SelectPartsByName()
+        {
+            string name = warehouse.FilterName;
+            if (name.Length > 0)
+            {
+                activeView.DataTable = queriesWarehouse.SelectByName(name);
+            }
+            else
+            {
+                activeView.DataTable = queriesWarehouse.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        public void SelectPartsByStatus()
+        {
+            string status = warehouse.FilterStatus;
+            if (statuses.Contains(status))
+            {
+                activeView.DataTable = queriesWarehouse.SelectByStatus(status);
+            }
+            else
+            {
+                activeView.DataTable = queriesWarehouse.SelectAll();
+            }
+            activeView.SetColumns();
+        }
         #endregion
     }
 }

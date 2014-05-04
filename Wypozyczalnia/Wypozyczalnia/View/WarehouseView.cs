@@ -32,6 +32,16 @@ namespace Wypozyczalnia.View
             filterStatus.SelectedItem = everyStatus;
         }
 
+        public string FilterName
+        {
+            get { return filterName.Text; }
+        }
+
+        public string FilterStatus
+        {
+            get { return filterStatus.SelectedItem.ToString(); }
+        }
+
         public override void SetColumnsWidth()
         {
             try
@@ -41,7 +51,7 @@ namespace Wypozyczalnia.View
                 dataGridView1.Columns[1].Width = (int)(0.2 * width);
                 dataGridView1.Columns[2].Width = (int)(0.1 * width);
                 dataGridView1.Columns[3].Width = (int)(0.2 * width);
-                dataGridView1.Columns[3].Width = (int)(0.2 * width);
+                dataGridView1.Columns[4].Width = (int)(0.2 * width); 
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -58,6 +68,46 @@ namespace Wypozyczalnia.View
             foreach (string status in statuses)
             {
                 filterStatus.Items.Add(status);
+            }
+        }
+
+        public Część GetActiveElement()
+        {
+            try
+            {
+                int index = dataGridView1.CurrentRow.Index;
+
+                return new Część()
+                {
+                    Nazwa = dataGridView1[0, index].Value.ToString(),
+                    Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[2, index].Value),                  
+                    Cena = Convert.ToSingle(dataGridView1[3, index].Value.ToString()),
+                    Statek_Statek_ID = Convert.ToInt32(dataGridView1[4, index]),
+                    Status_części = new Status_części() {
+                        Status = dataGridView1[1, index].Value.ToString(),
+                    }
+                };
+            }
+            catch (FormatException ex)
+            {
+                return null;
+            }
+        }
+
+        private void ActionSearchByName(object sender, EventArgs e)
+        {
+            controller.SelectPartsByName();
+        }
+
+        private void ActionSearchByStatus(object sender, EventArgs e)
+        {
+            try
+            {
+                controller.SelectPartsByStatus();
+            }
+            catch (NullReferenceException ex)
+            {
+
             }
         }
 
@@ -98,7 +148,7 @@ namespace Wypozyczalnia.View
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(48, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(39, 22);
             this.toolStripLabel1.Text = "Status";
             // 
             // filterStatus
@@ -106,6 +156,7 @@ namespace Wypozyczalnia.View
             this.filterStatus.Name = "filterStatus";
             this.filterStatus.Size = new System.Drawing.Size(121, 25);
             this.filterStatus.Text = "Status";
+            this.filterStatus.TextChanged += new System.EventHandler(this.ActionSearchByStatus);
             // 
             // toolStripSeparator1
             // 
@@ -115,7 +166,7 @@ namespace Wypozyczalnia.View
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(57, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(42, 22);
             this.toolStripLabel2.Text = "Nazwa";
             // 
             // filterName
@@ -131,6 +182,7 @@ namespace Wypozyczalnia.View
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "Szukaj";
+            this.toolStripButton1.Click += new System.EventHandler(this.ActionSearchByName);
             // 
             // WarehouseView
             // 
@@ -139,6 +191,7 @@ namespace Wypozyczalnia.View
             this.Controls.Add(this.toolStrip1);
             this.Name = "WarehouseView";
             this.SizeChanged += new System.EventHandler(this.ActionResized);
+            this.Click += new System.EventHandler(this.ActionSearchByName);
             this.Controls.SetChildIndex(this.buttonAdd, 0);
             this.Controls.SetChildIndex(this.buttonEdit, 0);
             this.Controls.SetChildIndex(this.buttonDelete, 0);

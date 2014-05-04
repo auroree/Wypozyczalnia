@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Test2" Class="WypozyczalniaDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=HANIA-LAPTOP\SQLEXPRESS;Initial Catalog=Test2;User ID=sa" SettingsObjectName="Wypozyczalnia.Properties.Settings" SettingsPropertyName="Test2ConnectionString" Provider="System.Data.SqlClient" />
+<?xml version="1.0" encoding="utf-8"?><Database Name="Test2" Class="WypozyczalniaDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=FELIX-PC\SQLEXPRESS;Initial Catalog=Test2;User ID=sa" SettingsObjectName="Wypozyczalnia.Properties.Settings" SettingsPropertyName="Test2ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Część" Member="Częśćs">
     <Type Name="Część">
       <Column Name="Nazwa" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
@@ -7,6 +7,7 @@
       <Column Name="Status_części_Status_części_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
       <Column Name="Statek_Statek_ID" Type="System.Decimal" DbType="Decimal(28,0)" CanBeNull="true" />
       <Column Name="Zamówienie_Zamówienie_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Część_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Statek_Część" Member="Statek" ThisKey="Statek_Statek_ID" OtherKey="Statek_ID" Type="Statek" IsForeignKey="true" />
       <Association Name="Status_części_Część" Member="Status_części" ThisKey="Status_części_Status_części_ID" OtherKey="Status_części_ID" Type="Status_części" IsForeignKey="true" />
       <Association Name="Zamówienie_Część" Member="Zamówienie" ThisKey="Zamówienie_Zamówienie_ID" OtherKey="Zamówienie_ID" Type="Zamówienie" IsForeignKey="true" />
@@ -36,6 +37,14 @@
       <Association Name="Klient_Rezerwacja" Member="Rezerwacjas" ThisKey="Klient_ID" OtherKey="Klient_Klient_ID" Type="Rezerwacja" />
     </Type>
   </Table>
+  <Table Name="dbo.pilotuje" Member="pilotujes">
+    <Type Name="pilotuje">
+      <Column Name="Pracownik_Pracownik_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Rezerwacja_Rezerwacja_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Pracownik_pilotuje" Member="Pracownik" ThisKey="Pracownik_Pracownik_ID" OtherKey="Pracownik_ID" Type="Pracownik" IsForeignKey="true" />
+      <Association Name="Rezerwacja_pilotuje" Member="Rezerwacja" ThisKey="Rezerwacja_Rezerwacja_ID" OtherKey="Rezerwacja_ID" Type="Rezerwacja" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Pracownik" Member="Pracowniks">
     <Type Name="Pracownik">
       <Column Name="Imię" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
@@ -45,17 +54,10 @@
       <Column Name="Pensja" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Pracownik_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Funkcja_Funkcja_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Miejsce_urodzenia2" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Association Name="Pracownik_jest_serwisowany" Member="jest_serwisowanies" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="jest_serwisowany" />
       <Association Name="Pracownik_pilotuje" Member="pilotujes" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="pilotuje" />
       <Association Name="Funkcja_Pracownik" Member="Funkcja" ThisKey="Funkcja_Funkcja_ID" OtherKey="Funkcja_ID" Type="Funkcja" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.pilotuje" Member="pilotujes">
-    <Type Name="pilotuje">
-      <Column Name="Pracownik_Pracownik_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Rezerwacja_Rezerwacja_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Pracownik_pilotuje" Member="Pracownik" ThisKey="Pracownik_Pracownik_ID" OtherKey="Pracownik_ID" Type="Pracownik" IsForeignKey="true" />
-      <Association Name="Rezerwacja_pilotuje" Member="Rezerwacja" ThisKey="Rezerwacja_Rezerwacja_ID" OtherKey="Rezerwacja_ID" Type="Rezerwacja" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Rezerwacja" Member="Rezerwacjas">
