@@ -24,6 +24,7 @@ namespace Wypozyczalnia
         private ClientsView clients;
         private EmployeesView employees;
         private WarehouseView warehouse;
+        private ReservationsView reservations;
         // referencja do aktywnego obiektu
         private BaseView activeView;
         // informacja czy aplikacja ma zostac zamknieta
@@ -38,6 +39,7 @@ namespace Wypozyczalnia
         private QueriesClient queriesClient;
         private QueriesEmployee queriesEmployee;
         private QueriesWarehouse queriesWarehouse;
+        private QueriesReservation queriesReservation;
 
         public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
         {
@@ -49,15 +51,18 @@ namespace Wypozyczalnia
             // zainicjalizowanie pozostalych okienek
             employees = new EmployeesView();
             warehouse = new WarehouseView();
+            reservations = new ReservationsView();
             clients.SetController(this);
             employees.SetController(this);
             warehouse.SetController(this);
+            reservations.SetController(this);
             IsClosing = false;
 
             // inicjalizacja obiektow dbContext
             queriesClient = new QueriesClient(dbContext);
             queriesEmployee = new QueriesEmployee(dbContext);
             queriesWarehouse = new QueriesWarehouse(dbContext);
+            queriesReservation = new QueriesReservation(dbContext);
 
             // inicjalizacja DialogResult
             dr = DialogResult.None;
@@ -106,6 +111,7 @@ namespace Wypozyczalnia
                 employees.Show();
                 SelectAllAtActiveWindow();
                 UpdateDBStatus();
+
             }
         }
 
@@ -131,6 +137,33 @@ namespace Wypozyczalnia
                 }
                 warehouse.Show();
                 SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+
+        }
+
+        public void ShowReservationsView()
+        {
+            if (activeView != reservations)
+            {
+                activeView.Hide();
+                reservations.CopyWindowState(activeView);
+                activeView = reservations;
+                reservations.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+        }
+
+        public void ShowReservationsView(int clientId)
+        {
+            if (activeView != reservations)
+            {
+                activeView.Hide();
+                reservations.CopyWindowState(activeView);
+                activeView = reservations;
+                reservations.Show();
+                activeView.DataTable = queriesReservation.SelectById(clientId);
                 UpdateDBStatus();
             }
         }
@@ -196,6 +229,10 @@ namespace Wypozyczalnia
                 else if (activeView == warehouse)
                 {
                     activeView.DataTable = queriesWarehouse.SelectAll();
+                }
+                else if (activeView == reservations)
+                {
+                    activeView.DataTable = queriesReservation.SelectAll();
                 }
 
                 activeView.SetColumns();
@@ -405,6 +442,49 @@ namespace Wypozyczalnia
             }
             activeView.SetColumns();
         }
+        #endregion
+
+        //----------------------REZERWACJA---------------------//
+        #region Rezerwacja
+        // --- FORMULARZE
+        public void ShowReservationEmploeesForm()
+        {
+            int id = reservations.GetActiveElementId();
+            ReservationEmployeesForm form = new ReservationEmployeesForm();
+            form.DataTable = queriesReservation.SelectReservationEmployee(id);
+            form.SetColumns();
+            dr = form.ShowDialog();
+        }
+
+        // --- FILTRY
+        public void SearchReservationsBySurname()
+        {
+            string surname = reservations.FilterSurname;
+            if (surname.Length > 0)
+            {
+                activeView.DataTable = queriesReservation.SelectBySurname(surname);
+            }
+            else
+            {
+                activeView.DataTable = queriesReservation.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        // --- Delete
+
+        public void DeleteReservation()
+        {
+                if (MessageBox.Show("Czy chcesz usunąć rezerwacje?", "Wypożyczalnia",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    int id = reservations.GetActiveElementId();
+                    queriesReservation.Delete(id);
+                    dr = DialogResult.OK;
+                    ReloadIfFormReturnedOK();
+                }
+        }
+
         #endregion
     }
 }

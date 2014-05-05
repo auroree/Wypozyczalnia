@@ -54,7 +54,7 @@
       <Column Name="Pensja" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Pracownik_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Funkcja_Funkcja_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
-      <Column Name="Miejsce_urodzenia2" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <!-- <Column Name="Miejsce_urodzenia2" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" /> -->
       <Association Name="Pracownik_jest_serwisowany" Member="jest_serwisowanies" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="jest_serwisowany" />
       <Association Name="Pracownik_pilotuje" Member="pilotujes" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="pilotuje" />
       <Association Name="Funkcja_Pracownik" Member="Funkcja" ThisKey="Funkcja_Funkcja_ID" OtherKey="Funkcja_ID" Type="Funkcja" IsForeignKey="true" />

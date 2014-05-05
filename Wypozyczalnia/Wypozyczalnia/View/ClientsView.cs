@@ -90,7 +90,8 @@ namespace Wypozyczalnia.View
 
         private void ActionReservations(object sender, EventArgs e)
         {
-            // TODO
+            int index = dataGridView1.CurrentRow.Index;
+            controller.ShowReservationsView(Convert.ToInt32(dataGridView1[0, index].Value));
         }
 
         private void ActionSearchBySurname(object sender, EventArgs e)
