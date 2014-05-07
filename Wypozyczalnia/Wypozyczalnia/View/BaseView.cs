@@ -114,6 +114,11 @@ namespace Wypozyczalnia.View
             controller.ShowWarehouseView();
         }
 
+        private void ActionShowOrderView(object sender, EventArgs e)
+        {
+            controller.ShowOrdersView();
+        }
+
         private void ActionClose(object sender, FormClosingEventArgs e)
         {
             if (!controller.IsClosing)

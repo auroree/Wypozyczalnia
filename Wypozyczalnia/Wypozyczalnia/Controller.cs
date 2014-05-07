@@ -24,6 +24,7 @@ namespace Wypozyczalnia
         private ClientsView clients;
         private EmployeesView employees;
         private WarehouseView warehouse;
+        private OrdersView orders;
         // referencja do aktywnego obiektu
         private BaseView activeView;
         // informacja czy aplikacja ma zostac zamknieta
@@ -38,6 +39,7 @@ namespace Wypozyczalnia
         private QueriesClient queriesClient;
         private QueriesEmployee queriesEmployee;
         private QueriesWarehouse queriesWarehouse;
+        private QueriesOrder queriesOrder;
 
         public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
         {
@@ -49,15 +51,18 @@ namespace Wypozyczalnia
             // zainicjalizowanie pozostalych okienek
             employees = new EmployeesView();
             warehouse = new WarehouseView();
+            orders = new OrdersView();
             clients.SetController(this);
             employees.SetController(this);
             warehouse.SetController(this);
+            orders.SetController(this);
             IsClosing = false;
 
             // inicjalizacja obiektow dbContext
             queriesClient = new QueriesClient(dbContext);
             queriesEmployee = new QueriesEmployee(dbContext);
             queriesWarehouse = new QueriesWarehouse(dbContext);
+            queriesOrder = new QueriesOrder(dbContext);
 
             // inicjalizacja DialogResult
             dr = DialogResult.None;
@@ -134,6 +139,19 @@ namespace Wypozyczalnia
                 UpdateDBStatus();
             }
         }
+
+        public void ShowOrdersView()
+        {
+            if (activeView != orders)
+            {
+                activeView.Hide();
+                orders.CopyWindowState(activeView);
+                activeView = orders;
+                orders.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+        }
         #endregion
 
         // --- --- --- --- --- OBSLUGA BD --- --- --- --- --- // 
@@ -197,16 +215,21 @@ namespace Wypozyczalnia
                 {
                     activeView.DataTable = queriesWarehouse.SelectAll();
                 }
+                else if (activeView == orders)
+                {
+                    activeView.DataTable = queriesOrder.SelectAll();
+                }
 
                 activeView.SetColumns();
             }
             catch (SqlException ex)
             {
                 MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+                //MessageBox.Show(ex.Message.ToString(), "błąd");
                 activeView.ClearTable();
             }
         }
- 
+
         /// <summary>
         /// Sprawdza czy ostatni formularz zwrocil OK, jesli tak, odswieza dane w tabeli 
         /// </summary>
@@ -290,7 +313,6 @@ namespace Wypozyczalnia
         }
 
         #endregion
-
         // --- --- --- --- --- PRACOWNIK --- --- --- --- --- // 
         #region Pracownik
         // --- FORMULARZE
@@ -404,6 +426,53 @@ namespace Wypozyczalnia
                 activeView.DataTable = queriesWarehouse.SelectAll();
             }
             activeView.SetColumns();
+        }
+        #endregion
+
+        // --- --- --- --- --- ZAMÓWIENIE --- --- --- --- --- //
+        #region Zamówienie
+
+        // --- FORMULARZE
+
+        public void ShowOrderAddForm()
+        {
+            OrderForm form = new OrderForm();
+            OrderFormController formController = new OrderFormController(form, Operation.Add);
+            formController.Queries = queriesOrder;
+            dr = form.ShowDialog();
+            ReloadIfFormReturnedOK();
+        }
+
+        public void ShowOrderEditForm()
+        {
+            try
+            {
+                Zamówienie order = orders.GetActiveElement();
+                OrderForm form = new OrderForm(order);
+                OrderFormController formController = new OrderFormController(form, Operation.Edit);
+                formController.Queries = queriesOrder;
+                dr = form.ShowDialog();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+            }
+        }
+
+        public void ShowOrderDeleteForm()
+        {
+            try
+            {
+                Zamówienie order = orders.GetActiveElement();
+                OrderForm form = new OrderForm(order);
+                OrderFormController formController = new OrderFormController(form, Operation.Delete);
+                formController.Queries = queriesOrder;
+                form.ShowDialog();
+                SelectAllAtActiveWindow();
+            }
+            catch (NullReferenceException ex)
+            {
+            }
         }
         #endregion
     }
