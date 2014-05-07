@@ -57,7 +57,7 @@ namespace Wypozyczalnia
                 Zamówienie order = new Zamówienie
                 {
                     Data_zamówienia = Convert.ToDateTime(form.TextBox2),
-                    Data_odbioru = Convert.ToDateTime(form.TextBox3)
+                    Data_odbioru = form.TextBox3.Length > 0 ? Convert.ToDateTime(form.TextBox3) : (DateTime?)null
                 };
                 qo.Insert(order);
                 form.DialogResult = DialogResult.OK;
@@ -86,7 +86,7 @@ namespace Wypozyczalnia
                 Zamówienie order = new Zamówienie
                 {
                     Data_zamówienia = Convert.ToDateTime(form.TextBox2),
-                    Data_odbioru = Convert.ToDateTime(form.TextBox3),
+                    Data_odbioru = form.TextBox3.Length > 0 ? Convert.ToDateTime(form.TextBox3) : (DateTime?)null,
                     Zamówienie_ID = Convert.ToInt32(form.TextBox1)
                 };
                 qo.Edit(order);
@@ -115,7 +115,7 @@ namespace Wypozyczalnia
                 Zamówienie order = new Zamówienie
                 {
                     Data_zamówienia = Convert.ToDateTime(form.TextBox2),
-                    Data_odbioru = Convert.ToDateTime(form.TextBox3),
+                    Data_odbioru = form.TextBox3.Length > 0 ? Convert.ToDateTime(form.TextBox3) : (DateTime?)null,
                     Zamówienie_ID = Convert.ToInt32(form.TextBox1)
                 };
                 qo.Delete(order);
@@ -134,8 +134,8 @@ namespace Wypozyczalnia
 
         private void IsDataCorrect()
         {
-            string message = "Pole nie może być puste.";
-            if ((form.TextBox2.Length < 1) || (form.TextBox3.Length < 1))
+            string message = "Pole \"Data zamówienia\" nie może być puste.";
+            if (form.TextBox2.Length < 1)
             {
                 throw new DataIncorrect(message);
             }

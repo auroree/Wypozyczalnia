@@ -53,7 +53,7 @@ namespace Wypozyczalnia.View
                 return new Zamówienie()
                 {
                     Data_zamówienia = Convert.ToDateTime(dataGridView1[0, index].Value),
-                    Data_odbioru = Convert.ToDateTime(dataGridView1[1, index].Value),
+                    Data_odbioru = dataGridView1[1, index].Value.ToString().Length > 0 ? Convert.ToDateTime(dataGridView1[1, index].Value) : (DateTime?)null,
                     Zamówienie_ID = Convert.ToInt32(dataGridView1[2, index].Value)
                 };
             }

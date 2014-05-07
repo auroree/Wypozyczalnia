@@ -40,7 +40,7 @@ namespace Wypozyczalnia.Database
         {
             var record = db.Zamówienies.Single(order => order.Zamówienie_ID == o.Zamówienie_ID);
             record.Data_zamówienia = o.Data_zamówienia;
-            record.Data_odbioru = o.Data_zamówienia;
+            record.Data_odbioru = o.Data_odbioru;
             db.SubmitChanges();
         }
 
