@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Wypozyczalnia.Database;
+using Wypozyczalnia.FormController;
 using Wypozyczalnia.View;
 
 namespace Wypozyczalnia
@@ -453,6 +454,62 @@ namespace Wypozyczalnia
             form.DataTable = queriesReservation.SelectReservationEmployee(id);
             form.SetColumns();
             dr = form.ShowDialog();
+        }
+
+        public void ShowReservationEditForm()
+        {
+            try
+            {
+                Rezerwacja reservation = reservations.GetActiveElement();
+                ReservationForm form = new ReservationForm(reservation);
+                ReservationFormController formController = new ReservationFormController(form, Operation.Edit);
+                formController.Queries = queriesReservation;
+
+                form.AddedClientDataTable = queriesReservation.SelectSingleClient((int)reservation.Rezerwacja_ID);
+                form.AddedShipDataTable = queriesReservation.SelectSingleShip((int)reservation.Rezerwacja_ID);
+                form.AddedEmployeesDataTable = queriesReservation.SelectReservationEmployee((int)reservation.Rezerwacja_ID);
+
+                form.ClientsDataTable = queriesReservation.SelectAllWithoutSingle((int)reservation.Rezerwacja_ID);
+                form.EmployeesDataTable = queriesReservation.SelectEmployeesByDate(reservation.Data_wypożyczenia, reservation.Data_zwrotu);
+                form.ShipsDataTable = queriesReservation.SelectShipsByDate(reservation.Data_wypożyczenia, reservation.Data_zwrotu);
+
+                form.SetColumns();
+                dr = form.ShowDialog();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+            }
+        }
+
+        public void ShowReservationAddForm()
+        {
+            try
+            {
+                ReservationForm form = new ReservationForm();
+                ReservationFormController formController = new ReservationFormController(form, Operation.Add);
+                formController.Queries = queriesReservation;
+
+                form.ClientsDataTable = queriesClient.SelectAll();
+                form.AddedClientDataTable = form.ClientsDataTable.Clone();
+
+                form.SetColumns();
+                dr = form.ShowDialog();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+            }
         }
 
         // --- FILTRY
