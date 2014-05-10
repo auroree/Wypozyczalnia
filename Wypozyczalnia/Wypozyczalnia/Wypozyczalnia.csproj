@@ -57,10 +57,12 @@
     <Compile Include="Database\Extensions.cs" />
     <Compile Include="Database\QueriesClient.cs" />
     <Compile Include="Database\QueriesEmployee.cs" />
+    <Compile Include="Database\QueriesOrder.cs" />
     <Compile Include="Database\QueriesWarehouse.cs" />
     <Compile Include="DataIncorrect.cs" />
     <Compile Include="FormController\EmployeeFormController.cs" />
     <Compile Include="FormController\WarehouseFormController.cs" />
+    <Compile Include="FormController\OrderFormController.cs" />
     <Compile Include="View\DatabaseSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +122,17 @@
     </Compile>
     <Compile Include="View\WarehouseForm.Designer.cs">
       <DependentUpon>WarehouseForm.cs</DependentUpon>
+    <Compile Include="View\OrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OrderForm.Designer.cs">
+      <DependentUpon>OrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OrdersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OrdersView.Designer.cs">
+      <DependentUpon>OrdersView.cs</DependentUpon>
     </Compile>
     <Compile Include="View\WarehouseView.cs">
       <SubType>Form</SubType>
@@ -168,6 +181,11 @@
     </Compile>
     <EmbeddedResource Include="View\WarehouseForm.resx">
       <DependentUpon>WarehouseForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\OrderForm.resx">
+      <DependentUpon>OrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OrdersView.resx">
+      <DependentUpon>OrdersView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\WarehouseView.resx">
       <DependentUpon>WarehouseView.cs</DependentUpon>
