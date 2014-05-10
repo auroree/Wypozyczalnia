@@ -23,6 +23,37 @@ namespace Wypozyczalnia.View
             return CurrentId;
         }
 
+        /// <summary>
+        /// Pobranie z tabeli danych i utworzenie niepelnego obiektu Rezerwacja
+        /// </summary>
+        /// <returns></returns>
+        public Rezerwacja GetActiveElement()
+        {
+            try
+            {
+                DateTime? Date;
+                int index = dataGridView1.CurrentRow.Index;
+                if (!String.IsNullOrEmpty(dataGridView1[6, index].Value.ToString()))
+                {
+                    Date = Convert.ToDateTime(dataGridView1[6, index].Value);
+                }
+                else
+                {
+                    Date = null;
+                }
+                return new Rezerwacja()
+                {
+                    Rezerwacja_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                    Data_wypożyczenia = Convert.ToDateTime(dataGridView1[5, index].Value),
+                    Data_zwrotu = Date
+                };
+            }
+            catch (FormatException ex)
+            {
+                return null;
+            }
+        }
+
         public override void SetColumnsWidth()
         {
             try
@@ -50,12 +81,12 @@ namespace Wypozyczalnia.View
 
         private void ActionAdd(object sender, EventArgs e)
         {
-
+            controller.ShowReservationAddForm();
         }
 
         private void ActionEdit(object sender, EventArgs e)
         {
-
+            controller.ShowReservationEditForm();
         }
 
         private void ActionDelete(object sender, EventArgs e)

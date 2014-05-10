@@ -61,6 +61,7 @@
     <Compile Include="Database\QueriesWarehouse.cs" />
     <Compile Include="DataIncorrect.cs" />
     <Compile Include="FormController\EmployeeFormController.cs" />
+    <Compile Include="FormController\ReservationFormController.cs" />
     <Compile Include="View\DatabaseSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
