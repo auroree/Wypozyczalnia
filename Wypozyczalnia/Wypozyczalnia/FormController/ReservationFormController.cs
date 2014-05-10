@@ -187,7 +187,7 @@ namespace Wypozyczalnia.FormController
                 IsDataCorrect();
                 // LINQ
                 DateTime? Date;
-                if (form.TextBox2.Length >= 0)
+                if (form.TextBox2.Length > 0)
                 {
                     Date = Convert.ToDateTime(form.TextBox2);
                 }
@@ -243,7 +243,7 @@ namespace Wypozyczalnia.FormController
                 IsDataCorrect();
                 // LINQ
                 DateTime? Date;
-                if (form.TextBox2.Length >= 0)
+                if (form.TextBox2.Length > 0)
                 {
                     Date = Convert.ToDateTime(form.TextBox2);
                 }
