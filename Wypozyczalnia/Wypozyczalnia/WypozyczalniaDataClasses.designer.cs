@@ -1121,6 +1121,8 @@ namespace Wypozyczalnia
 		
 		private decimal _Funkcja_Funkcja_ID;
 		
+		//private string _Miejsce_urodzenia2;
+		
 		private EntitySet<jest_serwisowany> _jest_serwisowanies;
 		
 		private EntitySet<pilotuje> _pilotujes;
@@ -1145,6 +1147,9 @@ namespace Wypozyczalnia
     partial void OnPracownik_IDChanged();
     partial void OnFunkcja_Funkcja_IDChanging(decimal value);
     partial void OnFunkcja_Funkcja_IDChanged();
+    //partial void OnMiejsce_urodzenia2Changing(string value);
+    //partial void OnMiejsce_urodzenia2Changed();
+
     #endregion
 		
 		public Pracownik()
@@ -1298,6 +1303,26 @@ namespace Wypozyczalnia
 				}
 			}
 		}
+		
+		/*[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Miejsce_urodzenia2", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Miejsce_urodzenia2
+		{
+			get
+			{
+				return this._Miejsce_urodzenia2;
+			}
+			set
+			{
+				if ((this._Miejsce_urodzenia2 != value))
+				{
+					this.OnMiejsce_urodzenia2Changing(value);
+					this.SendPropertyChanging();
+					this._Miejsce_urodzenia2 = value;
+					this.SendPropertyChanged("Miejsce_urodzenia2");
+					this.OnMiejsce_urodzenia2Changed();
+				}
+			}
+		}*/
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Pracownik_jest_serwisowany", Storage="_jest_serwisowanies", ThisKey="Pracownik_ID", OtherKey="Pracownik_Pracownik_ID")]
 		public EntitySet<jest_serwisowany> jest_serwisowanies

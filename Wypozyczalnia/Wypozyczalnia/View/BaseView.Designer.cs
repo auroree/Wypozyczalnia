@@ -136,6 +136,7 @@
             this.rezerwacjeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D4)));
             this.rezerwacjeToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.rezerwacjeToolStripMenuItem.Text = "Rezerwacje";
+            this.rezerwacjeToolStripMenuItem.Click += new System.EventHandler(this.ActionShowReservationsView);
             // 
             // warehouseCzęściToolStripMenuItem
             // 

@@ -63,6 +63,11 @@
     <Compile Include="FormController\EmployeeFormController.cs" />
     <Compile Include="FormController\WarehouseFormController.cs" />
     <Compile Include="FormController\OrderFormController.cs" />
+    <Compile Include="Database\QueriesReservation.cs" />
+    <Compile Include="Database\QueriesWarehouse.cs" />
+    <Compile Include="DataIncorrect.cs" />
+    <Compile Include="FormController\EmployeeFormController.cs" />
+    <Compile Include="FormController\ReservationFormController.cs" />
     <Compile Include="View\DatabaseSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +138,23 @@
     </Compile>
     <Compile Include="View\OrdersView.Designer.cs">
       <DependentUpon>OrdersView.cs</DependentUpon>
+    <Compile Include="View\ReservationEmployeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ReservationEmployeesForm.Designer.cs">
+      <DependentUpon>ReservationEmployeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ReservationForm.Designer.cs">
+      <DependentUpon>ReservationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReservationsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ReservationsView.Designer.cs">
+      <DependentUpon>ReservationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="View\WarehouseView.cs">
       <SubType>Form</SubType>
@@ -186,6 +208,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\OrdersView.resx">
       <DependentUpon>OrdersView.cs</DependentUpon>
+    <EmbeddedResource Include="View\ReservationEmployeesForm.resx">
+      <DependentUpon>ReservationEmployeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ReservationForm.resx">
+      <DependentUpon>ReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ReservationsView.resx">
+      <DependentUpon>ReservationsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\WarehouseView.resx">
       <DependentUpon>WarehouseView.cs</DependentUpon>
