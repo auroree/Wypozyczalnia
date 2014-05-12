@@ -9,6 +9,5 @@ namespace Wypozyczalnia
         void Add();
         void Edit();
         void Delete();
-        void SetConnection(DatabaseConnection dc);
     }
 }

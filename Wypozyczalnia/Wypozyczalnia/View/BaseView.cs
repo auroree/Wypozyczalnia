@@ -30,7 +30,9 @@ namespace Wypozyczalnia.View
             return dataGridView1.CurrentRow.Index;
         }
 
-        // Nazwa bazy danych w pasku statusu
+        /// <summary>
+        /// Pobiera lub ustawia nazwe bazy danych w pasku statusu
+        /// </summary>
         public string DBStatus
         {
             get { return dbStatusLabel.Text; }
@@ -47,11 +49,18 @@ namespace Wypozyczalnia.View
             dataGridView1.DataSource = null;
         }
 
+        /// <summary>
+        /// Ustawia DataTable tablice, ktorej zawartosc ma byc wyswietlona
+        /// </summary>
         public DataTable DataTable
         {
             set { this.dataGridView1.DataSource = value; }
         }
 
+        /// <summary>
+        /// Kopiuje informacje o rozmiarze i stanie okna
+        /// </summary>
+        /// <param name="baseView"></param>
         public void CopyWindowState(BaseView baseView)
         {
 
@@ -67,7 +76,7 @@ namespace Wypozyczalnia.View
             }
         }
 
-        public void SetColumnNames()
+        public virtual void SetColumnNames()
         {
             DataGridViewColumnCollection columns = dataGridView1.Columns;
             foreach (DataGridViewColumn column in columns)
@@ -81,6 +90,9 @@ namespace Wypozyczalnia.View
 
         }
 
+        /// <summary>
+        /// Ustawia nazwy i szerokosci kolumn
+        /// </summary>
         public void SetColumns()
         {
             SetColumnNames();
@@ -95,6 +107,11 @@ namespace Wypozyczalnia.View
         private void ActionShowEmployeesView(object sender, EventArgs e)
         {
             controller.ShowEmployeesView();
+        }
+
+        private void ActionShowWarehouseView(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseView();
         }
 
         private void ActionClose(object sender, FormClosingEventArgs e)

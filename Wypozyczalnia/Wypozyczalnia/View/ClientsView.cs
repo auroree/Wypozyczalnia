@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Wypozyczalnia.Model;
 
 namespace Wypozyczalnia.View
 {
@@ -19,18 +18,23 @@ namespace Wypozyczalnia.View
             InitializeComponent();
         }
 
-        // Pobranie z tabeli danych i utworzenie obiektu Client
-        public Client GetActiveElement()
+        /// <summary>
+        /// Pobranie z tabeli danych i utworzenie obiektu Klient
+        /// </summary>
+        /// <returns></returns>
+        public Klient GetActiveElement()
         {
             try
             {
                 int index = dataGridView1.CurrentRow.Index;
 
-                return new Client(
-                    Convert.ToInt32(dataGridView1[0, index].Value),
-                    dataGridView1[1, index].Value.ToString(),
-                    dataGridView1[2, index].Value.ToString(),
-                    dataGridView1[3, index].Value.ToString());
+                return new Klient()
+                {
+                    Klient_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                    Imię = dataGridView1[1, index].Value.ToString(),
+                    Nazwisko = dataGridView1[2, index].Value.ToString(),
+                    Nr_dowodu = dataGridView1[3, index].Value.ToString()
+                };
             }
             catch (FormatException ex)
             {
@@ -38,7 +42,9 @@ namespace Wypozyczalnia.View
             }
         }
 
-        // Ustawienie szerokosci kolumn oraz naglowkow
+        /// <summary>
+        /// Ustawienie szerokosci kolumn oraz naglowkow
+        /// </summary>
         public override void SetColumnsWidth()
         {
             try
@@ -52,7 +58,7 @@ namespace Wypozyczalnia.View
             catch (ArgumentOutOfRangeException ex)
             {
 
-            }  
+            }
         }
 
         public string FilterSurname
