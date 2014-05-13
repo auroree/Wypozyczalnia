@@ -254,7 +254,8 @@ namespace Wypozyczalnia
                 else if (activeView == orders)
                 {
                     activeView.DataTable = queriesOrder.SelectAll();
-					
+                }
+
                 else if (activeView == reservations)
                 {
                     activeView.DataTable = queriesReservation.SelectAll();
