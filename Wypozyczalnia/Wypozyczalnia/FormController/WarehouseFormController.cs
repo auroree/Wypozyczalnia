@@ -63,15 +63,17 @@ namespace Wypozyczalnia.FormController
                 Część part = new Część
                 {
                     Nazwa = form.TextBox2,
-                    Zamówienie_Zamówienie_ID = Convert.ToInt32(form.TextBox3),
+                   // Zamówienie_Zamówienie_ID = Convert.ToInt32(form.TextBox3),
+                    Zamówienie = query.GetZamowienie(Convert.ToInt32(form.TextBox3)),
                     Cena = Convert.ToSingle(form.TextBox4),
-                    Statek_Statek_ID = Convert.ToInt32(form.TextBox5),
+                  //  Statek_Statek_ID = Convert.ToInt32(form.TextBox5),
+                    Statek = query.GetStatek(Convert.ToInt32(form.TextBox5)),
                    // Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
-                    //Status_części = query.GetStatus(form.ComboBox1)
-                    Status_części = new Status_części()
-                    {
-                        Status = form.ComboBox1
-                    }
+                    Status_części = query.GetStatus(form.ComboBox1)
+                    //Status_części = new Status_części()
+                    //{
+                    //    Status = form.ComboBox1
+                    //}
                 };
                 query.Insert(part);
                 // zamkniecie formularza
@@ -89,7 +91,7 @@ namespace Wypozyczalnia.FormController
             catch (SqlException ex)
             {
                 //nie udalo sie polaczyc/bledna skladnia zapytania/bledne dane w zapytaniu/?
-                MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+                MessageBox.Show(ex.ToString(), "Błąd komunikacji z bazą danych");
             }
         }
 

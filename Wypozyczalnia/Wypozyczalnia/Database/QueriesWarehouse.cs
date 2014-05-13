@@ -27,6 +27,18 @@ namespace Wypozyczalnia.Database
             return s;
         }
 
+        public Statek GetStatek(int statekID)
+        {
+            var s = db.Stateks.Single(statek => statek.Statek_ID == statekID);
+            return s;
+        }
+
+        public Zamówienie GetZamowienie(int orderID)
+        {
+            var s = db.Zamówienies.Single(order => order.Zamówienie_ID == orderID);
+            return s;
+        }
+
         public List<string> GetAllStatuses()
         {
             IEnumerable<Status_części> table = db.Status_częścis.ToList();
