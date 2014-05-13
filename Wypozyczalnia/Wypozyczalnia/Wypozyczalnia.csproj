@@ -35,7 +35,8 @@
     <ApplicationIcon>death star.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -124,7 +125,7 @@
     </Compile>
     <Compile Include="View\WarehouseForm.Designer.cs">
       <DependentUpon>WarehouseForm.cs</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="View\OrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,7 +137,7 @@
     </Compile>
     <Compile Include="View\OrdersView.Designer.cs">
       <DependentUpon>OrdersView.cs</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="View\ReservationEmployeesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,13 +203,13 @@
     </Compile>
     <EmbeddedResource Include="View\WarehouseForm.resx">
       <DependentUpon>WarehouseForm.cs</DependentUpon>
-	</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\OrderForm.resx">
       <DependentUpon>OrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\OrdersView.resx">
       <DependentUpon>OrdersView.cs</DependentUpon>
-	</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ReservationEmployeesForm.resx">
       <DependentUpon>ReservationEmployeesForm.cs</DependentUpon>
     </EmbeddedResource>
