@@ -74,6 +74,7 @@ namespace Wypozyczalnia
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
             }
+
             catch (DataIncorrect ex)
             {
                 MessageBox.Show(ex.Message, "Błąd");
