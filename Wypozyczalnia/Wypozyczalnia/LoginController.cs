@@ -21,9 +21,9 @@ namespace Wypozyczalnia
 
         public void Login()
         {
-            WypozyczalniaDataClassesDataContext dbContext = new WypozyczalniaDataClassesDataContext(
-                //"Data Source=HANIA-LAPTOP\\SQLEXPRESS;Initial Catalog=Test2;User ID=sa;Password=Admin1");
-                DatabaseSettings.CreateConnectionString(form.UserName, form.Password));
+            WypozyczalniaDataClassesDataContext dbContext = new WypozyczalniaDataClassesDataContext("Data Source=(LocalDB)\\v11.0;AttachDbFilename=C:\\Users\\Paweł\\Documents\\GitHub\\Wypozyczalnia\\Wypozyczalnia\\myDB.mdf;Integrated Security=True;Connect Timeout=30");
+            //"Data Source=HANIA-LAPTOP\\SQLEXPRESS;Initial Catalog=Test2;User ID=sa;Password=Admin1");
+            // DatabaseSettings.CreateConnectionString(form.UserName, form.Password));
             DatabaseSettings.Save(form.UserName);
 
             BaseView initForm = new ClientsView();
