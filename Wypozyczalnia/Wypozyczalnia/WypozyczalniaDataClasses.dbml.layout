@@ -45,13 +45,13 @@
         <classShapeMoniker Id="cef099d3-0562-4ae4-a482-559d01592683" />
       </nodes>
     </associationConnector>
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
     <associationConnector edgePoints="[(7 : 3.72199625651042); (6.125 : 3.72199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Pracownik/Pracownik_pilotuje" />
-=======
+      <!--=======
     <associationConnector edgePoints="[(1.5 : 4.75); (1.5 : 4.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Funkcja/Funkcja_Pracownik" />
->>>>>>> kopia
+>>>>>>> kopia-->
       <nodes>
         <classShapeMoniker Id="3976aaf7-daf4-45ee-8722-268f9e10e1ce" />
         <classShapeMoniker Id="68031ee9-d999-466e-b511-31dfae38a381" />
@@ -77,11 +77,11 @@
         <classShapeMoniker Id="68031ee9-d999-466e-b511-31dfae38a381" />
       </nodes>
     </associationConnector>
-<<<<<<< HEAD
+    <!--<<<<<<< HEAD-->
     <associationConnector edgePoints="[(2.75 : 4.89949788411458); (3.76041666666667 : 4.89949788411458 : JumpStart); (3.92708333333333 : 4.89949788411458 : JumpEnd); (5 : 4.89949788411458); (5 : 4.39589680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-=======
+<!--=======
     <associationConnector edgePoints="[(4.4375 : 4.125); (4.4375 : 3.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia
+>>>>>>> kopia-->
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Klient/Klient_Rezerwacja" />
       <nodes>
         <classShapeMoniker Id="8d37c99f-5e6b-435d-ba16-8524f9080572" />
@@ -101,22 +101,22 @@
         <classShapeMoniker Id="c06eae44-2608-4b1d-b0ac-83250398db88" />
       </nodes>
     </associationConnector>
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
     <associationConnector edgePoints="[(3.625 : 4.24644603320312); (3.76041666666667 : 4.24644603320312 : JumpStart); (3.92708333333333 : 4.24644603320312 : JumpEnd); (3.9375 : 4.24644603320312); (3.9375 : 2.5625); (6.718748 : 2.5625); (6.718748 : 1.94399251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-=======
+      <!--=======
     <associationConnector edgePoints="[(1.65625 : 2); (1.65625 : 0.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia
+>>>>>>> kopia-->
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Statek/Statek_jest_serwisowany" />
       <nodes>
         <classShapeMoniker Id="077e79e5-7b62-469c-bc9e-c773f3029ba8" />
         <classShapeMoniker Id="cef099d3-0562-4ae4-a482-559d01592683" />
       </nodes>
     </associationConnector>
-<<<<<<< HEAD
+    <!--<<<<<<< HEAD-->
     <associationConnector edgePoints="[(3.625 : 3.19272420247396); (3.76041666666667 : 3.19272420247396 : JumpStart); (3.92708333333333 : 3.19272420247396 : JumpEnd); (4 : 3.19272420247396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-=======
+      <!--=======
     <associationConnector edgePoints="[(2.875 : 2.3687525); (5 : 2.3687525); (5 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia
+>>>>>>> kopia-->
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Statek/Statek_Rezerwacja" />
       <nodes>
         <classShapeMoniker Id="077e79e5-7b62-469c-bc9e-c773f3029ba8" />
@@ -142,11 +142,11 @@
         <elementListCompartment Id="495072f7-618a-4d0e-91b7-eaa769171ebc" absoluteBounds="4.89, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
     <associationConnector edgePoints="[(5.625 : 1.69399251302083); (5.625 : 2.5); (3.92708333333333 : 2.5 : JumpStart); (3.76041666666667 : 2.5 : JumpEnd); (3.6875 : 2.5); (3.6875 : 3.95296864485677); (3.625 : 3.95296864485677)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-=======
+<!--=======
     <associationConnector edgePoints="[(4.1875 : 0.95); (4.1875 : 2.0812475); (2.875 : 2.0812475)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia
+>>>>>>> kopia-->
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Typ_statku/Typ_statku_Statek" />
       <nodes>
         <classShapeMoniker Id="7ee031c2-1dd3-4ef7-9928-1ce5fbe310b4" />

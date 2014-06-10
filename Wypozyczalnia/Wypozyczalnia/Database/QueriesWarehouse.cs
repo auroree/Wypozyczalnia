@@ -56,8 +56,9 @@ namespace Wypozyczalnia.Database
                         orderby cz.Nazwa ascending
                         select new
                         {
+                            cz.Część_ID,
                             cz.Nazwa,
-                            cz.Status_części_Status_części_ID,
+                            cz.Status_części.Status,
                             cz.Zamówienie_Zamówienie_ID,
                             cz.Cena,
                             cz.Statek_Statek_ID
@@ -73,8 +74,9 @@ namespace Wypozyczalnia.Database
                         where cz.Nazwa == name
                         select new
                         {
+                            cz.Część_ID,
                             cz.Nazwa,
-                            cz.Status_części_Status_części_ID,
+                            cz.Status_części.Status,
                             cz.Zamówienie_Zamówienie_ID,
                             cz.Cena,
                             cz.Statek_Statek_ID
@@ -90,11 +92,12 @@ namespace Wypozyczalnia.Database
                         where cz.Status_części.Status == status
                         select new
                         {
+                            cz.Część_ID,
                             cz.Nazwa,
+                            cz.Status_części.Status,
                             cz.Zamówienie_Zamówienie_ID,
                             cz.Cena,
-                            cz.Statek_Statek_ID,
-                            cz.Status_części,                     
+                            cz.Statek_Statek_ID,                    
                         };
             DataTable dt = Extensions.ToDataTable(query);
             return dt;
@@ -113,7 +116,7 @@ namespace Wypozyczalnia.Database
             record.Zamówienie_Zamówienie_ID = e.Zamówienie_Zamówienie_ID;
             record.Cena = e.Cena;
             record.Statek_Statek_ID = e.Statek_Statek_ID;
-            record.Status_części = e.Status_części;
+            record.Status_części_Status_części_ID = e.Status_części_Status_części_ID;
             db.SubmitChanges();
         }
 

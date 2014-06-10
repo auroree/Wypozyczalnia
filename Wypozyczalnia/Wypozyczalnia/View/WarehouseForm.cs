@@ -12,6 +12,9 @@ namespace Wypozyczalnia.View
 {
     public partial class WarehouseForm : BaseForm
     {
+        private Część czesc;
+        public Część Czesc { get { return czesc; } }
+
         public WarehouseForm()
         {
             InitializeComponent();
@@ -27,7 +30,7 @@ namespace Wypozyczalnia.View
         {
             InitializeComponent();
 
-            textBox1.Text = "" + part.Część_ID;
+            textBox1.Text = part.Część_ID.ToString();
             textBox2.Text = part.Nazwa;
             textBox3.Text = part.Zamówienie_Zamówienie_ID.ToString();
             textBox4.Text = part.Cena.ToString();

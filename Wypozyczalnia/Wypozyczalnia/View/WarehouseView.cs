@@ -47,11 +47,12 @@ namespace Wypozyczalnia.View
             try
             {
                 double width = dataGridView1.Width - 20;
-                dataGridView1.Columns[0].Width = (int)(0.3 * width);
+                dataGridView1.Columns[0].Width = (int)(0.2 * width); 
                 dataGridView1.Columns[1].Width = (int)(0.2 * width);
-                dataGridView1.Columns[2].Width = (int)(0.1 * width);
-                dataGridView1.Columns[3].Width = (int)(0.2 * width);
-                dataGridView1.Columns[4].Width = (int)(0.2 * width); 
+                dataGridView1.Columns[2].Width = (int)(0.2 * width);
+                dataGridView1.Columns[3].Width = (int)(0.1 * width);
+                dataGridView1.Columns[4].Width = (int)(0.1 * width);
+                dataGridView1.Columns[5].Width = (int)(0.2 * width);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -79,12 +80,15 @@ namespace Wypozyczalnia.View
 
                 return new Część()
                 {
-                    Nazwa = dataGridView1[0, index].Value.ToString(),
-                    Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[2, index].Value),                  
-                    Cena = Convert.ToSingle(dataGridView1[3, index].Value.ToString()),
-                    Statek_Statek_ID = Convert.ToInt32(dataGridView1[4, index]),
+                    Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                    Nazwa = dataGridView1[1, index].Value.ToString(),
+                    Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),                  
+                    Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
+                    Statek_Statek_ID = Convert.ToInt32(dataGridView1[5, index].Value),
                     Status_części = new Status_części() {
-                        Status = dataGridView1[1, index].Value.ToString(),
+                       // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                       // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                        Status = dataGridView1[2, index].Value.ToString()
                     }
                 };
             }

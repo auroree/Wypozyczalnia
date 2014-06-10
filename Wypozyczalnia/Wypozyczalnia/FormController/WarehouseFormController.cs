@@ -66,7 +66,7 @@ namespace Wypozyczalnia.FormController
                     Zamówienie = query.GetZamowienie(Convert.ToInt32(form.TextBox3)),
                     Cena = Convert.ToSingle(form.TextBox4),
                     Statek = query.GetStatek(Convert.ToInt32(form.TextBox5)),
-                    Status_części = query.GetStatus(form.ComboBox1)
+                    Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
                 };
                 query.Insert(part);
                 // zamkniecie formularza
@@ -98,11 +98,12 @@ namespace Wypozyczalnia.FormController
                 // LINQ
                 Część part = new Część
                 {
+                    Część_ID = Convert.ToInt32(form.TextBox1),
                     Nazwa = form.TextBox2,
+                    Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID,
                     Zamówienie_Zamówienie_ID = Convert.ToInt32(form.TextBox3),
                     Cena = Convert.ToSingle(form.TextBox4),
-                    Statek_Statek_ID = Convert.ToInt32(form.TextBox5),
-                    Status_części = query.GetStatus(form.ComboBox1)
+                    Statek_Statek_ID = Convert.ToInt32(form.TextBox5)              
                 };
                 query.Edit(part);
                 // zamkniecie formularza
@@ -132,11 +133,13 @@ namespace Wypozyczalnia.FormController
                 // LINQ
                 Część part = new Część
                 {
+                    Część_ID = Convert.ToInt32(form.TextBox1),
                     Nazwa = form.TextBox2,
+                    Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID,
                     Zamówienie_Zamówienie_ID = Convert.ToInt32(form.TextBox3),
                     Cena = Convert.ToSingle(form.TextBox4),
-                    Statek_Statek_ID = Convert.ToInt32(form.TextBox5),
-                    Status_części = query.GetStatus(form.ComboBox1)
+                    Statek_Statek_ID = Convert.ToInt32(form.TextBox5)
+                    
                 };
                 query.Delete(part);
                 // zakmniecie formularza

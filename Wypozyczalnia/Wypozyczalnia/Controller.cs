@@ -470,19 +470,28 @@ namespace Wypozyczalnia
 
         public void ShowWarehouseDeleteForm()
         {
-            try
+            //try
+            //{
+            //    Część part = warehouse.GetActiveElement();
+            //    WarehouseForm form = new WarehouseForm(part, statuses);
+            //    WarehouseFormController formController = new WarehouseFormController(form, Operation.Delete);
+            //    formController.Queries = queriesWarehouse;
+            //    form.ShowDialog();
+            //    // odswiezenie danych
+            //    SelectAllAtActiveWindow();
+            //}
+            //catch (NullReferenceException ex)
+            //{
+            //    MessageBox.Show("NullReferenceException");
+            //}
+            if (MessageBox.Show("Czy chcesz usunąć część?", "Wypożyczalnia",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Część part = warehouse.GetActiveElement();
-                WarehouseForm form = new WarehouseForm(part, statuses);
-                WarehouseFormController formController = new WarehouseFormController(form, Operation.Delete);
-                formController.Queries = queriesWarehouse;
-                form.ShowDialog();
-                // odswiezenie danych
-                SelectAllAtActiveWindow();
-            }
-            catch (NullReferenceException ex)
-            {
-
+                queriesWarehouse.Delete(part);
+                dr = DialogResult.OK;
+                ReloadIfFormReturnedOK();
+                // SelectAllAtActiveWindow();
             }
         }
 
