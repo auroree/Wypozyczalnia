@@ -158,10 +158,25 @@ namespace Wypozyczalnia.FormController
 
         private void IsDataCorrect()
         {
-            string message = "Pole nie może być puste.";
-            if ((form.TextBox2.Length <= 0) || (form.TextBox3.Length <= 0) || (form.ComboBox1.Length <= 0))
+            if ((form.ComboBox1 == "Zamontowana") || (form.ComboBox1 == "Zamówiona") || (form.ComboBox1 == "W magazynie") || (form.ComboBox1 == "Do zamówienia"))
             {
-                throw new DataIncorrect(message);
+                throw new DataIncorrect("Nie wybrano odpowiedniego statusu");
+            }
+            if ((form.ComboBox1 == "Zamontowana") && ((form.TextBox2.Length <= 0) || (form.TextBox3.Length <= 0) || (form.TextBox4.Length <= 0) || (form.TextBox5.Length <= 0)))
+            {
+                throw new DataIncorrect("Muszą być wypełnione wszystkie pola");
+            }
+            if ((form.ComboBox1 == "Zamówiona") && ((form.TextBox2.Length <= 0) || (form.TextBox3.Length <= 0) || (form.TextBox4.Length <= 0)))
+            {
+                throw new DataIncorrect("Tylko ID statku może nie być wypełnione");
+            }
+            if ((form.ComboBox1 == "W magazynie") && ((form.TextBox2.Length <= 0) || (form.TextBox3.Length <= 0) || (form.TextBox4.Length <= 0)))
+            {
+                throw new DataIncorrect("Tylko ID statku może nie być wypełnione");
+            }
+            if ((form.ComboBox1 == "Do zamówienia") && (form.TextBox2.Length <= 0))
+            {
+                throw new DataIncorrect("Nazwa musi być wypełniona");
             }
         }
         
