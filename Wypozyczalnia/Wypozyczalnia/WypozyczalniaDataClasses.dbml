@@ -6,7 +6,7 @@
       <Column Name="Cena" Type="System.Single" DbType="Real" CanBeNull="true" />
       <Column Name="Status_części_Status_części_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
       <Column Name="Statek_Statek_ID" Type="System.Decimal" DbType="Decimal(28,0)" CanBeNull="true" />
-      <Column Name="Zamówienie_Zamówienie_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Zamówienie_Zamówienie_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="true" />
       <Column Name="Część_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="Statek_Część" Member="Statek" ThisKey="Statek_Statek_ID" OtherKey="Statek_ID" Type="Statek" IsForeignKey="true" />
       <Association Name="Status_części_Część" Member="Status_części" ThisKey="Status_części_Status_części_ID" OtherKey="Status_części_ID" Type="Status_części" IsForeignKey="true" />

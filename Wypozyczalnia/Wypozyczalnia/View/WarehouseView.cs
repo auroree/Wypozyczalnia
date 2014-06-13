@@ -77,20 +77,60 @@ namespace Wypozyczalnia.View
             try
             {
                 int index = dataGridView1.CurrentRow.Index;
-
-                return new Część()
-                {
-                    Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
-                    Nazwa = dataGridView1[1, index].Value.ToString(),
-                    Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),                  
-                    Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
-                    Statek_Statek_ID = Convert.ToInt32(dataGridView1[5, index].Value),
-                    Status_części = new Status_części() {
-                       // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
-                       // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
-                        Status = dataGridView1[2, index].Value.ToString()
-                    }
-                };
+                if (dataGridView1[2, index].Value.ToString() == "Zamontowana")
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),                  
+                        Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
+                        Statek_Statek_ID = Convert.ToInt32(dataGridView1[5, index].Value),
+                        Status_części = new Status_części() {
+                           // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                           // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
+                else if (dataGridView1[2, index].Value.ToString() == "Zamówiona")
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),
+                        Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
+                        Status_części = new Status_części()
+                        {
+                            // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                            // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
+                else if (dataGridView1[2, index].Value.ToString() == "W magazynie")
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),
+                        Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
+                        Status_części = new Status_części()
+                        {
+                            // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                            // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
+                else 
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Status_części = new Status_części()
+                        {
+                            // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                            // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
             }
             catch (FormatException ex)
             {

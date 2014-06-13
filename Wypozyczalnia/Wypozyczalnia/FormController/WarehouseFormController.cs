@@ -60,14 +60,39 @@ namespace Wypozyczalnia.FormController
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
                 // LINQ
-                Część part = new Część
-                {
-                    Nazwa = form.TextBox2,
-                    Zamówienie = query.GetZamowienie(Convert.ToInt32(form.TextBox3)),
-                    Cena = Convert.ToSingle(form.TextBox4),
-                    Statek = query.GetStatek(Convert.ToInt32(form.TextBox5)),
-                    Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
-                };
+                Część part;
+
+                if (form.ComboBox1 == "Zamontowana")
+                    part = new Część
+                    {
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
+                        Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else if (form.ComboBox1 == "Zamówiona")
+                    part = new Część
+                    {
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4), Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else if (form.ComboBox1 == "W magazynie")
+                    part = new Część
+                    {
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else //Do zamowienia
+                    part = new Część
+                    {
+                        Nazwa = form.TextBox2,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
                 query.Insert(part);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK;
@@ -96,15 +121,44 @@ namespace Wypozyczalnia.FormController
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
                 // LINQ
-                Część part = new Część
-                {
-                    Część_ID = Convert.ToInt32(form.TextBox1),
-                    Nazwa = form.TextBox2,
-                    Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID,
-                    Zamówienie_Zamówienie_ID = Convert.ToInt32(form.TextBox3),
-                    Cena = Convert.ToSingle(form.TextBox4),
-                    Statek_Statek_ID = Convert.ToInt32(form.TextBox5)              
-                };
+                Część part;
+
+                if (form.ComboBox1 == "Zamontowana")
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
+                        Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else if (form.ComboBox1 == "Zamówiona")
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
+                        Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else if (form.ComboBox1 == "W magazynie")
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else //Do zamowienia
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
                 query.Edit(part);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK; ;
@@ -131,16 +185,45 @@ namespace Wypozyczalnia.FormController
             try
             {
                 // LINQ
-                Część part = new Część
-                {
-                    Część_ID = Convert.ToInt32(form.TextBox1),
-                    Nazwa = form.TextBox2,
-                    Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID,
-                    Zamówienie_Zamówienie_ID = Convert.ToInt32(form.TextBox3),
-                    Cena = Convert.ToSingle(form.TextBox4),
-                    Statek_Statek_ID = Convert.ToInt32(form.TextBox5)
-                    
-                };
+                Część part;
+
+                if (form.ComboBox1 == "Zamontowana")
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
+                        Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else if (form.ComboBox1 == "Zamówiona")
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
+                        Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else if (form.ComboBox1 == "W magazynie")
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
+                        Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
+                else //Do zamowienia
+                    part = new Część
+                    {
+                        Część_ID = Convert.ToInt32(form.TextBox1),
+                        Nazwa = form.TextBox2,
+                        Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
+                    };
                 query.Delete(part);
                 // zakmniecie formularza
                 form.DialogResult = DialogResult.OK;
@@ -158,7 +241,7 @@ namespace Wypozyczalnia.FormController
 
         private void IsDataCorrect()
         {
-            if ((form.ComboBox1 == "Zamontowana") || (form.ComboBox1 == "Zamówiona") || (form.ComboBox1 == "W magazynie") || (form.ComboBox1 == "Do zamówienia"))
+            if ((form.ComboBox1 != "Zamontowana") && (form.ComboBox1 != "Zamówiona") && (form.ComboBox1 != "W magazynie") && (form.ComboBox1 != "Do zamówienia"))
             {
                 throw new DataIncorrect("Nie wybrano odpowiedniego statusu");
             }
