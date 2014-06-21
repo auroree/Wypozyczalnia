@@ -30,7 +30,7 @@ namespace Wypozyczalnia.View
             String line;
             TreeNode subNode = new TreeNode();
 
-            System.IO.StreamReader file = new System.IO.StreamReader("help.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader("..\\..\\help.txt");
             while ((line = file.ReadLine()) != null)
             {
                 if (line.StartsWith("!m ")) {

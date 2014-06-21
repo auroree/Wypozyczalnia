@@ -1,0 +1,34 @@
+** !m - ga³êzie g³ówne
+** !mt - komentarz do ga³êzi g³ównej
+** !s - podga³êzie
+** !t - treœæ pomocy
+
+!m Okna widoku
+!mt Bardzo pomocny help
+!mt O oknach widoku
+
+!s Klienci
+!t O oknie Klienci
+!t wiecej o oknie Klienci
+!t jeszcze wiecej o oknie Klienciiiiii
+
+!s Statki
+!t Statki sa fajne
+!t O oknie Statki
+
+!s Lista zamowien
+!t .
+
+!s Pracownicy
+
+!s Rezerwacje
+
+!s Magazyn czesci
+
+!m Ogolne
+!mt Bardzo ogolnie fest
+
+!m O programie
+!mt Bardzo przyszlosciowy program
+
+
