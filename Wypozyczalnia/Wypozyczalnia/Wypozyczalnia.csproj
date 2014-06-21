@@ -113,6 +113,12 @@
     </Compile>
     <Compile Include="FormController\ClientFormController.cs" />
     <Compile Include="IFormController.cs" />
+    <Compile Include="View\HelpView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\HelpView.Designer.cs">
+      <DependentUpon>HelpView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\EmployeesView.resx">
       <DependentUpon>EmployeesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\HelpView.resx">
+      <DependentUpon>HelpView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

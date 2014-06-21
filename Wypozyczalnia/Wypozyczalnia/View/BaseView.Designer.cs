@@ -212,6 +212,7 @@
             this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
             this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.viewHelpToolStripMenuItem.Text = "Wyświetl pomoc";
+            this.viewHelpToolStripMenuItem.Click += new System.EventHandler(this.ActionShowHelp);
             // 
             // aboutToolStripMenuItem
             // 

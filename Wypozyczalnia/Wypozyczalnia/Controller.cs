@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using Wypozyczalnia.Database;
 using Wypozyczalnia.FormController;
 using Wypozyczalnia.View;
-using Wypozyczalnia.FormController;
 
 namespace Wypozyczalnia
 {
@@ -29,6 +28,7 @@ namespace Wypozyczalnia
         private OrdersView orders;
         private ReservationsView reservations;
         private SpacecraftsView spacecrafts;
+        private HelpView help;
         // referencja do aktywnego obiektu
         private BaseView activeView;
         // informacja czy aplikacja ma zostac zamknieta
@@ -58,14 +58,15 @@ namespace Wypozyczalnia
             // zainicjalizowanie pozostalych okienek
             employees = new EmployeesView();
             warehouse = new WarehouseView();
-			reservations = new ReservationsView();
+            reservations = new ReservationsView();
             orders = new OrdersView();
             spacecrafts = new SpacecraftsView();
+            help = new HelpView();
             clients.SetController(this);
             employees.SetController(this);
             warehouse.SetController(this);
             orders.SetController(this);
-			reservations.SetController(this);
+            reservations.SetController(this);
             spacecrafts.SetController(this);
             IsClosing = false;
 
@@ -597,10 +598,10 @@ namespace Wypozyczalnia
             {
             }
         }
-		
+
         #endregion
-		
-		//----------------------REZERWACJA---------------------//
+
+        // --- --- --- --- --- REZERWACJA --- --- --- --- --- //
         #region Rezerwacja
         // --- FORMULARZE
         public void ShowReservationEmploeesForm()
@@ -687,14 +688,14 @@ namespace Wypozyczalnia
 
         public void DeleteReservation()
         {
-                if (MessageBox.Show("Czy chcesz usunąć rezerwacje?", "Wypożyczalnia",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    int id = reservations.GetActiveElementId();
-                    queriesReservation.Delete(id);
-                    dr = DialogResult.OK;
-                    ReloadIfFormReturnedOK();
-                }
+            if (MessageBox.Show("Czy chcesz usunąć rezerwacje?", "Wypożyczalnia",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                int id = reservations.GetActiveElementId();
+                queriesReservation.Delete(id);
+                dr = DialogResult.OK;
+                ReloadIfFormReturnedOK();
+            }
         }
 
         #endregion
@@ -791,6 +792,19 @@ namespace Wypozyczalnia
             }
         }
 
+        #endregion
+
+        // --- --- --- --- --- HELP --- --- --- --- --- //
+        #region Okno pomocy
+
+        public void ShowHelpView()
+        {
+           //     activeView.Hide();
+           //     spacecrafts.CopyWindowState(activeView);
+           //     activeView = spacecrafts;
+                help.Show();
+           //     SelectAllAtActiveWindow();
+        }
         #endregion
     }
 }

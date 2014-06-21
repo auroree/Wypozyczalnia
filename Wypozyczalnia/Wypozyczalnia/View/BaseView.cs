@@ -170,6 +170,11 @@ namespace Wypozyczalnia.View
         {
             controller.ChangeDBSettings();
         }
+
+        private void ActionShowHelp(object sender, EventArgs e)
+        {
+            controller.ShowHelpView();
+        }
     }
 }
 
