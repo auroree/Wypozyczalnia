@@ -180,8 +180,9 @@
             // 
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
             this.printPreviewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.printPreviewToolStripMenuItem.Text = "Podgląd wydruku";
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.printPreviewToolStripMenuItem.Text = "Wydruk";
+            this.printPreviewToolStripMenuItem.Click += new System.EventHandler(this.ActionPrint);
             // 
             // settingsToolStripMenuItem
             // 

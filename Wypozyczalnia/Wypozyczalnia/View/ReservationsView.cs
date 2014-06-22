@@ -79,6 +79,55 @@ namespace Wypozyczalnia.View
             get { return filterSurname.Text; }
         }
 
+        public string DataToPrint()
+        {
+            string text = string.Empty;
+            string ID_Imie = new string(' ', 3);
+            string Imie_Nazwisko = new string(' ', 4);
+            string Nazwisko_Statek = new string(' ', 4);
+            string Statek_Cena = new string(' ', 10);
+            string Cena_Data = new string(' ', 2);
+            string Data_Data = new string(' ', 2);
+
+
+            string tmpID, tmpImie, tmpNazwisko, tmpStatek, tmpCena, tmpWyp, tmpZwr;
+            text += "                             REZERWACJE\n\n";
+            text += "ID" + ID_Imie + "|Imię" + Imie_Nazwisko + "|Nazwisko" + Nazwisko_Statek +
+                "|Statek" + Statek_Cena + "|Cena" + Cena_Data + "|Data wyp." +
+                Data_Data + "|Data zwr.\n";
+            text += new string('-', 2 + ID_Imie.Length) + "|";
+            text += new string('-', 4 + Imie_Nazwisko.Length) + "|";
+            text += new string('-', 8 + Nazwisko_Statek.Length) + "|";
+            text += new string('-', 6 + Statek_Cena.Length) + "|";
+            text += new string('-', 4 + Cena_Data.Length) + "|";
+            text += new string('-', 9 + Data_Data.Length) + "|";
+            text += new string('-', 9) + "\n";
+
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                tmpID = dataGridView1[0, i].Value.ToString();
+                tmpImie = dataGridView1[1, i].Value.ToString();
+                tmpNazwisko = dataGridView1[2, i].Value.ToString();
+                tmpStatek = dataGridView1[3, i].Value.ToString();
+                tmpCena = dataGridView1[4, i].Value.ToString();
+                tmpWyp = dataGridView1[5, i].Value.ToString().Remove(10);
+                tmpZwr = dataGridView1[6, i].Value.ToString();
+                if (tmpZwr.Length > 0)
+                    tmpZwr = tmpZwr.Remove(10);
+
+                tmpID += new string(' ', 2 + ID_Imie.Length - tmpID.Length) + '|';
+                tmpImie += new string(' ', 4 + Imie_Nazwisko.Length - tmpImie.Length) + '|';
+                tmpNazwisko += new string(' ', 8 + Nazwisko_Statek.Length - tmpNazwisko.Length) + '|';
+                tmpStatek += new string(' ', 6 + Statek_Cena.Length - tmpStatek.Length) + '|';
+                tmpCena += new string(' ', 4 + Cena_Data.Length - tmpCena.Length) + '|';
+                tmpWyp += new string(' ', 9 + Data_Data.Length - tmpWyp.Length) + '|';
+
+                text += tmpID + tmpImie + tmpNazwisko + tmpStatek + tmpCena + tmpWyp + tmpZwr;
+                text += "\n";
+            }
+            return text;
+        }
+
         private void ActionAdd(object sender, EventArgs e)
         {
             controller.ShowReservationAddForm();

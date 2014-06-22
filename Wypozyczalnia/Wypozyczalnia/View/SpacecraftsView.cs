@@ -109,6 +109,42 @@ namespace Wypozyczalnia.View
             }
         }
 
+        public string DataToPrint()
+        {
+            string text = string.Empty;
+            string ID_Typ = new string(' ', 4);
+            string Typ_Silnik = new string(' ', 15);
+            string Silnik_Rok = new string(' ', 12);
+            string Rok_Cena = new string(' ', 12);
+            string tmpID, tmpTyp, tmpSilnik, tmpRok, tmpCena;
+            text += "                                 STATKI\n\n";
+            text += "ID" + ID_Typ + "|Typ" + Typ_Silnik + "|Silnik" + Silnik_Rok
+                + "|Rok prod." + Rok_Cena + "|Cena\n";
+            text += new string('-', 2 + ID_Typ.Length) + "|";
+            text += new string('-', 3 + Typ_Silnik.Length) + "|";
+            text += new string('-', 6 + Silnik_Rok.Length) + "|";
+            text += new string('-', 9 + Rok_Cena.Length) + "|";
+            text += new string('-', 8) + "\n";
+
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                tmpID = dataGridView1[0, i].Value.ToString();
+                tmpTyp = dataGridView1[1, i].Value.ToString();
+                tmpSilnik = dataGridView1[2, i].Value.ToString();
+                tmpRok = dataGridView1[3, i].Value.ToString();
+                tmpCena = dataGridView1[4, i].Value.ToString();
+
+                tmpID += new string(' ', 2 + ID_Typ.Length - tmpID.Length) + '|';
+                tmpTyp += new string(' ', 3 + Typ_Silnik.Length - tmpTyp.Length) + '|';
+                tmpSilnik += new string(' ', 6 + Silnik_Rok.Length - tmpSilnik.Length) + '|';
+                tmpRok += new string(' ', 9 + Rok_Cena.Length - tmpRok.Length) + '|';
+
+                text += tmpID + tmpTyp + tmpSilnik + tmpRok + tmpCena;
+                text += "\n";
+            }
+            return text;
+        }
+
         private void ActionResized(object sender, EventArgs e)
         {
             this.SetColumns();

@@ -138,6 +138,46 @@ namespace Wypozyczalnia.View
             }
         }
 
+        public string DataToPrint()
+        {
+            string text = string.Empty;
+            string ID_Nazwa = new string(' ', 4);
+            string Nazwa_Status = new string(' ', 13);
+            string Status_Zamowienie = new string(' ', 2);
+            string Zamowienie_Cena = new string(' ', 2);
+            string Cena_Statek = new string(' ', 2);
+            string tmpID, tmpNazwa, tmpStatus, tmpZamowienie, tmpCena, tmpStatek;
+            text += "                             MAGAZYN CZĘŚCI\n\n";
+            text += "ID"+ID_Nazwa+"|Nazwa"+Nazwa_Status+"|Status części"+Status_Zamowienie
+                +"|ID zam."+Zamowienie_Cena+"|Cena"+Cena_Statek+"|ID statku\n";
+            text += new string('-', 2 + ID_Nazwa.Length) + "|";
+            text += new string('-', 5 + Nazwa_Status.Length) + "|";
+            text += new string('-', 13 + Status_Zamowienie.Length) + "|";
+            text += new string('-', 7 + Zamowienie_Cena.Length) + "|";
+            text += new string('-', 4 + Cena_Statek.Length) + "|";
+            text += new string('-', 10) + "\n";
+
+            for (int i = 0; i < dataGridView1.RowCount-1; i++)
+            {
+                tmpID = dataGridView1[0, i].Value.ToString();
+                tmpNazwa = dataGridView1[1, i].Value.ToString();
+                tmpStatus = dataGridView1[2, i].Value.ToString();
+                tmpZamowienie = dataGridView1[3, i].Value.ToString();
+                tmpCena = dataGridView1[4, i].Value.ToString();
+                tmpStatek = dataGridView1[5, i].Value.ToString();
+
+                tmpID += new string(' ', 2 + ID_Nazwa.Length - tmpID.Length) + '|';
+                tmpNazwa += new string(' ', 5 + Nazwa_Status.Length - tmpNazwa.Length) + '|';
+                tmpStatus += new string(' ', 13 + Status_Zamowienie.Length - tmpStatus.Length) + '|';
+                tmpZamowienie += new string(' ', 7 + Zamowienie_Cena.Length - tmpZamowienie.Length) + '|';
+                tmpCena += new string(' ', 4 + Cena_Statek.Length - tmpCena.Length) + '|';
+
+                text += tmpID + tmpNazwa + tmpStatus + tmpZamowienie + tmpCena + tmpStatek;
+                text += "\n";
+            }
+            return text;
+        }
+
         private void ActionAdd(object sender, EventArgs e)
         {
             controller.ShowWarehouseAddForm();

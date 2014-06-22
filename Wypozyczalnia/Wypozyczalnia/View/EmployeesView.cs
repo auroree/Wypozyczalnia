@@ -93,6 +93,53 @@ namespace Wypozyczalnia.View
             }      
         }
 
+        public string DataToPrint()
+        {
+            string text = string.Empty;
+            string ID_Imie = new string(' ', 3);
+            string Imie_Nazwisko = new string(' ', 5);
+            string Nazwisko_Data = new string(' ', 5);
+            string Data_Miejsce = new string(' ', 3);
+            string Miejsce_Pensja = new string(' ', 3);
+            string Pensja_Funkcja = new string(' ', 1);
+
+
+            string tmpID, tmpImie, tmpNazwisko, tmpData, tmpMiejsce, tmpPensja, tmpFunkcja;
+            text += "                             Pracownicy\n\n";
+            text += "ID" + ID_Imie + "|Imię" + Imie_Nazwisko + "|Nazwisko" + Nazwisko_Data + 
+                "|Data ur." + Data_Miejsce + "|Miejsce ur." + Miejsce_Pensja + "|Pensja" + 
+                Pensja_Funkcja + "|Funkcja\n";
+            text += new string('-', 2 + ID_Imie.Length) + "|";
+            text += new string('-', 4 + Imie_Nazwisko.Length) + "|";
+            text += new string('-', 8 + Nazwisko_Data.Length) + "|";
+            text += new string('-', 8 + Data_Miejsce.Length) + "|";
+            text += new string('-', 11 + Miejsce_Pensja.Length) + "|";
+            text += new string('-', 6 + Pensja_Funkcja.Length) + "|";
+            text += new string('-', 7) + "\n";
+
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                tmpID = dataGridView1[0, i].Value.ToString();
+                tmpImie = dataGridView1[1, i].Value.ToString();
+                tmpNazwisko = dataGridView1[2, i].Value.ToString();
+                tmpData = dataGridView1[3, i].Value.ToString().Remove(10);
+                tmpMiejsce = dataGridView1[4, i].Value.ToString();
+                tmpPensja = dataGridView1[5, i].Value.ToString();
+                tmpFunkcja = dataGridView1[6, i].Value.ToString();
+
+                tmpID += new string(' ', 2 + ID_Imie.Length - tmpID.Length) + '|';
+                tmpImie += new string(' ', 4 + Imie_Nazwisko.Length - tmpImie.Length) + '|';
+                tmpNazwisko += new string(' ', 8 + Nazwisko_Data.Length - tmpNazwisko.Length) + '|';
+                tmpData += new string(' ', 8 + Data_Miejsce.Length - tmpData.Length) + '|';
+                tmpMiejsce += new string(' ', 11 + Miejsce_Pensja.Length - tmpMiejsce.Length) + '|';
+                tmpPensja += new string(' ', 6 + Pensja_Funkcja.Length - tmpPensja.Length) + '|';
+
+                text += tmpID + tmpImie + tmpNazwisko + tmpData + tmpMiejsce + tmpPensja + tmpFunkcja;
+                text += "\n";
+            }
+            return text;
+        }
+
         private void ActionAdd(object sender, EventArgs e)
         {
             controller.ShowEmployeeAddForm();

@@ -175,6 +175,11 @@ namespace Wypozyczalnia.View
         {
             controller.ShowHelpView();
         }
+
+        private void ActionPrint(object sender, EventArgs e)
+        {
+            controller.Print();
+        }
     }
 }
 

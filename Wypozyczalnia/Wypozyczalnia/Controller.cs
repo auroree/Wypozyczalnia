@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Wypozyczalnia.Database;
 using Wypozyczalnia.FormController;
 using Wypozyczalnia.View;
+using System.Drawing;
 
 namespace Wypozyczalnia
 {
@@ -47,6 +48,8 @@ namespace Wypozyczalnia
         private QueriesOrder queriesOrder;
         private QueriesReservation queriesReservation;
         private QueriesSpacecrafts queriesSpacecrafts;
+        //wydruk
+        private PrintController printer;
 
         public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
         {
@@ -77,6 +80,9 @@ namespace Wypozyczalnia
             queriesOrder = new QueriesOrder(dbContext);
             queriesReservation = new QueriesReservation(dbContext);
             queriesSpacecrafts = new QueriesSpacecrafts(dbContext);
+
+            //drukarka
+            printer = new PrintController();
 
             // inicjalizacja DialogResult
             dr = DialogResult.None;
@@ -805,6 +811,99 @@ namespace Wypozyczalnia
                 help.Show();
            //     SelectAllAtActiveWindow();
         }
+        #endregion
+
+        // --- --- --- --- --- PRINTING --- --- --- --- --- //
+        #region Drukowanie
+
+        public void Print()
+        {
+            if (activeView == clients)
+            {
+                PrintClients();
+            }
+            else if (activeView == employees)
+            {
+                PrintEmployees();
+            }
+            else if (activeView == warehouse)
+            {
+                PrintWarehouse();
+            }
+            else if (activeView == orders)
+            {
+                PrintOrders();
+            }
+            else if (activeView == reservations)
+            {
+                PrintReservations();
+            }
+            else if (activeView == spacecrafts)
+            {
+                PrintSpacecrafts();
+            }
+        }
+
+        public void PrintClients()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = clients.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintEmployees()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = employees.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintWarehouse()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = warehouse.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintOrders()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+       //     printer.TextToPrint = orders.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintReservations()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = reservations.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintSpacecrafts()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = spacecrafts.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
         #endregion
     }
 }

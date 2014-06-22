@@ -67,6 +67,9 @@
     <Compile Include="FormController\OrderFormController.cs" />
     <Compile Include="Database\QueriesReservation.cs" />
     <Compile Include="FormController\ReservationFormController.cs" />
+    <Compile Include="PrintController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\DatabaseSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
