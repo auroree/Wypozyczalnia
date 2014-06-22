@@ -109,9 +109,9 @@ namespace Wypozyczalnia.Database
             foreach (var element in elements)
                 db.pilotujes.DeleteOnSubmit(element);
 
-           var record = db.Rezerwacjas.Single(reservation => reservation.Rezerwacja_ID == id);
-           db.Rezerwacjas.DeleteOnSubmit(record);
-           db.SubmitChanges();
+            var record = db.Rezerwacjas.Single(reservation => reservation.Rezerwacja_ID == id);
+            db.Rezerwacjas.DeleteOnSubmit(record);
+            db.SubmitChanges();
         }
 
         /*Wyszukanie pracownikow powiazanych z rezerwacja*/
@@ -146,10 +146,10 @@ namespace Wypozyczalnia.Database
                              join r in db.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
                              from r in joinedResEmpty.DefaultIfEmpty()
                              where (r.Rezerwacja_ID == null) || (
-                                    (!((from rr in db.Rezerwacjas 
-                                       join pp in db.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
-                                       where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null))
-                                       select pp.Pracownik_Pracownik_ID).Contains(e.Pracownik_ID))))
+                                    (!((from rr in db.Rezerwacjas
+                                        join pp in db.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
+                                        where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null))
+                                        select pp.Pracownik_Pracownik_ID).Contains(e.Pracownik_ID))))
                              select new
                              {
                                  e.Pracownik_ID,
@@ -164,14 +164,14 @@ namespace Wypozyczalnia.Database
             }
             else
             {
-               var  query = (from e in db.Pracowniks
+                var query = (from e in db.Pracowniks
                              join p in db.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
                              from p in joinedEmpEmpty.DefaultIfEmpty()
                              join r in db.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
                              from r in joinedResEmpty.DefaultIfEmpty()
-                             where (r.Rezerwacja_ID == null) || (((from rr in db.Rezerwacjas 
+                             where (r.Rezerwacja_ID == null) || (((from rr in db.Rezerwacjas
                                                                    where ((rr.Data_wypożyczenia > HireDate) && (rr.Data_wypożyczenia > DueDate)) ||
-                                                                         ((rr.Data_zwrotu  < HireDate) && (rr.Data_zwrotu < DueDate))
+                                                                         ((rr.Data_zwrotu < HireDate) && (rr.Data_zwrotu < DueDate))
                                                                    select rr.Rezerwacja_ID).Contains(r.Rezerwacja_ID)) && r.Data_zwrotu != null)
                              select new
                              {
@@ -183,9 +183,9 @@ namespace Wypozyczalnia.Database
                                  e.Pensja,
                                  e.Funkcja.Nazwa_funkcji
                              }).Distinct();
-               dt = Extensions.ToDataTable(query);
+                dt = Extensions.ToDataTable(query);
             }
-            
+
             return dt;
         }
 
@@ -202,9 +202,9 @@ namespace Wypozyczalnia.Database
                              from r in joinedResEmpty.DefaultIfEmpty()
                              where (r.Rezerwacja_ID == null) || (
                                     (!((from rr in db.Rezerwacjas
-                                       join pp in db.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
-                                       where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null))
-                                       select pp.Pracownik_Pracownik_ID).Contains(e.Pracownik_ID)))) || (r.Rezerwacja_ID == id)
+                                        join pp in db.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
+                                        where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null))
+                                        select pp.Pracownik_Pracownik_ID).Contains(e.Pracownik_ID)))) || (r.Rezerwacja_ID == id)
                              select new
                              {
                                  e.Pracownik_ID,
@@ -332,7 +332,7 @@ namespace Wypozyczalnia.Database
                              join r in db.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
                              from r in joinedShipsEmpty.DefaultIfEmpty()
                              join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                             where (r.Rezerwacja_ID == null) || ((!(from rr in db.Rezerwacjas where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null)) select rr.Statek_Statek_ID).Contains(s.Statek_ID))) || (r.Rezerwacja_ID == id) 
+                             where (r.Rezerwacja_ID == null) || ((!(from rr in db.Rezerwacjas where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null)) select rr.Statek_Statek_ID).Contains(s.Statek_ID))) || (r.Rezerwacja_ID == id)
                              select new
                              {
                                  s.Statek_ID,
@@ -351,7 +351,7 @@ namespace Wypozyczalnia.Database
                              where (r.Rezerwacja_ID == null) || (((from rr in db.Rezerwacjas
                                                                    where ((rr.Data_wypożyczenia > HireDate) && (rr.Data_wypożyczenia > DueDate)) ||
                                                                          ((rr.Data_zwrotu < HireDate) && (rr.Data_zwrotu < DueDate))
-                                                                   select rr.Rezerwacja_ID).Contains(r.Rezerwacja_ID)) && r.Data_zwrotu != null) || (r.Rezerwacja_ID == id) 
+                                                                   select rr.Rezerwacja_ID).Contains(r.Rezerwacja_ID)) && r.Data_zwrotu != null) || (r.Rezerwacja_ID == id)
                              select new
                              {
                                  s.Statek_ID,

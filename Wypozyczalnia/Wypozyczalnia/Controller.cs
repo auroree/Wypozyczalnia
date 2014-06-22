@@ -566,7 +566,13 @@ namespace Wypozyczalnia
         {
             OrderForm form = new OrderForm();
             OrderFormController formController = new OrderFormController(form, Operation.Add);
-            formController.Queries = queriesOrder;
+            formController.OrderQuery = queriesOrder;
+            formController.WarehouseQuery = queriesWarehouse;
+
+            form.PartsNotAddedToOrder = queriesOrder.SelectPartsAvailableToOrder();
+            form.PartsAddedToOrder = form.PartsNotAddedToOrder.Clone();
+            form.SetColumns();
+
             dr = form.ShowDialog();
             ReloadIfFormReturnedOK();
         }
@@ -578,11 +584,17 @@ namespace Wypozyczalnia
                 Zamówienie order = orders.GetActiveElement();
                 OrderForm form = new OrderForm(order);
                 OrderFormController formController = new OrderFormController(form, Operation.Edit);
-                formController.Queries = queriesOrder;
+                formController.OrderQuery = queriesOrder;
+                formController.WarehouseQuery = queriesWarehouse;
+
+                form.PartsNotAddedToOrder = queriesOrder.SelectPartsAvailableToOrder();
+                form.PartsAddedToOrder = queriesOrder.SelectPartsByOrder((int)order.Zamówienie_ID);
+                form.SetColumns();
+
                 dr = form.ShowDialog();
                 ReloadIfFormReturnedOK();
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
 
             }
@@ -590,17 +602,62 @@ namespace Wypozyczalnia
 
         public void ShowOrderDeleteForm()
         {
-            try
+            if (MessageBox.Show("Czy chcesz usunąć zamówienie?", "Wypożyczalnia", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Zamówienie order = orders.GetActiveElement();
                 OrderForm form = new OrderForm(order);
                 OrderFormController formController = new OrderFormController(form, Operation.Delete);
-                formController.Queries = queriesOrder;
-                form.ShowDialog();
-                SelectAllAtActiveWindow();
+                formController.OrderQuery = queriesOrder;
+                formController.WarehouseQuery = queriesWarehouse;
+                formController.Delete();
+                dr = DialogResult.OK;
+                ReloadIfFormReturnedOK();
             }
-            catch (NullReferenceException ex)
+        }
+
+        public void ShowOrderPartsView()
+        {
+            try
             {
+                Zamówienie order = orders.GetActiveElement();
+                DataTable q = queriesOrder.SelectPartsByOrder((int)order.Zamówienie_ID);
+                if (q.Rows.Count > 0)
+                {
+                    OrderPartsView view = new OrderPartsView();
+                    view.DataTable = q;
+                    view.SetColumns();
+                    dr = view.ShowDialog();
+                }
+                else
+                    MessageBox.Show("Brak wyników.", "Komunikat");
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+
+        // --- FILTRY
+
+        public void SelectOrdersByOrderDate()
+        {
+            try
+            {
+                DateTime? orderDate = orders.FilterOrderDate;
+                if (orderDate == null)
+                    activeView.DataTable = queriesOrder.SelectAll();
+                else
+                {
+                    DataTable dataTable = queriesOrder.SelectOrdersByOrderDate((DateTime)orderDate);
+                    if (dataTable.Rows.Count > 0)
+                        activeView.DataTable = dataTable;
+                    else
+                        MessageBox.Show("Brak wyników.", "Komunikat");
+                }
+
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Błędny format daty.", "Błąd");
             }
         }
 

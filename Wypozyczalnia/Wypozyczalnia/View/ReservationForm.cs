@@ -249,7 +249,7 @@ namespace Wypozyczalnia.View
             {
                 tabControl1.Enabled = false;
                 labelHireDateInfo.ForeColor = System.Drawing.Color.Red;
-                
+
             }
         }
 
@@ -265,10 +265,10 @@ namespace Wypozyczalnia.View
                 buttonRemoveClient.Enabled = false;
                 if (controller != null)
                 {
-                     if (IsDateCorrect(textBox1.Text))
-                     {
-                         controller.showReservationItmes(Convert.ToInt32(textBoxID.Text), textBox1.Text); // Przywrocenie danych o rezerwacji
-                     }
+                    if (IsDateCorrect(textBox1.Text))
+                    {
+                        controller.showReservationItmes(Convert.ToInt32(textBoxID.Text), textBox1.Text); // Przywrocenie danych o rezerwacji
+                    }
                 }
             }
             else
@@ -281,7 +281,7 @@ namespace Wypozyczalnia.View
             }
 
             if (textBox2.Text.Length == 0)
-            { 
+            {
                 textBox1.ReadOnly = false;
                 tabControl1.Enabled = true;
                 buttonAddClient.Enabled = true;

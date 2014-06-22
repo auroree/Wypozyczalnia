@@ -14,11 +14,11 @@ namespace Wypozyczalnia.View
             try
             {
                 double width = dataGridView1.Width - 20;
-                dataGridView1.Columns[0].Width = (int)(0.35 * width);
+                dataGridView1.Columns[0].Width =
                 dataGridView1.Columns[1].Width = (int)(0.35 * width);
                 dataGridView1.Columns[2].Width = (int)(0.3 * width);
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException)
             {
 
             }
@@ -49,7 +49,6 @@ namespace Wypozyczalnia.View
             try
             {
                 int index = dataGridView1.CurrentRow.Index;
-
                 return new Zamówienie()
                 {
                     Data_zamówienia = Convert.ToDateTime(dataGridView1[0, index].Value),
@@ -57,10 +56,25 @@ namespace Wypozyczalnia.View
                     Zamówienie_ID = Convert.ToInt32(dataGridView1[2, index].Value)
                 };
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 return null;
             }
+        }
+
+        private void ActionShowParts(object sender, EventArgs e)
+        {
+            controller.ShowOrderPartsView();
+        }
+
+        private void ActionSearchByOrderDate(object sender, EventArgs e)
+        {
+            controller.SelectOrdersByOrderDate();
+        }
+
+        public DateTime? FilterOrderDate
+        {
+            get { return filterOrderDate.Text.Length > 0 ? Convert.ToDateTime(filterOrderDate.Text) : (DateTime?)null; }
         }
     }
 }

@@ -130,6 +130,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\OrderPartsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OrderPartsView.Designer.cs">
+      <DependentUpon>OrderPartsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SpacecraftsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +232,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\OrderPartsView.resx">
+      <DependentUpon>OrderPartsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\SpacecraftsForm.resx">
       <DependentUpon>SpacecraftsForm.cs</DependentUpon>
     </EmbeddedResource>
