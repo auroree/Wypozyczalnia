@@ -64,7 +64,6 @@ namespace Wypozyczalnia
             reservations = new ReservationsView();
             orders = new OrdersView();
             spacecrafts = new SpacecraftsView();
-            help = new HelpView();
             clients.SetController(this);
             employees.SetController(this);
             warehouse.SetController(this);
@@ -805,11 +804,8 @@ namespace Wypozyczalnia
 
         public void ShowHelpView()
         {
-           //     activeView.Hide();
-           //     spacecrafts.CopyWindowState(activeView);
-           //     activeView = spacecrafts;
-                help.Show();
-           //     SelectAllAtActiveWindow();
+            help = new HelpView();    
+            help.Show();
         }
         #endregion
 
