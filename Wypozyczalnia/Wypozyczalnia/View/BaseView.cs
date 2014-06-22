@@ -125,6 +125,11 @@ namespace Wypozyczalnia.View
             controller.ShowReservationsView();
         }
 
+        private void ActionShowSpacecraftsView(object sender, EventArgs e)
+        {
+            controller.ShowSpacecraftsView();
+        }
+
         private void ActionClose(object sender, FormClosingEventArgs e)
         {
             if (!controller.IsClosing)
@@ -164,6 +169,11 @@ namespace Wypozyczalnia.View
         private void ActionChangeDBSettings(object sender, EventArgs e)
         {
             controller.ChangeDBSettings();
+        }
+
+        private void ActionShowHelp(object sender, EventArgs e)
+        {
+            controller.ShowHelpView();
         }
     }
 }

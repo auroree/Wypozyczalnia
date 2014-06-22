@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using Wypozyczalnia.Database;
 using Wypozyczalnia.FormController;
 using Wypozyczalnia.View;
-using Wypozyczalnia.FormController;
 
 namespace Wypozyczalnia
 {
@@ -28,6 +27,8 @@ namespace Wypozyczalnia
         private WarehouseView warehouse;
         private OrdersView orders;
         private ReservationsView reservations;
+        private SpacecraftsView spacecrafts;
+        private HelpView help;
         // referencja do aktywnego obiektu
         private BaseView activeView;
         // informacja czy aplikacja ma zostac zamknieta
@@ -35,6 +36,7 @@ namespace Wypozyczalnia
         // lista funkcji pracownika
         private List<string> functions = null;
         private List<string> statuses = null;
+        private List<string> types = null;
         // wynik dzialania forularza
         private DialogResult dr;
         // mapowanie bd
@@ -44,6 +46,7 @@ namespace Wypozyczalnia
         private QueriesWarehouse queriesWarehouse;
         private QueriesOrder queriesOrder;
         private QueriesReservation queriesReservation;
+        private QueriesSpacecrafts queriesSpacecrafts;
 
         public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
         {
@@ -55,13 +58,16 @@ namespace Wypozyczalnia
             // zainicjalizowanie pozostalych okienek
             employees = new EmployeesView();
             warehouse = new WarehouseView();
-			reservations = new ReservationsView();
+            reservations = new ReservationsView();
             orders = new OrdersView();
+            spacecrafts = new SpacecraftsView();
+            help = new HelpView();
             clients.SetController(this);
             employees.SetController(this);
             warehouse.SetController(this);
             orders.SetController(this);
-			reservations.SetController(this);
+            reservations.SetController(this);
+            spacecrafts.SetController(this);
             IsClosing = false;
 
             // inicjalizacja obiektow dbContext
@@ -70,6 +76,7 @@ namespace Wypozyczalnia
             queriesWarehouse = new QueriesWarehouse(dbContext);
             queriesOrder = new QueriesOrder(dbContext);
             queriesReservation = new QueriesReservation(dbContext);
+            queriesSpacecrafts = new QueriesSpacecrafts(dbContext);
 
             // inicjalizacja DialogResult
             dr = DialogResult.None;
@@ -187,6 +194,30 @@ namespace Wypozyczalnia
                 UpdateDBStatus();
             }
         }
+
+        public void ShowSpacecraftsView()
+        {
+            if (activeView != spacecrafts)
+            {
+                activeView.Hide();
+                spacecrafts.CopyWindowState(activeView);
+                activeView = spacecrafts;
+                if (types == null)
+                {
+                    try
+                    {
+                        types = queriesSpacecrafts.GetAllTypes();
+                        spacecrafts.FillTypeList(types);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+                }
+                spacecrafts.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+        }
         #endregion
 
         // --- --- --- --- --- OBSLUGA BD --- --- --- --- --- // 
@@ -259,6 +290,11 @@ namespace Wypozyczalnia
                 else if (activeView == reservations)
                 {
                     activeView.DataTable = queriesReservation.SelectAll();
+                }
+
+                else if (activeView == spacecrafts)
+                {
+                    activeView.DataTable = queriesSpacecrafts.SelectAll();
                 }
 
                 activeView.SetColumns();
@@ -354,6 +390,7 @@ namespace Wypozyczalnia
         }
 
         #endregion
+
         // --- --- --- --- --- PRACOWNIK --- --- --- --- --- // 
         #region Pracownik
         // --- FORMULARZE
@@ -515,7 +552,6 @@ namespace Wypozyczalnia
         }
         #endregion
 
-
         // --- --- --- --- --- ZAMÓWIENIE --- --- --- --- --- //
         #region Zamówienie
 
@@ -562,10 +598,10 @@ namespace Wypozyczalnia
             {
             }
         }
-		
+
         #endregion
-		
-		//----------------------REZERWACJA---------------------//
+
+        // --- --- --- --- --- REZERWACJA --- --- --- --- --- //
         #region Rezerwacja
         // --- FORMULARZE
         public void ShowReservationEmploeesForm()
@@ -652,16 +688,123 @@ namespace Wypozyczalnia
 
         public void DeleteReservation()
         {
-                if (MessageBox.Show("Czy chcesz usunąć rezerwacje?", "Wypożyczalnia",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    int id = reservations.GetActiveElementId();
-                    queriesReservation.Delete(id);
-                    dr = DialogResult.OK;
-                    ReloadIfFormReturnedOK();
-                }
+            if (MessageBox.Show("Czy chcesz usunąć rezerwacje?", "Wypożyczalnia",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                int id = reservations.GetActiveElementId();
+                queriesReservation.Delete(id);
+                dr = DialogResult.OK;
+                ReloadIfFormReturnedOK();
+            }
         }
 
+        #endregion
+
+        // --- --- --- --- --- STATKI --- --- --- --- --- //
+        #region Statki
+
+        public void SelectSpacecraftsByType()
+        {
+            string type = spacecrafts.FilterType;
+            if (types.Contains(type))
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectByType(type);
+            }
+            else
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        public void SelectSpacecraftsByEngine()
+        {
+            string name = spacecrafts.FilterEngine;
+            if (name.Length > 0)
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectByEngine(name);
+            }
+            else
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        public void UpdateTypesList()
+        {
+            types = queriesSpacecrafts.GetAllTypes();
+            spacecrafts.FillTypeList(types);
+        }
+
+        public void ShowSpacecraftsAddForm()
+        {
+            UpdateTypesList();
+            SpacecraftsForm form = new SpacecraftsForm(types);
+            SpacecraftsFormController formController = new SpacecraftsFormController(form, Operation.Add);
+            form.Queries = queriesSpacecrafts;
+            formController.Queries = queriesSpacecrafts;
+            dr = form.ShowDialog();
+            // odswiezenie danych
+            UpdateTypesList();
+            ReloadIfFormReturnedOK();
+        }
+
+        public void ShowSpacecraftsEditForm()
+        {
+            try
+            {
+                Statek spacecraft = spacecrafts.GetActiveElement();
+                UpdateTypesList();
+                SpacecraftsForm form = new SpacecraftsForm(spacecraft, types);
+                SpacecraftsFormController formController = new SpacecraftsFormController(form, Operation.Edit);
+                form.Queries = queriesSpacecrafts;
+                formController.Queries = queriesSpacecrafts;
+                dr = form.ShowDialog();
+                // odswiezenie danych
+                UpdateTypesList();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+        }
+
+        public void ShowSpacecraftsDeleteForm()
+        {
+            try
+            {
+                Statek spacecraft = spacecrafts.GetActiveElement();
+                UpdateTypesList();
+                SpacecraftsForm form = new SpacecraftsForm(spacecraft, types);
+                SpacecraftsFormController formController = new SpacecraftsFormController(form, Operation.Delete);
+                form.Queries = queriesSpacecrafts;
+                formController.Queries = queriesSpacecrafts;
+                form.ShowDialog();
+                // odswiezenie danych
+                UpdateTypesList();
+                SelectAllAtActiveWindow();
+            }
+            catch (NullReferenceException ex)
+            {
+
+            }
+        }
+
+        #endregion
+
+        // --- --- --- --- --- HELP --- --- --- --- --- //
+        #region Okno pomocy
+
+        public void ShowHelpView()
+        {
+           //     activeView.Hide();
+           //     spacecrafts.CopyWindowState(activeView);
+           //     activeView = spacecrafts;
+                help.Show();
+           //     SelectAllAtActiveWindow();
+        }
         #endregion
     }
 }

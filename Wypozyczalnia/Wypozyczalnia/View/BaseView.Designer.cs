@@ -129,6 +129,7 @@
             this.spacecraftsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D3)));
             this.spacecraftsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.spacecraftsToolStripMenuItem.Text = "Statki";
+            this.spacecraftsToolStripMenuItem.Click += new System.EventHandler(this.ActionShowSpacecraftsView);
             // 
             // rezerwacjeToolStripMenuItem
             // 
@@ -211,6 +212,7 @@
             this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
             this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.viewHelpToolStripMenuItem.Text = "Wyświetl pomoc";
+            this.viewHelpToolStripMenuItem.Click += new System.EventHandler(this.ActionShowHelp);
             // 
             // aboutToolStripMenuItem
             // 
