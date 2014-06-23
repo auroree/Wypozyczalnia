@@ -24,6 +24,34 @@ namespace Wypozyczalnia.View
             }
         }
 
+        public string DataToPrint()
+        {
+            string text = string.Empty;
+            string ID_Data = new string(' ', 10);
+            string Data_Data = new string(' ', 20);
+
+            string tmpID, tmpZam, tmpOdb;
+            text += "                           ZAMÓWIENIA\n\n";
+            text += "ID" + ID_Data + "|Data zamówienia" + Data_Data + "|Data odbioru\n";
+            text += new string('-', 2 + ID_Data.Length) + "|";
+            text += new string('-', 15 + Data_Data.Length) + "|";
+            text += new string('-', 10) + "\n";
+
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                tmpID = dataGridView1[2, i].Value.ToString();
+                tmpZam = dataGridView1[1, i].Value.ToString().Remove(10);
+                tmpOdb = dataGridView1[0, i].Value.ToString().Remove(10);
+
+                tmpID += new string(' ', 2 + ID_Data.Length - tmpID.Length) + '|';
+                tmpZam += new string(' ', 15 + Data_Data.Length - tmpZam.Length) + '|';
+
+                text += tmpID + tmpZam + tmpOdb;
+                text += "\n";
+            }
+            return text;
+        }
+
         private void ActionResized(object sender, EventArgs e)
         {
             SetColumns();

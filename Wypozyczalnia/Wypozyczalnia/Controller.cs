@@ -932,7 +932,7 @@ namespace Wypozyczalnia
             //Set the font we want to use
             printer.PrinterFont = new Font("Courier New", 10);
             //Set the TextToPrint property
-       //     printer.TextToPrint = orders.DataToPrint();
+            printer.TextToPrint = orders.DataToPrint();
             //Issue print command
             printer.Print();
         }
