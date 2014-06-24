@@ -6,8 +6,8 @@
       <Column Name="Cena" Type="System.Single" DbType="Real" CanBeNull="true" />
       <Column Name="Status_części_Status_części_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
       <Column Name="Statek_Statek_ID" Type="System.Decimal" DbType="Decimal(28,0)" CanBeNull="true" />
-      <Column Name="Zamówienie_Zamówienie_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
-      <Column Name="Część_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Zamówienie_Zamówienie_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="true" />
+      <Column Name="Część_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="Statek_Część" Member="Statek" ThisKey="Statek_Statek_ID" OtherKey="Statek_ID" Type="Statek" IsForeignKey="true" />
       <Association Name="Status_części_Część" Member="Status_części" ThisKey="Status_części_Status_części_ID" OtherKey="Status_części_ID" Type="Status_części" IsForeignKey="true" />
       <Association Name="Zamówienie_Część" Member="Zamówienie" ThisKey="Zamówienie_Zamówienie_ID" OtherKey="Zamówienie_ID" Type="Zamówienie" IsForeignKey="true" />
@@ -54,7 +54,7 @@
       <Column Name="Pensja" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Pracownik_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Funkcja_Funkcja_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
-      <Column Name="Miejsce_urodzenia2" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <!-- <Column Name="Miejsce_urodzenia2" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" /> -->
       <Association Name="Pracownik_jest_serwisowany" Member="jest_serwisowanies" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="jest_serwisowany" />
       <Association Name="Pracownik_pilotuje" Member="pilotujes" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="pilotuje" />
       <Association Name="Funkcja_Pracownik" Member="Funkcja" ThisKey="Funkcja_Funkcja_ID" OtherKey="Funkcja_ID" Type="Funkcja" IsForeignKey="true" />

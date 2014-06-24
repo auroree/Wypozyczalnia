@@ -8,21 +8,21 @@ using System.Windows.Forms;
 using Wypozyczalnia.Database;
 using Wypozyczalnia.View;
 
-namespace Wypozyczalnia
+namespace Wypozyczalnia.FormController
 {
-    public class EmployeeFormController : IFormController
+    class SpacecraftsFormController : IFormController
     {
-        private EmployeeForm form;
+        private SpacecraftsForm form;
         private Operation operation;
-        private QueriesEmployee qe;
+        private QueriesSpacecrafts qe;
 
-        public EmployeeFormController(EmployeeForm form)
+        public SpacecraftsFormController(SpacecraftsForm form)
         {
             this.form = form;
             form.SetController(this);
         }
 
-        public EmployeeFormController(EmployeeForm form, Operation operation)
+        public SpacecraftsFormController(SpacecraftsForm form, Operation operation)
         {
             this.form = form;
             form.SetController(this);
@@ -31,7 +31,7 @@ namespace Wypozyczalnia
             SetTextBoxesState();
         }
 
-        public QueriesEmployee Queries
+        public QueriesSpacecrafts Queries
         {
             set { this.qe = value; }
         }
@@ -60,21 +60,18 @@ namespace Wypozyczalnia
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
                 // LINQ
-                Pracownik employee = new Pracownik
+                Statek spacecraft = new Statek
                 {
-                    Imię = form.TextBox2,
-                    Nazwisko = form.TextBox3,
-                    Data_urodzenia = Convert.ToDateTime(form.TextBox4),
-                    Miejsce_urodzenia = form.TextBox5,
-                    Pensja = Convert.ToSingle(form.TextBox6),
-                    Funkcja = qe.GetFunction(form.ComboBox1)
+                    Typ_statku = qe.GetType(form.ComboBox1),
+                    Silnik = form.TextBox2,
+                    Rok_produkcji = Convert.ToInt32(form.TextBox3),
+                    Cena_za_dobę = Convert.ToInt32(form.TextBox4),
                 };
-                qe.Insert(employee);
+                qe.Insert(spacecraft);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
             }
-
             catch (DataIncorrect ex)
             {
                 MessageBox.Show(ex.Message, "Błąd");
@@ -98,17 +95,15 @@ namespace Wypozyczalnia
                 // sprawdzenie poprawnosci danych
                 IsDataCorrect();
                 // LINQ
-                Pracownik employee = new Pracownik
+                Statek spacecraft = new Statek
                 {
-                    Pracownik_ID = Convert.ToInt32(form.TextBox1),
-                    Imię = form.TextBox2,
-                    Nazwisko = form.TextBox3,
-                    Data_urodzenia = Convert.ToDateTime(form.TextBox4),
-                    Miejsce_urodzenia = form.TextBox5,
-                    Pensja = Convert.ToSingle(form.TextBox6),
-                    Funkcja_Funkcja_ID = qe.GetFunction(form.ComboBox1).Funkcja_ID
+                    Statek_ID = Convert.ToInt32(form.TextBox1),
+                    Typ_statku_Typ_statku_ID = qe.GetType(form.ComboBox1).Typ_statku_ID,
+                    Silnik = form.TextBox2,
+                    Rok_produkcji = Convert.ToInt32(form.TextBox3),
+                    Cena_za_dobę = Convert.ToInt32(form.TextBox4),
                 };
-                qe.Edit(employee);
+                qe.Edit(spacecraft);
                 // zamkniecie formularza
                 form.DialogResult = DialogResult.OK; ;
                 form.Dispose();
@@ -134,17 +129,15 @@ namespace Wypozyczalnia
             try
             {
                 // LINQ
-                Pracownik employee = new Pracownik
+                Statek spacecraft = new Statek
                 {
-                    Pracownik_ID = Convert.ToInt32(form.TextBox1),
-                    Imię = form.TextBox2,
-                    Nazwisko = form.TextBox3,
-                    Data_urodzenia = Convert.ToDateTime(form.TextBox4),
-                    Miejsce_urodzenia = form.TextBox5,
-                    Pensja = Convert.ToSingle(form.TextBox6),
-                    Funkcja_Funkcja_ID = qe.GetFunction(form.ComboBox1).Funkcja_ID
+                    Statek_ID = Convert.ToInt32(form.TextBox1),
+                    Typ_statku_Typ_statku_ID = qe.GetType(form.ComboBox1).Typ_statku_ID,    // ???
+                    Silnik = form.TextBox2,
+                    Rok_produkcji = Convert.ToInt32(form.TextBox3),
+                    Cena_za_dobę = Convert.ToInt32(form.TextBox4),
                 };
-                qe.Delete(employee);
+                qe.Delete(spacecraft);
                 // zakmniecie formularza
                 form.DialogResult = DialogResult.OK;
                 form.Dispose();
@@ -159,11 +152,15 @@ namespace Wypozyczalnia
             }
         }
 
+        public SpacecraftsForm getForm()
+        {
+            return this.form;
+        }
+
         private void IsDataCorrect()
         {
             string message = "Pole nie może być puste.";
-            if ((form.TextBox2.Length <= 0) || (form.TextBox3.Length <= 0) || (form.TextBox4.Length <= 0) ||
-                (form.TextBox5.Length <= 0) || (form.TextBox6.Length <= 0))
+            if ((form.TextBox2.Length <= 0) || (form.TextBox3.Length <= 0) || (form.TextBox4.Length <= 0))
             {
                 throw new DataIncorrect(message);
             }
@@ -190,13 +187,13 @@ namespace Wypozyczalnia
             switch (operation)
             {
                 case Operation.Add:
-                    form.Title = "Dodawanie nowego pracownika";
+                    form.Title = "Dodawanie nowego statku";
                     break;
                 case Operation.Edit:
-                    form.Title = "Edycja pracownika";
+                    form.Title = "Edycja statku";
                     break;
                 case Operation.Delete:
-                    form.Title = "Usuwanie pracownika";
+                    form.Title = "Usuwanie statku";
                     break;
             }
         }

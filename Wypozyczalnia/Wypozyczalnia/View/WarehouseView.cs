@@ -47,11 +47,12 @@ namespace Wypozyczalnia.View
             try
             {
                 double width = dataGridView1.Width - 20;
-                dataGridView1.Columns[0].Width = (int)(0.3 * width);
+                dataGridView1.Columns[0].Width = (int)(0.2 * width); 
                 dataGridView1.Columns[1].Width = (int)(0.2 * width);
-                dataGridView1.Columns[2].Width = (int)(0.1 * width);
-                dataGridView1.Columns[3].Width = (int)(0.2 * width);
-                dataGridView1.Columns[4].Width = (int)(0.2 * width); 
+                dataGridView1.Columns[2].Width = (int)(0.2 * width);
+                dataGridView1.Columns[3].Width = (int)(0.1 * width);
+                dataGridView1.Columns[4].Width = (int)(0.1 * width);
+                dataGridView1.Columns[5].Width = (int)(0.2 * width);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -76,22 +77,120 @@ namespace Wypozyczalnia.View
             try
             {
                 int index = dataGridView1.CurrentRow.Index;
-
-                return new Część()
-                {
-                    Nazwa = dataGridView1[0, index].Value.ToString(),
-                    Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[2, index].Value),                  
-                    Cena = Convert.ToSingle(dataGridView1[3, index].Value.ToString()),
-                    Statek_Statek_ID = Convert.ToInt32(dataGridView1[4, index]),
-                    Status_części = new Status_części() {
-                        Status = dataGridView1[1, index].Value.ToString(),
-                    }
-                };
+                if (dataGridView1[2, index].Value.ToString() == "Zamontowana")
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),                  
+                        Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
+                        Statek_Statek_ID = Convert.ToInt32(dataGridView1[5, index].Value),
+                        Status_części = new Status_części() {
+                           // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                           // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
+                else if (dataGridView1[2, index].Value.ToString() == "Zamówiona")
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),
+                        Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
+                        Status_części = new Status_części()
+                        {
+                            // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                            // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
+                else if (dataGridView1[2, index].Value.ToString() == "W magazynie")
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Zamówienie_Zamówienie_ID = Convert.ToInt32(dataGridView1[3, index].Value),
+                        Cena = Convert.ToSingle(dataGridView1[4, index].Value.ToString()),
+                        Status_części = new Status_części()
+                        {
+                            // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                            // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
+                else 
+                    return new Część()
+                    {
+                        Część_ID = Convert.ToInt32(dataGridView1[0, index].Value),
+                        Nazwa = dataGridView1[1, index].Value.ToString(),
+                        Status_części = new Status_części()
+                        {
+                            // Status_części_ID = Convert.ToInt32(dataGridView1[2, index].Value),
+                            // Status = statuses[Convert.ToInt32(dataGridView1[2, index].Value)-1]
+                            Status = dataGridView1[2, index].Value.ToString()
+                        }
+                    };
             }
             catch (FormatException ex)
             {
                 return null;
             }
+        }
+
+        public string DataToPrint()
+        {
+            string text = string.Empty;
+            string ID_Nazwa = new string(' ', 4);
+            string Nazwa_Status = new string(' ', 13);
+            string Status_Zamowienie = new string(' ', 2);
+            string Zamowienie_Cena = new string(' ', 2);
+            string Cena_Statek = new string(' ', 2);
+            string tmpID, tmpNazwa, tmpStatus, tmpZamowienie, tmpCena, tmpStatek;
+            text += "                             MAGAZYN CZĘŚCI\n\n";
+            text += "ID"+ID_Nazwa+"|Nazwa"+Nazwa_Status+"|Status części"+Status_Zamowienie
+                +"|ID zam."+Zamowienie_Cena+"|Cena"+Cena_Statek+"|ID statku\n";
+            text += new string('-', 2 + ID_Nazwa.Length) + "|";
+            text += new string('-', 5 + Nazwa_Status.Length) + "|";
+            text += new string('-', 13 + Status_Zamowienie.Length) + "|";
+            text += new string('-', 7 + Zamowienie_Cena.Length) + "|";
+            text += new string('-', 4 + Cena_Statek.Length) + "|";
+            text += new string('-', 10) + "\n";
+
+            for (int i = 0; i < dataGridView1.RowCount-1; i++)
+            {
+                tmpID = dataGridView1[0, i].Value.ToString();
+                tmpNazwa = dataGridView1[1, i].Value.ToString();
+                tmpStatus = dataGridView1[2, i].Value.ToString();
+                tmpZamowienie = dataGridView1[3, i].Value.ToString();
+                tmpCena = dataGridView1[4, i].Value.ToString();
+                tmpStatek = dataGridView1[5, i].Value.ToString();
+
+                tmpID += new string(' ', 2 + ID_Nazwa.Length - tmpID.Length) + '|';
+                tmpNazwa += new string(' ', 5 + Nazwa_Status.Length - tmpNazwa.Length) + '|';
+                tmpStatus += new string(' ', 13 + Status_Zamowienie.Length - tmpStatus.Length) + '|';
+                tmpZamowienie += new string(' ', 7 + Zamowienie_Cena.Length - tmpZamowienie.Length) + '|';
+                tmpCena += new string(' ', 4 + Cena_Statek.Length - tmpCena.Length) + '|';
+
+                text += tmpID + tmpNazwa + tmpStatus + tmpZamowienie + tmpCena + tmpStatek;
+                text += "\n";
+            }
+            return text;
+        }
+
+        private void ActionAdd(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseAddForm();
+        }
+
+        private void ActionEdit(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseEditForm();
+        }
+
+        private void ActionDelete(object sender, EventArgs e)
+        {
+            controller.ShowWarehouseDeleteForm();
         }
 
         private void ActionSearchByName(object sender, EventArgs e)
@@ -129,6 +228,18 @@ namespace Wypozyczalnia.View
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Click += new System.EventHandler(this.ActionAdd);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Click += new System.EventHandler(this.ActionEdit);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Click += new System.EventHandler(this.ActionDelete);
             // 
             // toolStrip1
             // 

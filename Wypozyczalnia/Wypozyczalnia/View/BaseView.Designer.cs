@@ -129,6 +129,7 @@
             this.spacecraftsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D3)));
             this.spacecraftsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.spacecraftsToolStripMenuItem.Text = "Statki";
+            this.spacecraftsToolStripMenuItem.Click += new System.EventHandler(this.ActionShowSpacecraftsView);
             // 
             // rezerwacjeToolStripMenuItem
             // 
@@ -136,6 +137,7 @@
             this.rezerwacjeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D4)));
             this.rezerwacjeToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.rezerwacjeToolStripMenuItem.Text = "Rezerwacje";
+            this.rezerwacjeToolStripMenuItem.Click += new System.EventHandler(this.ActionShowReservationsView);
             // 
             // warehouseCzęściToolStripMenuItem
             // 
@@ -151,6 +153,7 @@
             this.ordersListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D6)));
             this.ordersListToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.ordersListToolStripMenuItem.Text = "Lista zamównień";
+            this.ordersListToolStripMenuItem.Click += new System.EventHandler(this.ActionShowOrderView);
             // 
             // toolStripSeparator1
             // 
@@ -177,8 +180,9 @@
             // 
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
             this.printPreviewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.printPreviewToolStripMenuItem.Text = "Podgląd wydruku";
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.printPreviewToolStripMenuItem.Text = "Wydruk";
+            this.printPreviewToolStripMenuItem.Click += new System.EventHandler(this.ActionPrint);
             // 
             // settingsToolStripMenuItem
             // 
@@ -209,6 +213,7 @@
             this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
             this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.viewHelpToolStripMenuItem.Text = "Wyświetl pomoc";
+            this.viewHelpToolStripMenuItem.Click += new System.EventHandler(this.ActionShowHelp);
             // 
             // aboutToolStripMenuItem
             // 

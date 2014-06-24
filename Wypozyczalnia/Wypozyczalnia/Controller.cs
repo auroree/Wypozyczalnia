@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Wypozyczalnia.Database;
+using Wypozyczalnia.FormController;
 using Wypozyczalnia.View;
+using System.Drawing;
 
 namespace Wypozyczalnia
 {
@@ -24,6 +26,10 @@ namespace Wypozyczalnia
         private ClientsView clients;
         private EmployeesView employees;
         private WarehouseView warehouse;
+        private OrdersView orders;
+        private ReservationsView reservations;
+        private SpacecraftsView spacecrafts;
+        private HelpView help;
         // referencja do aktywnego obiektu
         private BaseView activeView;
         // informacja czy aplikacja ma zostac zamknieta
@@ -31,6 +37,7 @@ namespace Wypozyczalnia
         // lista funkcji pracownika
         private List<string> functions = null;
         private List<string> statuses = null;
+        private List<string> types = null;
         // wynik dzialania forularza
         private DialogResult dr;
         // mapowanie bd
@@ -38,6 +45,11 @@ namespace Wypozyczalnia
         private QueriesClient queriesClient;
         private QueriesEmployee queriesEmployee;
         private QueriesWarehouse queriesWarehouse;
+        private QueriesOrder queriesOrder;
+        private QueriesReservation queriesReservation;
+        private QueriesSpacecrafts queriesSpacecrafts;
+        //wydruk
+        private PrintController printer;
 
         public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
         {
@@ -49,15 +61,27 @@ namespace Wypozyczalnia
             // zainicjalizowanie pozostalych okienek
             employees = new EmployeesView();
             warehouse = new WarehouseView();
+            reservations = new ReservationsView();
+            orders = new OrdersView();
+            spacecrafts = new SpacecraftsView();
             clients.SetController(this);
             employees.SetController(this);
             warehouse.SetController(this);
+            orders.SetController(this);
+            reservations.SetController(this);
+            spacecrafts.SetController(this);
             IsClosing = false;
 
             // inicjalizacja obiektow dbContext
             queriesClient = new QueriesClient(dbContext);
             queriesEmployee = new QueriesEmployee(dbContext);
             queriesWarehouse = new QueriesWarehouse(dbContext);
+            queriesOrder = new QueriesOrder(dbContext);
+            queriesReservation = new QueriesReservation(dbContext);
+            queriesSpacecrafts = new QueriesSpacecrafts(dbContext);
+
+            //drukarka
+            printer = new PrintController();
 
             // inicjalizacja DialogResult
             dr = DialogResult.None;
@@ -106,6 +130,7 @@ namespace Wypozyczalnia
                 employees.Show();
                 SelectAllAtActiveWindow();
                 UpdateDBStatus();
+
             }
         }
 
@@ -130,6 +155,70 @@ namespace Wypozyczalnia
                     }
                 }
                 warehouse.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+
+        }
+
+        public void ShowReservationsView()
+        {
+            if (activeView != reservations)
+            {
+                activeView.Hide();
+                reservations.CopyWindowState(activeView);
+                activeView = reservations;
+                reservations.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+        }
+
+        public void ShowReservationsView(int clientId)
+        {
+            if (activeView != reservations)
+            {
+                activeView.Hide();
+                reservations.CopyWindowState(activeView);
+                activeView = reservations;
+                reservations.Show();
+                activeView.DataTable = queriesReservation.SelectById(clientId);
+                UpdateDBStatus();
+            }
+        }
+
+        public void ShowOrdersView()
+        {
+            if (activeView != orders)
+            {
+                activeView.Hide();
+                orders.CopyWindowState(activeView);
+                activeView = orders;
+                orders.Show();
+                SelectAllAtActiveWindow();
+                UpdateDBStatus();
+            }
+        }
+
+        public void ShowSpacecraftsView()
+        {
+            if (activeView != spacecrafts)
+            {
+                activeView.Hide();
+                spacecrafts.CopyWindowState(activeView);
+                activeView = spacecrafts;
+                if (types == null)
+                {
+                    try
+                    {
+                        types = queriesSpacecrafts.GetAllTypes();
+                        spacecrafts.FillTypeList(types);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+                }
+                spacecrafts.Show();
                 SelectAllAtActiveWindow();
                 UpdateDBStatus();
             }
@@ -198,15 +287,31 @@ namespace Wypozyczalnia
                     activeView.DataTable = queriesWarehouse.SelectAll();
                 }
 
+                else if (activeView == orders)
+                {
+                    activeView.DataTable = queriesOrder.SelectAll();
+                }
+
+                else if (activeView == reservations)
+                {
+                    activeView.DataTable = queriesReservation.SelectAll();
+                }
+
+                else if (activeView == spacecrafts)
+                {
+                    activeView.DataTable = queriesSpacecrafts.SelectAll();
+                }
+
                 activeView.SetColumns();
             }
             catch (SqlException ex)
             {
                 MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+                //MessageBox.Show(ex.Message.ToString(), "błąd");
                 activeView.ClearTable();
             }
         }
- 
+
         /// <summary>
         /// Sprawdza czy ostatni formularz zwrocil OK, jesli tak, odswieza dane w tabeli 
         /// </summary>
@@ -377,6 +482,51 @@ namespace Wypozyczalnia
         #region Magazyn
 
         // --- FILTRY
+        public void ShowWarehouseAddForm()
+        {
+            WarehouseForm form = new WarehouseForm(statuses);
+            WarehouseFormController formController = new WarehouseFormController(form, Operation.Add);
+            formController.Queries = queriesWarehouse;
+            dr = form.ShowDialog();
+            // odswiezenie danych
+            ReloadIfFormReturnedOK();
+        }
+
+        public void ShowWarehouseEditForm()
+        {
+            try
+            {
+                Część part = warehouse.GetActiveElement();
+                WarehouseForm form = new WarehouseForm(part, statuses);
+                WarehouseFormController formController = new WarehouseFormController(form, Operation.Edit);
+                formController.Queries = queriesWarehouse;
+                dr = form.ShowDialog();
+                // odswiezenie danych
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+        }
+
+        public void ShowWarehouseDeleteForm()
+        {
+            try
+            {
+                Część part = warehouse.GetActiveElement();
+                WarehouseForm form = new WarehouseForm(part, statuses);
+                WarehouseFormController formController = new WarehouseFormController(form, Operation.Delete);
+                formController.Queries = queriesWarehouse;
+                form.ShowDialog();
+                // odswiezenie danych
+                SelectAllAtActiveWindow();
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("NullReferenceException");
+            }
+        }
 
         public void SelectPartsByName()
         {
@@ -405,6 +555,408 @@ namespace Wypozyczalnia
             }
             activeView.SetColumns();
         }
+        #endregion
+
+        // --- --- --- --- --- ZAMÓWIENIE --- --- --- --- --- //
+        #region Zamówienie
+
+        // --- FORMULARZE
+
+        public void ShowOrderAddForm()
+        {
+            OrderForm form = new OrderForm();
+            OrderFormController formController = new OrderFormController(form, Operation.Add);
+            formController.OrderQuery = queriesOrder;
+            formController.WarehouseQuery = queriesWarehouse;
+
+            form.PartsNotAddedToOrder = queriesOrder.SelectPartsAvailableToOrder();
+            form.PartsAddedToOrder = form.PartsNotAddedToOrder.Clone();
+            form.SetColumns();
+
+            dr = form.ShowDialog();
+            ReloadIfFormReturnedOK();
+        }
+
+        public void ShowOrderEditForm()
+        {
+            try
+            {
+                Zamówienie order = orders.GetActiveElement();
+                OrderForm form = new OrderForm(order);
+                OrderFormController formController = new OrderFormController(form, Operation.Edit);
+                formController.OrderQuery = queriesOrder;
+                formController.WarehouseQuery = queriesWarehouse;
+
+                form.PartsNotAddedToOrder = queriesOrder.SelectPartsAvailableToOrder();
+                form.PartsAddedToOrder = queriesOrder.SelectPartsByOrder((int)order.Zamówienie_ID);
+                form.SetColumns();
+
+                dr = form.ShowDialog();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+        }
+
+        public void ShowOrderDeleteForm()
+        {
+            if (MessageBox.Show("Czy chcesz usunąć zamówienie?", "Wypożyczalnia", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Zamówienie order = orders.GetActiveElement();
+                OrderForm form = new OrderForm(order);
+                OrderFormController formController = new OrderFormController(form, Operation.Delete);
+                formController.OrderQuery = queriesOrder;
+                formController.WarehouseQuery = queriesWarehouse;
+                formController.Delete();
+                dr = DialogResult.OK;
+                ReloadIfFormReturnedOK();
+            }
+        }
+
+        public void ShowOrderPartsView()
+        {
+            try
+            {
+                Zamówienie order = orders.GetActiveElement();
+                DataTable q = queriesOrder.SelectPartsByOrder((int)order.Zamówienie_ID);
+                if (q.Rows.Count > 0)
+                {
+                    OrderPartsView view = new OrderPartsView();
+                    view.DataTable = q;
+                    view.SetColumns();
+                    dr = view.ShowDialog();
+                }
+                else
+                    MessageBox.Show("Brak wyników.", "Komunikat");
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+
+        // --- FILTRY
+
+        public void SelectOrdersByOrderDate()
+        {
+            try
+            {
+                DateTime? orderDate = orders.FilterOrderDate;
+                if (orderDate == null)
+                    activeView.DataTable = queriesOrder.SelectAll();
+                else
+                {
+                    DataTable dataTable = queriesOrder.SelectOrdersByOrderDate((DateTime)orderDate);
+                    if (dataTable.Rows.Count > 0)
+                        activeView.DataTable = dataTable;
+                    else
+                        MessageBox.Show("Brak wyników.", "Komunikat");
+                }
+
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Błędny format daty.", "Błąd");
+            }
+        }
+
+        #endregion
+
+        // --- --- --- --- --- REZERWACJA --- --- --- --- --- //
+        #region Rezerwacja
+        // --- FORMULARZE
+        public void ShowReservationEmploeesForm()
+        {
+            int id = reservations.GetActiveElementId();
+            ReservationEmployeesForm form = new ReservationEmployeesForm();
+            form.DataTable = queriesReservation.SelectReservationEmployee(id);
+            form.SetColumns();
+            dr = form.ShowDialog();
+        }
+
+        public void ShowReservationEditForm()
+        {
+            try
+            {
+                Rezerwacja reservation = reservations.GetActiveElement();
+                ReservationForm form = new ReservationForm(reservation);
+                ReservationFormController formController = new ReservationFormController(form, Operation.Edit);
+                formController.Queries = queriesReservation;
+
+                form.AddedClientDataTable = queriesReservation.SelectSingleClient((int)reservation.Rezerwacja_ID);
+                form.AddedShipDataTable = queriesReservation.SelectSingleShip((int)reservation.Rezerwacja_ID);
+                form.AddedEmployeesDataTable = queriesReservation.SelectReservationEmployee((int)reservation.Rezerwacja_ID);
+
+                form.ClientsDataTable = queriesReservation.SelectAllWithoutSingle((int)reservation.Rezerwacja_ID);
+                form.EmployeesDataTable = queriesReservation.SelectEmployeesByDate(reservation.Data_wypożyczenia, reservation.Data_zwrotu);
+                form.ShipsDataTable = queriesReservation.SelectShipsByDate(reservation.Data_wypożyczenia, reservation.Data_zwrotu);
+
+                form.SetColumns();
+                dr = form.ShowDialog();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+            }
+        }
+
+        public void ShowReservationAddForm()
+        {
+            try
+            {
+                ReservationForm form = new ReservationForm();
+                ReservationFormController formController = new ReservationFormController(form, Operation.Add);
+                formController.Queries = queriesReservation;
+
+                form.ClientsDataTable = queriesClient.SelectAll();
+                form.AddedClientDataTable = form.ClientsDataTable.Clone();
+
+                form.SetColumns();
+                dr = form.ShowDialog();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+            }
+        }
+
+        // --- FILTRY
+        public void SearchReservationsBySurname()
+        {
+            string surname = reservations.FilterSurname;
+            if (surname.Length > 0)
+            {
+                activeView.DataTable = queriesReservation.SelectBySurname(surname);
+            }
+            else
+            {
+                activeView.DataTable = queriesReservation.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        // --- Delete
+
+        public void DeleteReservation()
+        {
+            if (MessageBox.Show("Czy chcesz usunąć rezerwacje?", "Wypożyczalnia",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                int id = reservations.GetActiveElementId();
+                queriesReservation.Delete(id);
+                dr = DialogResult.OK;
+                ReloadIfFormReturnedOK();
+            }
+        }
+
+        #endregion
+
+        // --- --- --- --- --- STATKI --- --- --- --- --- //
+        #region Statki
+
+        public void SelectSpacecraftsByType()
+        {
+            string type = spacecrafts.FilterType;
+            if (types.Contains(type))
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectByType(type);
+            }
+            else
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        public void SelectSpacecraftsByEngine()
+        {
+            string name = spacecrafts.FilterEngine;
+            if (name.Length > 0)
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectByEngine(name);
+            }
+            else
+            {
+                activeView.DataTable = queriesSpacecrafts.SelectAll();
+            }
+            activeView.SetColumns();
+        }
+
+        public void UpdateTypesList()
+        {
+            types = queriesSpacecrafts.GetAllTypes();
+            spacecrafts.FillTypeList(types);
+        }
+
+        public void ShowSpacecraftsAddForm()
+        {
+            UpdateTypesList();
+            SpacecraftsForm form = new SpacecraftsForm(types);
+            SpacecraftsFormController formController = new SpacecraftsFormController(form, Operation.Add);
+            form.Queries = queriesSpacecrafts;
+            formController.Queries = queriesSpacecrafts;
+            dr = form.ShowDialog();
+            // odswiezenie danych
+            UpdateTypesList();
+            ReloadIfFormReturnedOK();
+        }
+
+        public void ShowSpacecraftsEditForm()
+        {
+            try
+            {
+                Statek spacecraft = spacecrafts.GetActiveElement();
+                UpdateTypesList();
+                SpacecraftsForm form = new SpacecraftsForm(spacecraft, types);
+                SpacecraftsFormController formController = new SpacecraftsFormController(form, Operation.Edit);
+                form.Queries = queriesSpacecrafts;
+                formController.Queries = queriesSpacecrafts;
+                dr = form.ShowDialog();
+                // odswiezenie danych
+                UpdateTypesList();
+                ReloadIfFormReturnedOK();
+            }
+            catch (NullReferenceException ex)
+            {
+                // pusta tabela/?
+            }
+        }
+
+        public void ShowSpacecraftsDeleteForm()
+        {
+            try
+            {
+                Statek spacecraft = spacecrafts.GetActiveElement();
+                UpdateTypesList();
+                SpacecraftsForm form = new SpacecraftsForm(spacecraft, types);
+                SpacecraftsFormController formController = new SpacecraftsFormController(form, Operation.Delete);
+                form.Queries = queriesSpacecrafts;
+                formController.Queries = queriesSpacecrafts;
+                form.ShowDialog();
+                // odswiezenie danych
+                UpdateTypesList();
+                SelectAllAtActiveWindow();
+            }
+            catch (NullReferenceException ex)
+            {
+
+            }
+        }
+
+        #endregion
+
+        // --- --- --- --- --- HELP --- --- --- --- --- //
+        #region Okno pomocy
+
+        public void ShowHelpView()
+        {
+            help = new HelpView();    
+            help.Show();
+        }
+        #endregion
+
+        // --- --- --- --- --- PRINTING --- --- --- --- --- //
+        #region Drukowanie
+
+        public void Print()
+        {
+            if (activeView == clients)
+            {
+                PrintClients();
+            }
+            else if (activeView == employees)
+            {
+                PrintEmployees();
+            }
+            else if (activeView == warehouse)
+            {
+                PrintWarehouse();
+            }
+            else if (activeView == orders)
+            {
+                PrintOrders();
+            }
+            else if (activeView == reservations)
+            {
+                PrintReservations();
+            }
+            else if (activeView == spacecrafts)
+            {
+                PrintSpacecrafts();
+            }
+        }
+
+        public void PrintClients()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = clients.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintEmployees()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = employees.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintWarehouse()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = warehouse.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintOrders()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = orders.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintReservations()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = reservations.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
+        public void PrintSpacecrafts()
+        {
+            //Set the font we want to use
+            printer.PrinterFont = new Font("Courier New", 10);
+            //Set the TextToPrint property
+            printer.TextToPrint = spacecrafts.DataToPrint();
+            //Issue print command
+            printer.Print();
+        }
+
         #endregion
     }
 }

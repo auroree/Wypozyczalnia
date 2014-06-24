@@ -85,6 +85,7 @@ namespace Wypozyczalnia.View
             }
         }
 
+
         public virtual void SetColumnsWidth()
         {
 
@@ -112,6 +113,21 @@ namespace Wypozyczalnia.View
         private void ActionShowWarehouseView(object sender, EventArgs e)
         {
             controller.ShowWarehouseView();
+        }
+
+        private void ActionShowOrderView(object sender, EventArgs e)
+        {
+            controller.ShowOrdersView();
+        }
+
+        private void ActionShowReservationsView(object sender, EventArgs e)
+        {
+            controller.ShowReservationsView();
+        }
+
+        private void ActionShowSpacecraftsView(object sender, EventArgs e)
+        {
+            controller.ShowSpacecraftsView();
         }
 
         private void ActionClose(object sender, FormClosingEventArgs e)
@@ -155,6 +171,15 @@ namespace Wypozyczalnia.View
             controller.ChangeDBSettings();
         }
 
+        private void ActionShowHelp(object sender, EventArgs e)
+        {
+            controller.ShowHelpView();
+        }
+
+        private void ActionPrint(object sender, EventArgs e)
+        {
+            controller.Print();
+        }
     }
 }
 

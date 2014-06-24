@@ -66,6 +66,38 @@ namespace Wypozyczalnia.View
             get { return filterSurname.Text; }
         }
 
+        public string DataToPrint()
+        {
+            string text = string.Empty;
+            string ID_Imie = new string(' ', 4);
+            string Imie_Nazwisko = new string(' ', 18);
+            string Nazwisko_Dowod = new string(' ', 18);
+
+            string tmpID, tmpImie, tmpNazwisko, tmpDowod;
+            text += "                             KLIENCI\n\n";
+            text += "ID" + ID_Imie + "|Imię" + Imie_Nazwisko + "|Nazwisko" + Nazwisko_Dowod + "|Nr dowodu\n";
+            text += new string('-', 2 + ID_Imie.Length) + "|";
+            text += new string('-', 4 + Imie_Nazwisko.Length) + "|";
+            text += new string('-', 8 + Nazwisko_Dowod.Length) + "|";
+            text += new string('-', 10) + "\n";
+
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                tmpID = dataGridView1[0, i].Value.ToString();
+                tmpImie = dataGridView1[1, i].Value.ToString();
+                tmpNazwisko = dataGridView1[2, i].Value.ToString();
+                tmpDowod = dataGridView1[3, i].Value.ToString();
+
+                tmpID += new string(' ', 2 + ID_Imie.Length - tmpID.Length) + '|';
+                tmpImie += new string(' ', 4 + Imie_Nazwisko.Length - tmpImie.Length) + '|';
+                tmpNazwisko += new string(' ', 8 + Nazwisko_Dowod.Length - tmpNazwisko.Length) + '|';
+
+                text += tmpID + tmpImie + tmpNazwisko + tmpDowod;
+                text += "\n";
+            }
+            return text;
+        }
+
         // Wywolanie funkcji obslugujacych zdarzenia
 
         private void ActionAdd(object sender, EventArgs e)
@@ -90,7 +122,8 @@ namespace Wypozyczalnia.View
 
         private void ActionReservations(object sender, EventArgs e)
         {
-            // TODO
+            int index = dataGridView1.CurrentRow.Index;
+            controller.ShowReservationsView(Convert.ToInt32(dataGridView1[0, index].Value));
         }
 
         private void ActionSearchBySurname(object sender, EventArgs e)

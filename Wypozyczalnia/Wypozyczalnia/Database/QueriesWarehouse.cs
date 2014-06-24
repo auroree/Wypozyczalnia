@@ -27,6 +27,18 @@ namespace Wypozyczalnia.Database
             return s;
         }
 
+        public Statek GetStatek(int statekID)
+        {
+            var s = db.Stateks.Single(statek => statek.Statek_ID == statekID);
+            return s;
+        }
+
+        public Zamówienie GetZamowienie(int orderID)
+        {
+            var s = db.Zamówienies.Single(order => order.Zamówienie_ID == orderID);
+            return s;
+        }
+
         public List<string> GetAllStatuses()
         {
             IEnumerable<Status_części> table = db.Status_częścis.ToList();
@@ -44,8 +56,9 @@ namespace Wypozyczalnia.Database
                         orderby cz.Nazwa ascending
                         select new
                         {
+                            cz.Część_ID,
                             cz.Nazwa,
-                            cz.Status_części_Status_części_ID,
+                            cz.Status_części.Status,
                             cz.Zamówienie_Zamówienie_ID,
                             cz.Cena,
                             cz.Statek_Statek_ID
@@ -61,8 +74,9 @@ namespace Wypozyczalnia.Database
                         where cz.Nazwa == name
                         select new
                         {
+                            cz.Część_ID,
                             cz.Nazwa,
-                            cz.Status_części_Status_części_ID,
+                            cz.Status_części.Status,
                             cz.Zamówienie_Zamówienie_ID,
                             cz.Cena,
                             cz.Statek_Statek_ID
@@ -78,14 +92,39 @@ namespace Wypozyczalnia.Database
                         where cz.Status_części.Status == status
                         select new
                         {
+                            cz.Część_ID,
                             cz.Nazwa,
+                            cz.Status_części.Status,
                             cz.Zamówienie_Zamówienie_ID,
                             cz.Cena,
-                            cz.Statek_Statek_ID,
-                            cz.Status_części,                     
+                            cz.Statek_Statek_ID,                    
                         };
             DataTable dt = Extensions.ToDataTable(query);
             return dt;
+        }
+
+        public void Insert(Część part)
+        {
+            db.Częśćs.InsertOnSubmit(part);
+            db.SubmitChanges();
+        }
+
+        public void Edit(Część e)
+        {
+            var record = db.Częśćs.Single(part => part.Część_ID == e.Część_ID);
+            record.Nazwa = e.Nazwa;
+            record.Zamówienie_Zamówienie_ID = e.Zamówienie_Zamówienie_ID;
+            record.Cena = e.Cena;
+            record.Statek_Statek_ID = e.Statek_Statek_ID;
+            record.Status_części_Status_części_ID = e.Status_części_Status_części_ID;
+            db.SubmitChanges();
+        }
+
+        public void Delete(Część e)
+        {
+            var record = db.Częśćs.Single(part => part.Część_ID == e.Część_ID);
+            db.Częśćs.DeleteOnSubmit(record);
+            db.SubmitChanges();
         }
     }
 }
