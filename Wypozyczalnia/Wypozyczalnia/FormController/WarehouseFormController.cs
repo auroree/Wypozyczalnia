@@ -109,7 +109,7 @@ namespace Wypozyczalnia.FormController
             catch (SqlException ex)
             {
                 //nie udalo sie polaczyc/bledna skladnia zapytania/bledne dane w zapytaniu/?
-                MessageBox.Show(ex.ToString(), "Błąd komunikacji z bazą danych");
+                MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
             }
         }
 
