@@ -76,7 +76,7 @@ namespace Wypozyczalnia.FormController
                     {
                         Nazwa = form.TextBox2,
                         Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
-                        Cena = Convert.ToSingle(form.TextBox4), Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Cena = Convert.ToSingle(form.TextBox4), 
                         Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
                     };
                 else if (form.ComboBox1 == "W magazynie")
@@ -84,7 +84,7 @@ namespace Wypozyczalnia.FormController
                     {
                         Nazwa = form.TextBox2,
                         Zamówienie_Zamówienie_ID = query.GetZamowienie(Convert.ToInt32(form.TextBox3)).Zamówienie_ID,
-                        Cena = Convert.ToSingle(form.TextBox4),Statek_Statek_ID = query.GetStatek(Convert.ToInt32(form.TextBox5)).Statek_ID,
+                        Cena = Convert.ToSingle(form.TextBox4),
                         Status_części_Status_części_ID = query.GetStatus(form.ComboBox1).Status_części_ID
                     };
                 else //Do zamowienia
