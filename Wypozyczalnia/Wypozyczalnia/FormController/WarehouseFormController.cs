@@ -111,6 +111,10 @@ namespace Wypozyczalnia.FormController
                 //nie udalo sie polaczyc/bledna skladnia zapytania/bledne dane w zapytaniu/?
                 MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
             }
+            catch (GetException ex)
+            {
+                MessageBox.Show(ex.ToString(), "Błąd");
+            }
         }
 
         public void Edit()
@@ -176,6 +180,10 @@ namespace Wypozyczalnia.FormController
             {
                 //nie udalo sie polaczyc/bledna skladnia zapytania/bledne dane w zapytaniu/?
                 MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+            }
+            catch (GetException ex)
+            {
+                MessageBox.Show(ex.ToString(), "Błąd");
             }
         }
 
