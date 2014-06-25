@@ -13,7 +13,7 @@ CREATE
     Cena FLOAT (2) ,
     Status_czêœci_Status_czêœci_ID NUMERIC (28) NOT NULL ,
     Statek_Statek_ID               NUMERIC (28) ,
-    Zamówienie_Zamówienie_ID       NUMERIC (28) NOT NULL ,
+    Zamówienie_Zamówienie_ID       NUMERIC (28) ,
     Czêœæ_ID                       NUMERIC (28) NOT NULL IDENTITY NOT FOR REPLICATION ,
     CONSTRAINT Czêœæ_PK PRIMARY KEY CLUSTERED (Czêœæ_ID)
 WITH
