@@ -37,14 +37,12 @@ namespace Wypozyczalnia.View
                     line = line.Substring(3);
                     treeNode = new TreeNode(line);
                     treeView1.Nodes.Add(treeNode);
-                    Console.WriteLine(line);
                 }
 
                 else if (line.StartsWith("!s ")) {
                     line = line.Substring(3);
                     subNode = new TreeNode(line);
                     treeNode.Nodes.Add(subNode);
-                    Console.WriteLine(line);
                 }
 
                 else if (line.StartsWith("!t "))
