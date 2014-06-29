@@ -130,6 +130,25 @@ namespace Wypozyczalnia
             }
         }
 
+        // wszystkim częściom o danym ID zamówienia nadajemy status "W magazynie", jeżeli miały status "Zamówiona"
+        public void MarkAllPartsAsDelivered(decimal orderId)
+        {
+            foreach (DataRow dtRow in qo.SelectPartsByOrder((int)orderId).Rows)
+            {
+                Część cz = new Część()
+                {
+                    Część_ID = Convert.ToInt32(dtRow.ItemArray[0]),
+                    Nazwa = Convert.ToString(dtRow.ItemArray[1]),
+                    Status_części_Status_części_ID = qw.GetStatus(Convert.ToString(dtRow.ItemArray[2])).Status_części_ID == qw.GetStatus("Zamówiona").Status_części_ID ? qw.GetStatus("W magazynie").Status_części_ID : qw.GetStatus(Convert.ToString(dtRow.ItemArray[2])).Status_części_ID,
+                    Zamówienie_Zamówienie_ID = orderId,
+                    Cena = Convert.ToSingle(dtRow.ItemArray[4]),
+                    Statek_Statek_ID = dtRow.ItemArray[5] != DBNull.Value ? Convert.ToInt32(dtRow.ItemArray[5]) : (Int32?)null,
+                };
+                if (cz != null)
+                    qw.Edit(cz);
+            }
+        }
+
         // aktualizacja cen części już należących do zamówienia
         public void UpdatePartsPrices()
         {
@@ -331,6 +350,39 @@ namespace Wypozyczalnia
             catch (NullReferenceException)
             {
                 MessageBox.Show("Posługiwanie się nullowym obiektem.", "Błąd");
+            }
+        }
+
+        public void ConfirmDelivery()
+        {
+            form.DialogResult = DialogResult.None;
+            try
+            {
+                Zamówienie order = new Zamówienie
+                {
+                    Data_zamówienia = Convert.ToDateTime(form.TextBox2),
+                    Data_odbioru = form.TextBox3.Length > 0 ? Convert.ToDateTime(form.TextBox3) : (DateTime?)null,
+                    Zamówienie_ID = Convert.ToInt32(form.TextBox1)
+                };
+                MarkAllPartsAsDelivered(order.Zamówienie_ID);
+                form.DialogResult = DialogResult.OK;
+                form.Dispose();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Błędne dane.", "Błąd");
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Błąd");
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Posługiwanie się nullowym obiektem.", "Błąd");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Nieprawidłowo wypełnione obiekty typu Część (występuje konwersja z wartości DBNull).", "Błąd");
             }
         }
     }

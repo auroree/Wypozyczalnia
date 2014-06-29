@@ -88,11 +88,11 @@
             // 
             // buttonConfirm
             // 
-            this.buttonConfirm.Location = new System.Drawing.Point(352, 614);
+            this.buttonConfirm.Location = new System.Drawing.Point(409, 614);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(175, 614);
+            this.buttonCancel.Location = new System.Drawing.Point(232, 614);
             // 
             // title
             // 
@@ -125,7 +125,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(616, 504);
+            this.tabPage2.Size = new System.Drawing.Size(726, 504);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Załoga";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -142,7 +142,7 @@
             // buttonAddEmployee
             // 
             this.buttonAddEmployee.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddEmployee.Image")));
-            this.buttonAddEmployee.Location = new System.Drawing.Point(294, 225);
+            this.buttonAddEmployee.Location = new System.Drawing.Point(356, 225);
             this.buttonAddEmployee.Name = "buttonAddEmployee";
             this.buttonAddEmployee.Size = new System.Drawing.Size(35, 25);
             this.buttonAddEmployee.TabIndex = 12;
@@ -152,7 +152,7 @@
             // buttonRemoveEmployee
             // 
             this.buttonRemoveEmployee.Image = ((System.Drawing.Image)(resources.GetObject("buttonRemoveEmployee.Image")));
-            this.buttonRemoveEmployee.Location = new System.Drawing.Point(253, 225);
+            this.buttonRemoveEmployee.Location = new System.Drawing.Point(315, 225);
             this.buttonRemoveEmployee.Name = "buttonRemoveEmployee";
             this.buttonRemoveEmployee.Size = new System.Drawing.Size(35, 25);
             this.buttonRemoveEmployee.TabIndex = 11;
@@ -167,7 +167,7 @@
             this.dataGridViewEmployees.Name = "dataGridViewEmployees";
             this.dataGridViewEmployees.ReadOnly = true;
             this.dataGridViewEmployees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewEmployees.Size = new System.Drawing.Size(604, 244);
+            this.dataGridViewEmployees.Size = new System.Drawing.Size(714, 244);
             this.dataGridViewEmployees.TabIndex = 10;
             // 
             // dataGridViewAddedEmployees
@@ -178,7 +178,7 @@
             this.dataGridViewAddedEmployees.Name = "dataGridViewAddedEmployees";
             this.dataGridViewAddedEmployees.ReadOnly = true;
             this.dataGridViewAddedEmployees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAddedEmployees.Size = new System.Drawing.Size(604, 186);
+            this.dataGridViewAddedEmployees.Size = new System.Drawing.Size(714, 186);
             this.dataGridViewAddedEmployees.TabIndex = 9;
             // 
             // tabPage1
@@ -191,7 +191,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(616, 504);
+            this.tabPage1.Size = new System.Drawing.Size(726, 504);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Klienci";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -213,13 +213,13 @@
             this.dataGridViewAddedClient.Name = "dataGridViewAddedClient";
             this.dataGridViewAddedClient.ReadOnly = true;
             this.dataGridViewAddedClient.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAddedClient.Size = new System.Drawing.Size(604, 78);
+            this.dataGridViewAddedClient.Size = new System.Drawing.Size(714, 78);
             this.dataGridViewAddedClient.TabIndex = 106;
             // 
             // buttonAddClient
             // 
             this.buttonAddClient.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddClient.Image")));
-            this.buttonAddClient.Location = new System.Drawing.Point(294, 112);
+            this.buttonAddClient.Location = new System.Drawing.Point(354, 112);
             this.buttonAddClient.Name = "buttonAddClient";
             this.buttonAddClient.Size = new System.Drawing.Size(35, 25);
             this.buttonAddClient.TabIndex = 109;
@@ -229,7 +229,7 @@
             // buttonRemoveClient
             // 
             this.buttonRemoveClient.Image = ((System.Drawing.Image)(resources.GetObject("buttonRemoveClient.Image")));
-            this.buttonRemoveClient.Location = new System.Drawing.Point(254, 112);
+            this.buttonRemoveClient.Location = new System.Drawing.Point(314, 112);
             this.buttonRemoveClient.Name = "buttonRemoveClient";
             this.buttonRemoveClient.Size = new System.Drawing.Size(35, 25);
             this.buttonRemoveClient.TabIndex = 108;
@@ -244,7 +244,7 @@
             this.dataGridViewClients.Name = "dataGridViewClients";
             this.dataGridViewClients.ReadOnly = true;
             this.dataGridViewClients.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClients.Size = new System.Drawing.Size(604, 355);
+            this.dataGridViewClients.Size = new System.Drawing.Size(714, 355);
             this.dataGridViewClients.TabIndex = 107;
             // 
             // tabControl1
@@ -256,7 +256,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 82);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(624, 530);
+            this.tabControl1.Size = new System.Drawing.Size(734, 530);
             this.tabControl1.TabIndex = 105;
             // 
             // tabPage3
@@ -269,7 +269,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(616, 504);
+            this.tabPage3.Size = new System.Drawing.Size(726, 504);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Statki";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -286,7 +286,7 @@
             // buttonAddShip
             // 
             this.buttonAddShip.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddShip.Image")));
-            this.buttonAddShip.Location = new System.Drawing.Point(293, 112);
+            this.buttonAddShip.Location = new System.Drawing.Point(354, 112);
             this.buttonAddShip.Name = "buttonAddShip";
             this.buttonAddShip.Size = new System.Drawing.Size(35, 25);
             this.buttonAddShip.TabIndex = 115;
@@ -296,7 +296,7 @@
             // buttonRomoveShip
             // 
             this.buttonRomoveShip.Image = ((System.Drawing.Image)(resources.GetObject("buttonRomoveShip.Image")));
-            this.buttonRomoveShip.Location = new System.Drawing.Point(253, 112);
+            this.buttonRomoveShip.Location = new System.Drawing.Point(314, 112);
             this.buttonRomoveShip.Name = "buttonRomoveShip";
             this.buttonRomoveShip.Size = new System.Drawing.Size(35, 25);
             this.buttonRomoveShip.TabIndex = 114;
@@ -311,7 +311,7 @@
             this.dataGridViewShips.Name = "dataGridViewShips";
             this.dataGridViewShips.ReadOnly = true;
             this.dataGridViewShips.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewShips.Size = new System.Drawing.Size(604, 355);
+            this.dataGridViewShips.Size = new System.Drawing.Size(714, 355);
             this.dataGridViewShips.TabIndex = 113;
             // 
             // dataGridViewAddedShip
@@ -322,7 +322,7 @@
             this.dataGridViewAddedShip.Name = "dataGridViewAddedShip";
             this.dataGridViewAddedShip.ReadOnly = true;
             this.dataGridViewAddedShip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAddedShip.Size = new System.Drawing.Size(604, 78);
+            this.dataGridViewAddedShip.Size = new System.Drawing.Size(714, 78);
             this.dataGridViewAddedShip.TabIndex = 112;
             // 
             // labelHireDateInfo
@@ -331,23 +331,23 @@
             this.labelHireDateInfo.ForeColor = System.Drawing.Color.Red;
             this.labelHireDateInfo.Location = new System.Drawing.Point(327, 33);
             this.labelHireDateInfo.Name = "labelHireDateInfo";
-            this.labelHireDateInfo.Size = new System.Drawing.Size(185, 13);
+            this.labelHireDateInfo.Size = new System.Drawing.Size(266, 13);
             this.labelHireDateInfo.TabIndex = 112;
-            this.labelHireDateInfo.Text = "Podaj prawidłową date wypożyczenia";
+            this.labelHireDateInfo.Text = "Podaj prawidłową date wypożyczenia [RRRR-MM-DD]";
             // 
             // labelDueDateInfo
             // 
             this.labelDueDateInfo.AutoSize = true;
             this.labelDueDateInfo.Location = new System.Drawing.Point(328, 56);
             this.labelDueDateInfo.Name = "labelDueDateInfo";
-            this.labelDueDateInfo.Size = new System.Drawing.Size(293, 13);
+            this.labelDueDateInfo.Size = new System.Drawing.Size(374, 13);
             this.labelDueDateInfo.TabIndex = 113;
-            this.labelDueDateInfo.Text = "(Opcjonalne - Zamknięcie rezerwacji) Podaj prawidłową date";
+            this.labelDueDateInfo.Text = "(Opcjonalne - Zamknięcie rezerwacji) Podaj prawidłową date [RRRR-MM-DD]";
             // 
             // ReservationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(655, 644);
+            this.ClientSize = new System.Drawing.Size(758, 644);
             this.Controls.Add(this.labelDueDateInfo);
             this.Controls.Add(this.labelHireDateInfo);
             this.Controls.Add(this.textBoxID);

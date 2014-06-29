@@ -104,5 +104,10 @@ namespace Wypozyczalnia.View
         {
             get { return filterOrderDate.Text.Length > 0 ? Convert.ToDateTime(filterOrderDate.Text) : (DateTime?)null; }
         }
+
+        private void ActionOrderDelivered(object sender, EventArgs e)
+        {
+            controller.ShowOrderDeliveryForm();
+        }
     }
 }

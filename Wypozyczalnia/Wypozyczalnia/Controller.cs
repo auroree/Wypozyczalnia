@@ -596,22 +596,27 @@ namespace Wypozyczalnia
             }
             catch (NullReferenceException)
             {
-
             }
         }
 
         public void ShowOrderDeleteForm()
         {
-            if (MessageBox.Show("Czy chcesz usunąć zamówienie?", "Wypożyczalnia", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            try
             {
                 Zamówienie order = orders.GetActiveElement();
-                OrderForm form = new OrderForm(order);
-                OrderFormController formController = new OrderFormController(form, Operation.Delete);
-                formController.OrderQuery = queriesOrder;
-                formController.WarehouseQuery = queriesWarehouse;
-                formController.Delete();
-                dr = DialogResult.OK;
-                ReloadIfFormReturnedOK();
+                if (MessageBox.Show("Czy chcesz usunąć zamówienie?", "Wypożyczalnia", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    OrderForm form = new OrderForm(order);
+                    OrderFormController formController = new OrderFormController(form, Operation.Delete);
+                    formController.OrderQuery = queriesOrder;
+                    formController.WarehouseQuery = queriesWarehouse;
+                    formController.Delete();
+                    dr = DialogResult.OK;
+                    ReloadIfFormReturnedOK();
+                }
+            }
+            catch (NullReferenceException)
+            {
             }
         }
 
@@ -630,6 +635,33 @@ namespace Wypozyczalnia
                 }
                 else
                     MessageBox.Show("Brak wyników.", "Komunikat");
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+
+        public void ShowOrderDeliveryForm()
+        {
+            try
+            {
+                Zamówienie order = orders.GetActiveElement();
+                DataTable q = queriesOrder.SelectPartsByOrder((int)order.Zamówienie_ID);
+                if (q.Rows.Count > 0)
+                {
+                    if (MessageBox.Show("Czy potwierdzasz odbiór zamówienia?", "Wypożyczalnia", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        OrderForm form = new OrderForm(order);
+                        OrderFormController formController = new OrderFormController(form);
+                        formController.OrderQuery = queriesOrder;
+                        formController.WarehouseQuery = queriesWarehouse;
+                        formController.ConfirmDelivery();
+                        dr = DialogResult.OK;
+                        ReloadIfFormReturnedOK();
+                    }
+                }
+                else
+                    MessageBox.Show("Zamówienie nie zawiera żadnych części.", "Komunikat");
             }
             catch (NullReferenceException)
             {
@@ -958,5 +990,6 @@ namespace Wypozyczalnia
         }
 
         #endregion
+
     }
 }

@@ -34,6 +34,7 @@
             this.filterOrderDate = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.buttonShowParts = new System.Windows.Forms.Button();
+            this.buttonOrderDelivery = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,11 +94,23 @@
             this.buttonShowParts.UseVisualStyleBackColor = true;
             this.buttonShowParts.Click += new System.EventHandler(this.ActionShowParts);
             // 
+            // buttonOrderDelivery
+            // 
+            this.buttonOrderDelivery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOrderDelivery.Location = new System.Drawing.Point(13, 464);
+            this.buttonOrderDelivery.Name = "buttonOrderDelivery";
+            this.buttonOrderDelivery.Size = new System.Drawing.Size(137, 23);
+            this.buttonOrderDelivery.TabIndex = 9;
+            this.buttonOrderDelivery.Text = "Odebrano zamówienie";
+            this.buttonOrderDelivery.UseVisualStyleBackColor = true;
+            this.buttonOrderDelivery.Click += new System.EventHandler(this.ActionOrderDelivered);
+            // 
             // OrdersView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 512);
+            this.Controls.Add(this.buttonOrderDelivery);
             this.Controls.Add(this.buttonShowParts);
             this.Controls.Add(this.toolStrip1);
             this.Name = "OrdersView";
@@ -107,6 +120,7 @@
             this.Controls.SetChildIndex(this.buttonDelete, 0);
             this.Controls.SetChildIndex(this.toolStrip1, 0);
             this.Controls.SetChildIndex(this.buttonShowParts, 0);
+            this.Controls.SetChildIndex(this.buttonOrderDelivery, 0);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -121,5 +135,6 @@
         private System.Windows.Forms.ToolStripTextBox filterOrderDate;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.Button buttonShowParts;
+        private System.Windows.Forms.Button buttonOrderDelivery;
     }
 }
