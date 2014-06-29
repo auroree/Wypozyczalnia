@@ -1,0 +1,57 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B57126BA-ADDE-F5B6-C9C9-3DB9A2A2A42D" name="Uprawnienia">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:07:24 UTC</createdTime>
+<generatorID>1C25F378-874C-1EB1-4174-606DB1438C9C</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Funkcja" id="FAB577CF-8725-DFD1-94D9-602A1DE56A8E">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:07:24 UTC</createdTime>
+<generatorID>042B4FFD-55DF-17FE-8278-27BAA54517ED</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Hasło" id="BB33D8A3-BA7A-6EB6-02D4-A2561D08C3D8">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:07:24 UTC</createdTime>
+<generatorID>DFF60EBA-2665-1C60-6226-3E92B6A575C2</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Uprawnienia_ID" id="78E83200-5A3A-77E7-A485-B538AA20D6BA">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:07:24 UTC</createdTime>
+<ownerDesignName>Baza</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="82896479-ED2F-012F-3D84-E9DFC99D9516" name="Uprawnienia_PK">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:07:24 UTC</createdTime>
+<ownerDesignName>Baza</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="78E83200-5A3A-77E7-A485-B538AA20D6BA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

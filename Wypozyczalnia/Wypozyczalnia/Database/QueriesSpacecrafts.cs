@@ -11,11 +11,6 @@ namespace Wypozyczalnia.Database
     {
         WypozyczalniaDataClassesDataContext db;
 
-        public QueriesSpacecrafts()
-        {
-            db = new WypozyczalniaDataClassesDataContext();
-        }
-
         public QueriesSpacecrafts(WypozyczalniaDataClassesDataContext dbContext)
         {
             db = dbContext;

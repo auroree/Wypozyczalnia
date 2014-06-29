@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,16 +23,60 @@ namespace Wypozyczalnia
 
         public void Login()
         {
-            WypozyczalniaDataClassesDataContext dbContext = new WypozyczalniaDataClassesDataContext(
-                //"Data Source=HANIA-LAPTOP\\SQLEXPRESS;Initial Catalog=Test2;User ID=sa;Password=Admin1");
-                DatabaseSettings.CreateConnectionString(form.UserName, form.Password));
-            DatabaseSettings.Save(form.UserName);
+            // TEMP
+            //LoginClassesDataContext dbin = new LoginClassesDataContext(
+            //        DatabaseSettings.CreateConnectionString(
+            //        "hania-laptop\\sqlexpress", "Wypozyczalnia",
+            //        "sa", "Admin1"
+            //        ));
+            //Użytkownik u = new Użytkownik();
+            //u.Nazwa = "Krysia";
+            //u.Hasło = HashMD5("12345");
+            //u.Uprawnienia_Uprawnienia_ID = 1;
+            //dbin.Użytkowniks.InsertOnSubmit(u);
+            //dbin.SubmitChanges();
 
-            BaseView initForm = new ClientsView();
-            Controller controller = new Controller(dbContext, initForm);
-            initForm.Show();
-            form.Hide();
+            try
+            {
+                string user = "LoginAccessor";
+                string pass = "specialpassword";
+                // autoryzacja uzytkownika
+                LoginClassesDataContext db = new LoginClassesDataContext(
+                    DatabaseSettings.CreateConnectionString(
+                    form.Server, form.Database,
+                    user, pass
+                    ));
+                IEnumerator<LoginAsResult> res = db.LoginAs(form.UserName, db.HashMD5(form.Password)).GetEnumerator();
+                res.MoveNext();                
 
+                WypozyczalniaDataClassesDataContext dbContext = new WypozyczalniaDataClassesDataContext(
+                    DatabaseSettings.CreateConnectionString(
+                    form.Server, form.Database,
+                    res.Current.Funkcja, res.Current.Hasło));
+                // zapis ustawien
+                DatabaseSettings.Save(form.Server, form.Database, form.UserName);
+                
+                BaseView initForm = new ClientsView();
+                Controller controller = new Controller(dbContext, initForm);
+                initForm.Show();
+                form.Hide();
+
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Błędna nazwa użytkownika lub hasło.", "Błąd");
+                form.InProgressVisible = false;
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
+                form.InProgressVisible = false;
+            }
+
+            
         }
+
+        
+
     }
 }

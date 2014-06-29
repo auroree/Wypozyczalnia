@@ -1,0 +1,94 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="74998E6C-3D83-23BE-F6C4-481850A6D764" name="Użytkownik">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:04:55 UTC</createdTime>
+<generatorID>A435D414-CA8A-2588-9CDC-4D4B198090D0</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Użytkownik_ID" id="FAE05FB8-4671-9799-00C7-FA948B8E7797">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:04:55 UTC</createdTime>
+<generatorID>C8F3EE8C-93E4-30FA-1D52-4602FA63CD3A</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Login" id="A02C9215-CD61-A597-D66F-CE692F3A8DF2">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:04:55 UTC</createdTime>
+<generatorID>05BDC5EA-3A18-0A5B-BA9A-F8175BED6AED</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Hasło" id="009E7EA5-0B20-CF82-7380-ADCB12B56828">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:04:55 UTC</createdTime>
+<generatorID>E04BA60E-CF2B-E5AF-6D8F-0A95861FDEB5</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Uprawnienia_Uprawnienia_ID" id="B43E411F-DCBC-814F-0514-ED9460C47D85">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:04:55 UTC</createdTime>
+<ownerDesignName>Baza</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Uprawnienia_Uprawnienia_ID1" id="30445054-6C25-BBE4-666B-89BFC2FE95F9">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:07:24 UTC</createdTime>
+<ownerDesignName>Baza</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<delegate>78E83200-5A3A-77E7-A485-B538AA20D6BA</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4F99E45A-0113-775B-ACAD-B99F54A6E0DD" referredColumn="78E83200-5A3A-77E7-A485-B538AA20D6BA"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5D92E2C1-975D-70C6-E69D-D53A7C675568" name="Użytkownik_PK">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:04:55 UTC</createdTime>
+<generatorID>341F11A6-D0A9-08FB-DFD9-3B2C2B0D3DF6</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FAE05FB8-4671-9799-00C7-FA948B8E7797"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8E122EB2-419A-05DF-5192-359BD70F493D" name="Użytkownik_Uprawnienia_FK">
+<createdBy>Hania</createdBy>
+<createdTime>2014-06-25 22:07:24 UTC</createdTime>
+<generatorID>1DDD4AD1-77C3-9605-25B8-5365748010FD</generatorID>
+<ownerDesignName>Baza</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="30445054-6C25-BBE4-666B-89BFC2FE95F9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

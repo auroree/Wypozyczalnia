@@ -11,11 +11,6 @@ namespace Wypozyczalnia.Database
     {
         WypozyczalniaDataClassesDataContext db;
 
-        public QueriesReservation()
-        {
-            db = new WypozyczalniaDataClassesDataContext();
-        }
-
         public QueriesReservation(WypozyczalniaDataClassesDataContext dbContext)
         {
             db = dbContext;

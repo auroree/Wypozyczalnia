@@ -5,10 +5,26 @@
     <Setting Name="Test2ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=FELIX-PC\SQLEXPRESS;Initial Catalog=Test2;&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=FELIX-KOMPUTER\SQLEXPRESS;Initial Catalog=Test2;&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=FELIX-PC\SQLEXPRESS;Initial Catalog=Test2;</Value>
+      <Value Profile="(Default)">Data Source=FELIX-KOMPUTER\SQLEXPRESS;Initial Catalog=Test2;</Value>
+    </Setting>
+    <Setting Name="WypoTestConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=hania-laptop\sqlexpress;Initial Catalog=WypoTest;User ID=sa;Password=Admin1&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=hania-laptop\sqlexpress;Initial Catalog=WypoTest;User ID=sa;Password=Admin1</Value>
+    </Setting>
+    <Setting Name="WypozyczalniaConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=HANIA-LAPTOP\sqlexpress;Initial Catalog=Wypozyczalnia;User ID=LoginAccessor;Password=specialpassword&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=HANIA-LAPTOP\sqlexpress;Initial Catalog=Wypozyczalnia;User ID=LoginAccessor;Password=specialpassword</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -11,11 +11,6 @@ namespace Wypozyczalnia.Database
     {
         WypozyczalniaDataClassesDataContext db;
 
-        public QueriesWarehouse()
-        {
-            db = new WypozyczalniaDataClassesDataContext();
-        }
-
         public QueriesWarehouse(WypozyczalniaDataClassesDataContext dbContext)
         {
             db = dbContext;
