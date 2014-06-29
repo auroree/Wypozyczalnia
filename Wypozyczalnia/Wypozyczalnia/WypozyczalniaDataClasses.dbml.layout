@@ -32,32 +32,27 @@
         <elementListCompartment Id="74230bed-65cf-4939-b475-a83a67f4fc4f" absoluteBounds="4.14, 3.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3976aaf7-daf4-45ee-8722-268f9e10e1ce" absoluteBounds="7, 2.75, 2, 2.3478011067708335">
+    <classShape Id="3976aaf7-daf4-45ee-8722-268f9e10e1ce" absoluteBounds="7, 2.75, 2, 2.1554996744791666">
       <DataClassMoniker Name="/WypozyczalniaDataClassesDataContext/Pracownik" />
       <nestedChildShapes>
-        <elementListCompartment Id="a512f7bd-f285-4ed8-babf-6a491c43c2c7" absoluteBounds="7.015, 3.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a512f7bd-f285-4ed8-babf-6a491c43c2c7" absoluteBounds="7.015, 3.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.5 : 2.75); (7.5 : 1.94399251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 2.75); (7.5 : 1.94399251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Pracownik/Pracownik_jest_serwisowany" />
       <nodes>
         <classShapeMoniker Id="3976aaf7-daf4-45ee-8722-268f9e10e1ce" />
         <classShapeMoniker Id="cef099d3-0562-4ae4-a482-559d01592683" />
       </nodes>
     </associationConnector>
-<!--<<<<<<< HEAD-->
-    <associationConnector edgePoints="[(7 : 3.72199625651042); (6.125 : 3.72199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 3.72199625651042); (6.125 : 3.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Pracownik/Pracownik_pilotuje" />
-      <!--=======
-    <associationConnector edgePoints="[(1.5 : 4.75); (1.5 : 4.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Funkcja/Funkcja_Pracownik" />
->>>>>>> kopia-->
       <nodes>
         <classShapeMoniker Id="3976aaf7-daf4-45ee-8722-268f9e10e1ce" />
         <classShapeMoniker Id="68031ee9-d999-466e-b511-31dfae38a381" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.84375 : 2.06899251302083); (3.84375 : 4.99864949544271); (7 : 4.99864949544271)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.84375 : 2.06899251302083); (3.84375 : 4.99864949544271); (7 : 4.99864949544271)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Funkcja/Funkcja_Pracownik" />
       <nodes>
         <classShapeMoniker Id="371c6422-27a0-4085-93f3-15abfd970b69" />
@@ -77,11 +72,7 @@
         <classShapeMoniker Id="68031ee9-d999-466e-b511-31dfae38a381" />
       </nodes>
     </associationConnector>
-    <!--<<<<<<< HEAD-->
-    <associationConnector edgePoints="[(2.75 : 4.89949788411458); (3.76041666666667 : 4.89949788411458 : JumpStart); (3.92708333333333 : 4.89949788411458 : JumpEnd); (5 : 4.89949788411458); (5 : 4.39589680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-<!--=======
-    <associationConnector edgePoints="[(4.4375 : 4.125); (4.4375 : 3.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia-->
+    <associationConnector edgePoints="[(2.75 : 4.89949788411458); (3.76041666666667 : 4.89949788411458 : JumpStart); (3.92708333333333 : 4.89949788411458 : JumpEnd); (5 : 4.89949788411458); (5 : 4.39589680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Klient/Klient_Rezerwacja" />
       <nodes>
         <classShapeMoniker Id="8d37c99f-5e6b-435d-ba16-8524f9080572" />
@@ -94,29 +85,21 @@
         <elementListCompartment Id="836614ad-5d57-453b-9165-fc9953be25de" absoluteBounds="1.6400000000000001, 3.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.0625 : 3); (2.0625 : 2.7131982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.0625 : 3); (2.0625 : 2.7131982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Statek/Statek_Część" />
       <nodes>
         <classShapeMoniker Id="077e79e5-7b62-469c-bc9e-c773f3029ba8" />
         <classShapeMoniker Id="c06eae44-2608-4b1d-b0ac-83250398db88" />
       </nodes>
     </associationConnector>
-<!--<<<<<<< HEAD-->
-    <associationConnector edgePoints="[(3.625 : 4.24644603320312); (3.76041666666667 : 4.24644603320312 : JumpStart); (3.92708333333333 : 4.24644603320312 : JumpEnd); (3.9375 : 4.24644603320312); (3.9375 : 2.5625); (6.718748 : 2.5625); (6.718748 : 1.94399251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <!--=======
-    <associationConnector edgePoints="[(1.65625 : 2); (1.65625 : 0.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia-->
+    <associationConnector edgePoints="[(3.625 : 4.24644603320312); (3.9375 : 4.24644603320312); (3.9375 : 2.5625); (6.718748 : 2.5625); (6.718748 : 1.94399251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Statek/Statek_jest_serwisowany" />
       <nodes>
         <classShapeMoniker Id="077e79e5-7b62-469c-bc9e-c773f3029ba8" />
         <classShapeMoniker Id="cef099d3-0562-4ae4-a482-559d01592683" />
       </nodes>
     </associationConnector>
-    <!--<<<<<<< HEAD-->
-    <associationConnector edgePoints="[(3.625 : 3.19272420247396); (3.76041666666667 : 3.19272420247396 : JumpStart); (3.92708333333333 : 3.19272420247396 : JumpEnd); (4 : 3.19272420247396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <!--=======
-    <associationConnector edgePoints="[(2.875 : 2.3687525); (5 : 2.3687525); (5 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia-->
+    <associationConnector edgePoints="[(3.625 : 3.19272420247396); (3.76041666666667 : 3.19272420247396 : JumpStart); (3.92708333333333 : 3.19272420247396 : JumpEnd); (4 : 3.19272420247396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Statek/Statek_Rezerwacja" />
       <nodes>
         <classShapeMoniker Id="077e79e5-7b62-469c-bc9e-c773f3029ba8" />
@@ -142,11 +125,7 @@
         <elementListCompartment Id="495072f7-618a-4d0e-91b7-eaa769171ebc" absoluteBounds="4.89, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-<!--<<<<<<< HEAD-->
-    <associationConnector edgePoints="[(5.625 : 1.69399251302083); (5.625 : 2.5); (3.92708333333333 : 2.5 : JumpStart); (3.76041666666667 : 2.5 : JumpEnd); (3.6875 : 2.5); (3.6875 : 3.95296864485677); (3.625 : 3.95296864485677)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-<!--=======
-    <associationConnector edgePoints="[(4.1875 : 0.95); (4.1875 : 2.0812475); (2.875 : 2.0812475)]" fixedFrom="NotFixed" fixedTo="NotFixed">
->>>>>>> kopia-->
+    <associationConnector edgePoints="[(5.625 : 1.69399251302083); (5.625 : 2.5); (3.92708333333333 : 2.5 : JumpStart); (3.76041666666667 : 2.5 : JumpEnd); (3.6875 : 2.5); (3.6875 : 3.95296864485677); (3.625 : 3.95296864485677)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WypozyczalniaDataClassesDataContext/Typ_statku/Typ_statku_Statek" />
       <nodes>
         <classShapeMoniker Id="7ee031c2-1dd3-4ef7-9928-1ce5fbe310b4" />

@@ -1,0 +1,6 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="Table" objectID="B57126BA-ADDE-F5B6-C9C9-3DB9A2A2A42D" name="Uprawnienia" seqName="seg_0"/>
+   <object objectType="Table" objectID="74998E6C-3D83-23BE-F6C4-481850A6D764" name="Użytkownik" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="4F99E45A-0113-775B-ACAD-B99F54A6E0DD" name="Użytkownik_Uprawnienia_FK" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>
