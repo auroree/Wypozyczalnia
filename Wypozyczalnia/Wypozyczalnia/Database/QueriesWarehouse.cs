@@ -29,14 +29,28 @@ namespace Wypozyczalnia.Database
 
         public Statek GetStatek(int statekID)
         {
-            var s = db.Stateks.Single(statek => statek.Statek_ID == statekID);
-            return s;
+            try
+            {
+                var s = db.Stateks.Single(statek => statek.Statek_ID == statekID);
+                return s;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new GetException("Niepoprawne ID statku");
+            }
         }
 
         public Zamówienie GetZamowienie(int orderID)
         {
-            var s = db.Zamówienies.Single(order => order.Zamówienie_ID == orderID);
-            return s;
+            try
+            {
+                var s = db.Zamówienies.Single(order => order.Zamówienie_ID == orderID);
+                return s;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new GetException("Niepoprawne ID zamówienia");
+            }
         }
 
         public List<string> GetAllStatuses()
@@ -125,6 +139,21 @@ namespace Wypozyczalnia.Database
             var record = db.Częśćs.Single(part => part.Część_ID == e.Część_ID);
             db.Częśćs.DeleteOnSubmit(record);
             db.SubmitChanges();
+        }
+    }
+
+    public class GetException : Exception
+    {
+        private string cause;
+
+        public GetException(string str)
+        {
+            cause = str;
+        }
+
+        public override string ToString()
+        {
+            return cause;
         }
     }
 }

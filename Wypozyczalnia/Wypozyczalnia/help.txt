@@ -1,7 +1,7 @@
-** !m - ga³êzie g³ówne
-** !mt - komentarz do ga³êzi g³ównej
-** !s - podga³êzie
-** !t - treœæ pomocy
+** !m - galezie glowne
+** !mt - komentarz do galezi glownej
+** !s - podgalezie
+** !t - tresc pomocy
 
 !m Okna widoku
 !mt Bardzo pomocny help
@@ -10,11 +10,88 @@
 !s Klienci
 !t O oknie Klienci
 !t wiecej o oknie Klienci
-!t jeszcze wiecej o oknie Klienciiiiii
+!t jeszcze wiecej o oknie Klienci
 
 !s Statki
-!t Statki sa fajne
-!t O oknie Statki
+!t POMOC: Okno Statki
+!t 
+!t 1. O oknie Statki.
+!t 2. Obsluga okna - statki.
+!t 	2.1. Dodawanie nowych statkow.
+!t 	2.2. Edycja statkow.
+!t	2.3. Usuwanie statkow.
+!t 3. Obsluga - typy statkow.
+!t 4. Wyszukiwanie statkow.
+!t ___________________________________________________________________________
+!t 
+!t 1. O oknie Statki.
+!t 
+!t 	Okno statki umozliwia przegladanie, dodawanie, edycje oraz usuwanie statkow z bazy danych, oraz wszelkich z nimi powiazanych informacji. Za obsluge wymienionych funkcji odpowiada prosty i intuicyjny interfejs, skladajacy sie z tabeli wyswietlajacej informacje dotyczace statkow (kolmuny Statek ID, Nazwa typu, Silnik, Rok produkcji oraz Cena za dobe), menu wyszukiwania (Typ statku, Silnik), oraz trzech przyciskow odpowiadajacych za wprowadzanie zmian w bazie danych (Dodaj nowy, Edytuj, Usun). 
+!t ___________________________________________________________________________
+!t 
+!t 2. Obsluga okna - statki.
+!t 
+!t 	Rozdzial opisuje metody korzystania z udostepnianych przez program funkcji w oknie Statki, blizej opisane zostana okna dodawania, edycji oraz usuwania statkow z bazy danych.
+!t 
+!t 2.1. Dodawanie statkow.
+!t 	Aby przejsc do formularza dodania nowego statku kliknij w oknie Statki przycisk [Dodaj nowy].
+!t 1. Aby dodac nowy statek:
+!t       a) Wypelnij wszystkie wymagane pola formularza:
+!t 	- Typ statku (rozwijalna lista)
+!t 	- Typ silnika
+!t 	- Rok produkcji
+!t 	- Cena za dobe
+!t       b) Potwierdz dobor wprowadzonych danych przyciskiem [Zatwierdz], lub anuluj dodawanie nowego statku przy pomocy przycisku [Anuluj].
+!t 
+!t Formularz dodawania zawiera takze druga czesc, dotyczy ona jednak dodawania i usuwania Typow statkow i opisana zostanie w rozdziale 3. Obsluga - typy statkow.
+!t 
+!t 2.2. Edycja statkow.
+!t 	Aby przejsc do formularza edycji istniejacego statku wybierz z tabeli w oknie Statki statek do edycji i kliknij  przycisk [Edytuj].
+!t 1. Aby edytowac istniejcy statek:
+!t       a) Wprowadz zmiany w jednym lub kilku z  wypelnionych pol formularza:
+!t 	- Typ statku (rozwijalna lista)
+!t 	- Typ silnika
+!t 	- Rok produkcji
+!t 	- Cena za dobe
+!t       b) Potwierdz dobor wprowadzonych danych przyciskiem [Zatwierdz], dzieki czemu okreslone zmiany zostana wprowadzone do bazy danych, lub anuluj edycje istniejacego statku przy pomocy przycisku [Anuluj]. 
+!t 
+!t Formularz edycji zawiera takze druga czesc, dotyczy ona jednak dodawania i usuwania Typow statkow i opisana zostanie w rozdziale 3. Obsluga - typy statkow.
+!t 
+!t 2.3. Usuwanie statkow.
+!t 	Aby przejsc do formularza usuwania istniejacego statku wybierz z tabeli w oknie Statki statek do usuniecia i kliknij  przycisk [Usun].
+!t 1. Aby usunac istniejcy statek:
+!t       a) Zweryfikuj dane wpisane w polach formularza.
+!t       b) Potwierdz decyzje o usunieciu wybranego statku przyciskiem [Zatwierdz], lub anuluj operacje przy pomocy przycisku [Anuluj]. 
+!t 
+!t Formularz usuwania zawiera takze druga czesc, dotyczy ona jednak dodawania i usuwania Typow statkow i opisana zostanie w rozdziale 3. Obsluga - typy statkow.
+!t ___________________________________________________________________________
+!t 
+!t 3. Obsluga - typy statkow.
+!t 
+!t 	Okna formularzy dodawania, edycji i usuwania statkow podzielone sa na dwie czesci. Pierwsza z nich (lewa strona formularza) poswiecona jest opisanym wyzej operacjom dotyczacym statkow, druga czesc kazdego z formularzy pozwala na prosta edycje Typow statkow, obslugiwanych przez baze.
+!t 
+!t 3.1. Aby dodac nowy typ statku:
+!t       a) Wejdz do jednego z okien formularza Dodaj, Edytuj lub Usun statek.
+!t       b) Wpisz nazwe nowego typu w odpowiednie pole.
+!t       c) Zatwierdz nazwe nowego typu statku przyciskiem [Utworz typ], lub uzyj przycisku [Anuluj] z lewej strony okna. Wpisanie nazwy dla nowego Typu i potwierdzenie formularza przyciskiem [Zatwierdz] nie zaskutkuje utworzeniem nowego typu o okreslonej nazwie.
+!t 
+!t 3.2. Aby usunac istniejacyt typ statku:
+!t       a) Wejdz do jednego z okien formularza Dodaj lub Edytuj.
+!t       b) Wybierz Typ statku z rozwijalnej listy.
+!t       c) Zatwierdz operacje usuwania  przyciskiem [Usun typ], lub uzyj przycisku [Anuluj] z lewej strony okna. Wybranie nazwy Typu statku do usuniecia i potwierdzenie formularza przyciskiem [Zatwierdz] nie zaskutkuje usunieciem Typu z bazy danych.
+!t ___________________________________________________________________________
+!t 
+!t 4. Wyszukiwanie statkow.
+!t 
+!t 	Okno Statki umozliwia wyszukanie statkow spelniajacych okreslone kryteria. Program moze wyswietlic statki o okreslonym jednym z dwoch pol: Typ statku lub Silnik (nazwa silnika).
+!t 
+!t 4.1. Aby wyszukac tylko statki okreslonego typu:
+!t       a) Wybierz z rozwijalnej listy [Typ statku] okreslony typ statku.
+!t       b) Zatwierdzenie wyboru zaskutkuje wyswietleniem nwoej tabeli, zawierajacej statki spelniajace okreslone kryterium.
+!t 
+!t 4.2. Aby wyszukac tylko statki posiadajace okreslony silnik:
+!t       a) Wpisz odpowiednia nazwe silnika w pole [Silnik] i zatwierdz swoj wybor uzywajac przycisku [LUPA].
+!t       b) Zatwierdzenie wyboru zaskutkuje wyswietleniem nwoej tabeli, zawierajacej statki spelniajace okreslone kryterium.
 
 !s Lista zamowien
 !t .
