@@ -9,11 +9,6 @@ namespace Wypozyczalnia.Database
     {
         WypozyczalniaDataClassesDataContext db;
 
-        public QueriesEmployee()
-        {
-            db = new WypozyczalniaDataClassesDataContext();
-        }
-
         public QueriesEmployee(WypozyczalniaDataClassesDataContext dbContext)
         {
             db = dbContext;

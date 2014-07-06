@@ -4,5 +4,5 @@ INSERT INTO [dbo].[Rezerwacja]
            ,[Statek_Statek_ID]
            ,[Klient_Klient_ID])
      VALUES
-           ('2014-03-29', null, 1, 1)
+           ('2014-03-29', null, 2, 1)
 

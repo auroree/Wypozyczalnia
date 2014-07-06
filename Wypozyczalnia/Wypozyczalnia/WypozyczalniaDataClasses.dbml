@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><Database Name="Test2" Class="WypozyczalniaDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=FELIX-PC\SQLEXPRESS;Initial Catalog=Test2;User ID=sa" SettingsObjectName="Wypozyczalnia.Properties.Settings" SettingsPropertyName="Test2ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Test2" Class="WypozyczalniaDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.Część" Member="Częśćs">
     <Type Name="Część">
       <Column Name="Nazwa" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
@@ -54,7 +53,6 @@
       <Column Name="Pensja" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Pracownik_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Funkcja_Funkcja_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
-      <!-- <Column Name="Miejsce_urodzenia2" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" /> -->
       <Association Name="Pracownik_jest_serwisowany" Member="jest_serwisowanies" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="jest_serwisowany" />
       <Association Name="Pracownik_pilotuje" Member="pilotujes" ThisKey="Pracownik_ID" OtherKey="Pracownik_Pracownik_ID" Type="pilotuje" />
       <Association Name="Funkcja_Pracownik" Member="Funkcja" ThisKey="Funkcja_Funkcja_ID" OtherKey="Funkcja_ID" Type="Funkcja" IsForeignKey="true" />

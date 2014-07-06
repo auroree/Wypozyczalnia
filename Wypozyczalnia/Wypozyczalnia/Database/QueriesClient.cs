@@ -7,11 +7,6 @@ namespace Wypozyczalnia.Database
     {
         WypozyczalniaDataClassesDataContext db;
 
-        public QueriesClient()
-        {
-            db = new WypozyczalniaDataClassesDataContext();
-        }
-
         public QueriesClient(WypozyczalniaDataClassesDataContext dbContext)
         {
             db = dbContext;

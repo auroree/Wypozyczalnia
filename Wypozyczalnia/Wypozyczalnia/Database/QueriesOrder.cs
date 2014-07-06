@@ -8,11 +8,6 @@ namespace Wypozyczalnia.Database
     {
         WypozyczalniaDataClassesDataContext db;
 
-        public QueriesOrder()
-        {
-            db = new WypozyczalniaDataClassesDataContext();
-        }
-
         public QueriesOrder(WypozyczalniaDataClassesDataContext dbContext)
         {
             db = dbContext;

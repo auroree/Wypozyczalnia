@@ -26,10 +26,32 @@ namespace Wypozyczalnia.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FELIX-PC\\SQLEXPRESS;Initial Catalog=Test2;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FELIX-KOMPUTER\\SQLEXPRESS;Initial Catalog=Test2;")]
         public string Test2ConnectionString {
             get {
                 return ((string)(this["Test2ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=hania-laptop\\sqlexpress;Initial Catalog=WypoTest;User ID=sa;Password=" +
+            "Admin1")]
+        public string WypoTestConnectionString {
+            get {
+                return ((string)(this["WypoTestConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HANIA-LAPTOP\\sqlexpress;Initial Catalog=Wypozyczalnia;User ID=LoginAc" +
+            "cessor;Password=specialpassword")]
+        public string WypozyczalniaConnectionString {
+            get {
+                return ((string)(this["WypozyczalniaConnectionString"]));
             }
         }
     }

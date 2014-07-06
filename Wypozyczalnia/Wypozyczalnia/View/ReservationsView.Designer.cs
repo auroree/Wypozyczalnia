@@ -87,7 +87,7 @@
             this.buttonEmployees.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEmployees.Location = new System.Drawing.Point(156, 464);
             this.buttonEmployees.Name = "buttonEmployees";
-            this.buttonEmployees.Size = new System.Drawing.Size(137, 22);
+            this.buttonEmployees.Size = new System.Drawing.Size(137, 23);
             this.buttonEmployees.TabIndex = 8;
             this.buttonEmployees.Text = "Pokaż pracowników";
             this.buttonEmployees.UseVisualStyleBackColor = true;

@@ -31,7 +31,6 @@ namespace Wypozyczalnia.View
             textBox1.Text = ConfigurationManager.AppSettings["server"];
             textBox2.Text = ConfigurationManager.AppSettings["database"];
             textBox3.Text = ConfigurationManager.AppSettings["user"];
-            textBox4.Text = ConfigurationManager.AppSettings["password"];
         }
 
         public string TextBox1

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Wypozyczalnia" Class="LoginClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Użytkownik" Member="Użytkowniks">
+    <Type Name="Użytkownik">
+      <Column Name="Użytkownik_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nazwa" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Hasło" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Uprawnienia_Uprawnienia_ID" Type="System.Decimal" DbType="Decimal(28,0) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.LoginAs" Method="LoginAs" IsComposable="true">
+    <Parameter Name="nazwa" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="haslo" Type="System.String" DbType="VarChar(64)" />
+    <ElementType Name="LoginAsResult">
+      <Column Name="Funkcja" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Hasło" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>
