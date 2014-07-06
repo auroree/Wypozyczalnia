@@ -31,7 +31,7 @@ namespace Wypozyczalnia
             //        ));
             //Użytkownik u = new Użytkownik();
             //u.Nazwa = "Krysia";
-            //u.Hasło = HashMD5("12345");
+            //u.Hasło = dbin.HashMD5("12345");
             //u.Uprawnienia_Uprawnienia_ID = 1;
             //dbin.Użytkowniks.InsertOnSubmit(u);
             //dbin.SubmitChanges();

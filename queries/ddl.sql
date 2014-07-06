@@ -71,7 +71,6 @@ CREATE
     Pensja FLOAT (2) NOT NULL ,
     Pracownik_ID       NUMERIC (28) NOT NULL IDENTITY NOT FOR REPLICATION ,
     Funkcja_Funkcja_ID NUMERIC (28) NOT NULL ,
-    Miejsce_urodzenia2 VARCHAR (100) NOT NULL ,
     CONSTRAINT Pracownik_PK PRIMARY KEY CLUSTERED (Pracownik_ID)
 WITH
   (
