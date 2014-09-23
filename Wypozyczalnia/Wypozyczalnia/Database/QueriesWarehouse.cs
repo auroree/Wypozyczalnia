@@ -9,16 +9,13 @@ namespace Wypozyczalnia.Database
 {
     public class QueriesWarehouse
     {
-        WypozyczalniaDataClassesDataContext db;
-
-        public QueriesWarehouse(WypozyczalniaDataClassesDataContext dbContext)
+        public QueriesWarehouse()
         {
-            db = dbContext;
         }
 
         public Status_części GetStatus(string statusName)
         {
-            var s = db.Status_częścis.Single(status => status.Status == statusName);
+            var s = DatabaseAccess.DB.Status_częścis.Single(status => status.Status == statusName);
             return s;
         }
 
@@ -26,7 +23,7 @@ namespace Wypozyczalnia.Database
         {
             try
             {
-                var s = db.Stateks.Single(statek => statek.Statek_ID == statekID);
+                var s = DatabaseAccess.DB.Stateks.Single(statek => statek.Statek_ID == statekID);
                 return s;
             }
             catch (InvalidOperationException)
@@ -39,7 +36,7 @@ namespace Wypozyczalnia.Database
         {
             try
             {
-                var s = db.Zamówienies.Single(order => order.Zamówienie_ID == orderID);
+                var s = DatabaseAccess.DB.Zamówienies.Single(order => order.Zamówienie_ID == orderID);
                 return s;
             }
             catch (InvalidOperationException)
@@ -50,7 +47,7 @@ namespace Wypozyczalnia.Database
 
         public List<string> GetAllStatuses()
         {
-            IEnumerable<Status_części> table = db.Status_częścis.ToList();
+            IEnumerable<Status_części> table = DatabaseAccess.DB.Status_częścis.ToList();
             List<string> list = new List<string>();
             foreach (Status_części s in table)
             {
@@ -61,7 +58,7 @@ namespace Wypozyczalnia.Database
 
         public DataTable SelectAll()
         {
-            var query = from cz in db.Częśćs
+            var query = from cz in DatabaseAccess.DB.Częśćs
                         orderby cz.Nazwa ascending
                         select new
                         {
@@ -79,7 +76,7 @@ namespace Wypozyczalnia.Database
 
         public DataTable SelectByName(string name)
         {
-            var query = from cz in db.Częśćs
+            var query = from cz in DatabaseAccess.DB.Częśćs
                         where cz.Nazwa == name
                         select new
                         {
@@ -97,7 +94,7 @@ namespace Wypozyczalnia.Database
 
         public DataTable SelectByStatus(string status)
         {
-            var query = from cz in db.Częśćs
+            var query = from cz in DatabaseAccess.DB.Częśćs
                         where cz.Status_części.Status == status
                         select new
                         {
@@ -114,26 +111,26 @@ namespace Wypozyczalnia.Database
 
         public void Insert(Część part)
         {
-            db.Częśćs.InsertOnSubmit(part);
-            db.SubmitChanges();
+            DatabaseAccess.DB.Częśćs.InsertOnSubmit(part);
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public void Edit(Część e)
         {
-            var record = db.Częśćs.Single(part => part.Część_ID == e.Część_ID);
+            var record = DatabaseAccess.DB.Częśćs.Single(part => part.Część_ID == e.Część_ID);
             record.Nazwa = e.Nazwa;
             record.Zamówienie_Zamówienie_ID = e.Zamówienie_Zamówienie_ID;
             record.Cena = e.Cena;
             record.Statek_Statek_ID = e.Statek_Statek_ID;
             record.Status_części_Status_części_ID = e.Status_części_Status_części_ID;
-            db.SubmitChanges();
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public void Delete(Część e)
         {
-            var record = db.Częśćs.Single(part => part.Część_ID == e.Część_ID);
-            db.Częśćs.DeleteOnSubmit(record);
-            db.SubmitChanges();
+            var record = DatabaseAccess.DB.Częśćs.Single(part => part.Część_ID == e.Część_ID);
+            DatabaseAccess.DB.Częśćs.DeleteOnSubmit(record);
+            DatabaseAccess.DB.SubmitChanges();
         }
     }
 

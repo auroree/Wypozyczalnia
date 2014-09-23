@@ -23,19 +23,17 @@ namespace Wypozyczalnia
 
         public void Login()
         {
-            // TEMP
-            //LoginClassesDataContext dbin = new LoginClassesDataContext(
-            //        DatabaseSettings.CreateConnectionString(
-            //        "hania-laptop\\sqlexpress", "Wypozyczalnia",
-            //        "sa", "Admin1"
-            //        ));
-            //Użytkownik u = new Użytkownik();
-            //u.Nazwa = "Krysia";
-            //u.Hasło = dbin.HashMD5("12345");
-            //u.Uprawnienia_Uprawnienia_ID = 1;
-            //dbin.Użytkowniks.InsertOnSubmit(u);
-            //dbin.SubmitChanges();
-
+            LoginClassesDataContext dbin = new LoginClassesDataContext(
+                DatabaseSettings.CreateConnectionString(
+                "hania-laptop\\sqlexpress", "Wypozyczalnia",
+                "sa", "Admin1"
+                ));
+            Użytkownik u = new Użytkownik();
+            u.Nazwa = "Krysia";
+            u.Hasło = dbin.HashMD5("12345");
+            u.Uprawnienia_Uprawnienia_ID = 1;
+            dbin.Użytkowniks.InsertOnSubmit(u);
+            dbin.SubmitChanges();
             try
             {
                 string user = "LoginAccessor";
@@ -53,14 +51,14 @@ namespace Wypozyczalnia
                     DatabaseSettings.CreateConnectionString(
                     form.Server, form.Database,
                     res.Current.Funkcja, res.Current.Hasło));
+                DatabaseAccess.DB = dbContext;
                 // zapis ustawien
                 DatabaseSettings.Save(form.Server, form.Database, form.UserName);
                 
                 BaseView initForm = new ClientsView();
-                Controller controller = new Controller(dbContext, initForm);
+                Controller controller = new Controller(initForm);
                 initForm.Show();
                 form.Hide();
-
             }
             catch (NullReferenceException)
             {
@@ -72,11 +70,6 @@ namespace Wypozyczalnia
                 MessageBox.Show("Błąd komunikacji z bazą danych", "Błąd");
                 form.InProgressVisible = false;
             }
-
-            
         }
-
-        
-
     }
 }

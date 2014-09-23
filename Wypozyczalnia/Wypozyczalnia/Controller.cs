@@ -41,7 +41,6 @@ namespace Wypozyczalnia
         // wynik dzialania forularza
         private DialogResult dr;
         // mapowanie bd
-        private WypozyczalniaDataClassesDataContext dbContext;
         private QueriesClient queriesClient;
         private QueriesEmployee queriesEmployee;
         private QueriesWarehouse queriesWarehouse;
@@ -51,10 +50,9 @@ namespace Wypozyczalnia
         //wydruk
         private PrintController printer;
 
-        public Controller(WypozyczalniaDataClassesDataContext dbContext, BaseView initForm)
+        public Controller(BaseView initForm)
         {
             activeView = initForm;
-            this.dbContext = dbContext;
             // TODO: sprawdzenie typu przekazanego parametru
             clients = (ClientsView)initForm;
 
@@ -73,12 +71,12 @@ namespace Wypozyczalnia
             IsClosing = false;
 
             // inicjalizacja obiektow dbContext
-            queriesClient = new QueriesClient(dbContext);
-            queriesEmployee = new QueriesEmployee(dbContext);
-            queriesWarehouse = new QueriesWarehouse(dbContext);
-            queriesOrder = new QueriesOrder(dbContext);
-            queriesReservation = new QueriesReservation(dbContext);
-            queriesSpacecrafts = new QueriesSpacecrafts(dbContext);
+            queriesClient = new QueriesClient();
+            queriesEmployee = new QueriesEmployee();
+            queriesWarehouse = new QueriesWarehouse();
+            queriesOrder = new QueriesOrder();
+            queriesReservation = new QueriesReservation();
+            queriesSpacecrafts = new QueriesSpacecrafts();
 
             //drukarka
             printer = new PrintController();
@@ -235,7 +233,6 @@ namespace Wypozyczalnia
         {
             DatabaseSettingsForm form = new DatabaseSettingsForm();
             DatabaseSettingsController formController = new DatabaseSettingsController(form);
-            formController.DbContext = dbContext;
             DialogResult dr = form.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -253,9 +250,9 @@ namespace Wypozyczalnia
                 try
                 {
                     // sprawdzenie polaczenia
-                    dbContext.Connection.Open();
+                    DatabaseAccess.DB.Connection.Open();
                     activeView.DBStatus = ConfigurationManager.AppSettings["database"];
-                    dbContext.Connection.Close();
+                    DatabaseAccess.DB.Connection.Close();
                     activeView.DBStatusColor = new System.Drawing.Color();
                 }
                 catch (SqlException ex)

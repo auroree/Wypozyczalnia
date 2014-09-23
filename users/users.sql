@@ -108,6 +108,10 @@ GRANT SELECT,INSERT,UPDATE ON Czêœæ
 	TO Magazynier;
 GO
 
+GRANT SELECT ON Status_czêœci
+	TO Magazynier;
+GO
+
 --GRANT SELECT,INSERT,DELETE,UPDATE ON jest_serwisowany
 --	TO Magazynier;
 --GO

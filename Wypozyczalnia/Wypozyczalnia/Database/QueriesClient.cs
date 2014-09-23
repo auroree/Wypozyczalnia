@@ -5,16 +5,13 @@ namespace Wypozyczalnia.Database
 {
     public class QueriesClient
     {
-        WypozyczalniaDataClassesDataContext db;
-
-        public QueriesClient(WypozyczalniaDataClassesDataContext dbContext)
+        public QueriesClient()
         {
-            db = dbContext;
         }
 
         public DataTable SelectAll()
         {
-            var query = from c in db.Klients
+            var query = from c in DatabaseAccess.DB.Klients
                     orderby c.Nazwisko ascending
                     select new
                     {
@@ -30,29 +27,29 @@ namespace Wypozyczalnia.Database
 
         public void Insert(Klient client)
         {
-            db.Klients.InsertOnSubmit(client);
-            db.SubmitChanges();
+            DatabaseAccess.DB.Klients.InsertOnSubmit(client);
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public void Edit(Klient c)
         {
-            var record = db.Klients.Single(client => client.Klient_ID == c.Klient_ID);
+            var record = DatabaseAccess.DB.Klients.Single(client => client.Klient_ID == c.Klient_ID);
             record.Imię = c.Imię;
             record.Nazwisko = c.Nazwisko;
             record.Nr_dowodu = c.Nr_dowodu;
-            db.SubmitChanges();
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public void Delete(Klient c)
         {
-            var record = db.Klients.Single(client => client.Klient_ID == c.Klient_ID);
-            db.Klients.DeleteOnSubmit(record);
-            db.SubmitChanges();
+            var record = DatabaseAccess.DB.Klients.Single(client => client.Klient_ID == c.Klient_ID);
+            DatabaseAccess.DB.Klients.DeleteOnSubmit(record);
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public DataTable SelectBySurname(string surname)
         {
-            var query = from c in db.Klients
+            var query = from c in DatabaseAccess.DB.Klients
                         where c.Nazwisko == surname
                         select new
                         {

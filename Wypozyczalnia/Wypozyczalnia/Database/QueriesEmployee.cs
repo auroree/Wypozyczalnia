@@ -7,16 +7,13 @@ namespace Wypozyczalnia.Database
 {
     public class QueriesEmployee
     {
-        WypozyczalniaDataClassesDataContext db;
-
-        public QueriesEmployee(WypozyczalniaDataClassesDataContext dbContext)
+        public QueriesEmployee()
         {
-            db = dbContext;
         }
 
         public DataTable SelectAll()
         {
-            var query = from e in db.Pracowniks
+            var query = from e in DatabaseAccess.DB.Pracowniks
                         orderby e.Nazwisko ascending
                         select new
                         {
@@ -35,32 +32,32 @@ namespace Wypozyczalnia.Database
 
         public void Insert(Pracownik employee)
         {
-            db.Pracowniks.InsertOnSubmit(employee);
-            db.SubmitChanges();
+            DatabaseAccess.DB.Pracowniks.InsertOnSubmit(employee);
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public void Edit(Pracownik e)
         {
-            var record = db.Pracowniks.Single(employee => employee.Pracownik_ID == e.Pracownik_ID);
+            var record = DatabaseAccess.DB.Pracowniks.Single(employee => employee.Pracownik_ID == e.Pracownik_ID);
             record.Imię = e.Imię;
             record.Nazwisko = e.Nazwisko;
             record.Data_urodzenia = e.Data_urodzenia;
             record.Miejsce_urodzenia = e.Miejsce_urodzenia;
             record.Pensja = e.Pensja;
             record.Funkcja_Funkcja_ID = e.Funkcja_Funkcja_ID;
-            db.SubmitChanges();
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public void Delete(Pracownik e)
         {
-            var record = db.Pracowniks.Single(employee => employee.Pracownik_ID == e.Pracownik_ID);
-            db.Pracowniks.DeleteOnSubmit(record);
-            db.SubmitChanges();
+            var record = DatabaseAccess.DB.Pracowniks.Single(employee => employee.Pracownik_ID == e.Pracownik_ID);
+            DatabaseAccess.DB.Pracowniks.DeleteOnSubmit(record);
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public DataTable SelectBySurname(string surname)
         {
-            var query = from e in db.Pracowniks
+            var query = from e in DatabaseAccess.DB.Pracowniks
                         where e.Nazwisko == surname
                         select new
                         {
@@ -78,7 +75,7 @@ namespace Wypozyczalnia.Database
 
         public DataTable SelectByFunction(string function)
         {
-            var query = from e in db.Pracowniks
+            var query = from e in DatabaseAccess.DB.Pracowniks
                         where e.Funkcja.Nazwa_funkcji == function
                         select new
                         {
@@ -96,13 +93,13 @@ namespace Wypozyczalnia.Database
 
         public Funkcja GetFunction(string functionName)
         {
-            var f = db.Funkcjas.Single(funkcja => funkcja.Nazwa_funkcji == functionName);
+            var f = DatabaseAccess.DB.Funkcjas.Single(funkcja => funkcja.Nazwa_funkcji == functionName);
             return f;
         }
 
         public List<string> GetAllFunctions()
         {
-            IEnumerable<Funkcja> table = db.Funkcjas.ToList();
+            IEnumerable<Funkcja> table = DatabaseAccess.DB.Funkcjas.ToList();
             List<string> list = new List<string>();
             foreach (Funkcja f in table) 
             {

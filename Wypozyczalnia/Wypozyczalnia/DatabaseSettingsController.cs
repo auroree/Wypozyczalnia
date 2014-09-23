@@ -13,17 +13,11 @@ namespace Wypozyczalnia
     public class DatabaseSettingsController
     {
         private DatabaseSettingsForm form;
-        private WypozyczalniaDataClassesDataContext dbContext;
 
         public DatabaseSettingsController(DatabaseSettingsForm form)
         {
             this.form = form;
             form.SetController(this);
-        }
-
-        public WypozyczalniaDataClassesDataContext DbContext
-        {
-            set { this.dbContext = value; }
         }
 
         public void Confirm()
@@ -48,6 +42,8 @@ namespace Wypozyczalnia
                         DatabaseSettings.CreateConnectionString(
                         form.TextBox1, form.TextBox2,
                         res.Current.Funkcja, res.Current.Hasło));
+                    DatabaseAccess.DB = dbContext;
+                    
                     // zapis ustawien
                     DatabaseSettings.Save(form.TextBox1, form.TextBox2, form.TextBox3);
                     form.Dispose();

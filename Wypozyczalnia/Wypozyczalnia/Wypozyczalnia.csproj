@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseAccess.cs" />
     <Compile Include="DatabaseSettingsController.cs" />
     <Compile Include="Database\DatabaseSettings.cs" />
     <Compile Include="Database\Extensions.cs" />

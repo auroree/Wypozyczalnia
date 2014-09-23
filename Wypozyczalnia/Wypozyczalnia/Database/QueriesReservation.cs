@@ -9,20 +9,17 @@ namespace Wypozyczalnia.Database
 {
     public class QueriesReservation
     {
-        WypozyczalniaDataClassesDataContext db;
-
-        public QueriesReservation(WypozyczalniaDataClassesDataContext dbContext)
+        public QueriesReservation()
         {
-            db = dbContext;
         }
 
         /*Pobrane wszystkich danych o rezerwacjach*/
         public DataTable SelectAll()
         {
-            var query = from r in db.Rezerwacjas
-                        join c in db.Klients on r.Klient_Klient_ID equals c.Klient_ID
-                        join s in db.Stateks on r.Statek_Statek_ID equals s.Statek_ID
-                        join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+            var query = from r in DatabaseAccess.DB.Rezerwacjas
+                        join c in DatabaseAccess.DB.Klients on r.Klient_Klient_ID equals c.Klient_ID
+                        join s in DatabaseAccess.DB.Stateks on r.Statek_Statek_ID equals s.Statek_ID
+                        join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
 
                         select new
                         {
@@ -44,12 +41,12 @@ namespace Wypozyczalnia.Database
         public DataTable SelectBySurname(string surname)
         {
 
-            var query = from r in db.Rezerwacjas
-                        join c in db.Klients on r.Klient_Klient_ID equals c.Klient_ID
-                        join s in db.Stateks on r.Statek_Statek_ID equals s.Statek_ID
-                        join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                        join p in db.pilotujes on r.Statek_Statek_ID equals p.Rezerwacja_Rezerwacja_ID
-                        join e in db.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
+            var query = from r in DatabaseAccess.DB.Rezerwacjas
+                        join c in DatabaseAccess.DB.Klients on r.Klient_Klient_ID equals c.Klient_ID
+                        join s in DatabaseAccess.DB.Stateks on r.Statek_Statek_ID equals s.Statek_ID
+                        join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+                        join p in DatabaseAccess.DB.pilotujes on r.Statek_Statek_ID equals p.Rezerwacja_Rezerwacja_ID
+                        join e in DatabaseAccess.DB.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
                         where c.Nazwisko == surname
                         select new
                         {
@@ -72,10 +69,10 @@ namespace Wypozyczalnia.Database
         public DataTable SelectById(int id)
         {
 
-            var query = from r in db.Rezerwacjas
-                        join c in db.Klients on r.Klient_Klient_ID equals c.Klient_ID
-                        join s in db.Stateks on r.Statek_Statek_ID equals s.Statek_ID
-                        join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+            var query = from r in DatabaseAccess.DB.Rezerwacjas
+                        join c in DatabaseAccess.DB.Klients on r.Klient_Klient_ID equals c.Klient_ID
+                        join s in DatabaseAccess.DB.Stateks on r.Statek_Statek_ID equals s.Statek_ID
+                        join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
                         where r.Klient_Klient_ID == id
                         select new
                         {
@@ -95,25 +92,25 @@ namespace Wypozyczalnia.Database
         /*Wykasowanie danych o rezerwacji*/
         public void Delete(int id)
         {
-            var toRemove = from p in db.pilotujes
+            var toRemove = from p in DatabaseAccess.DB.pilotujes
                            where p.Rezerwacja_Rezerwacja_ID == id
                            select p;
 
             var elements = toRemove.ToList();
 
             foreach (var element in elements)
-                db.pilotujes.DeleteOnSubmit(element);
+                DatabaseAccess.DB.pilotujes.DeleteOnSubmit(element);
 
-            var record = db.Rezerwacjas.Single(reservation => reservation.Rezerwacja_ID == id);
-            db.Rezerwacjas.DeleteOnSubmit(record);
-            db.SubmitChanges();
+            var record = DatabaseAccess.DB.Rezerwacjas.Single(reservation => reservation.Rezerwacja_ID == id);
+            DatabaseAccess.DB.Rezerwacjas.DeleteOnSubmit(record);
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         /*Wyszukanie pracownikow powiazanych z rezerwacja*/
         public DataTable SelectReservationEmployee(int id)
         {
-            var query = from p in db.pilotujes
-                        join e in db.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
+            var query = from p in DatabaseAccess.DB.pilotujes
+                        join e in DatabaseAccess.DB.Pracowniks on p.Pracownik_Pracownik_ID equals e.Pracownik_ID
                         where p.Rezerwacja_Rezerwacja_ID == id
                         select new
                         {
@@ -135,14 +132,14 @@ namespace Wypozyczalnia.Database
             DataTable dt;
             if (DueDate == null)
             {
-                var query = (from e in db.Pracowniks
-                             join p in db.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
+                var query = (from e in DatabaseAccess.DB.Pracowniks
+                             join p in DatabaseAccess.DB.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
                              from p in joinedEmpEmpty.DefaultIfEmpty()
-                             join r in db.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
+                             join r in DatabaseAccess.DB.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
                              from r in joinedResEmpty.DefaultIfEmpty()
                              where (r.Rezerwacja_ID == null) || (
-                                    (!((from rr in db.Rezerwacjas
-                                        join pp in db.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
+                                    (!((from rr in DatabaseAccess.DB.Rezerwacjas
+                                        join pp in DatabaseAccess.DB.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
                                         where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null))
                                         select pp.Pracownik_Pracownik_ID).Contains(e.Pracownik_ID))))
                              select new
@@ -159,12 +156,12 @@ namespace Wypozyczalnia.Database
             }
             else
             {
-                var query = (from e in db.Pracowniks
-                             join p in db.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
+                var query = (from e in DatabaseAccess.DB.Pracowniks
+                             join p in DatabaseAccess.DB.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
                              from p in joinedEmpEmpty.DefaultIfEmpty()
-                             join r in db.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
+                             join r in DatabaseAccess.DB.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
                              from r in joinedResEmpty.DefaultIfEmpty()
-                             where (r.Rezerwacja_ID == null) || (((from rr in db.Rezerwacjas
+                             where (r.Rezerwacja_ID == null) || (((from rr in DatabaseAccess.DB.Rezerwacjas
                                                                    where ((rr.Data_wypożyczenia > HireDate) && (rr.Data_wypożyczenia > DueDate)) ||
                                                                          ((rr.Data_zwrotu < HireDate) && (rr.Data_zwrotu < DueDate))
                                                                    select rr.Rezerwacja_ID).Contains(r.Rezerwacja_ID)) && r.Data_zwrotu != null)
@@ -190,14 +187,14 @@ namespace Wypozyczalnia.Database
             DataTable dt;
             if (DueDate == null)
             {
-                var query = (from e in db.Pracowniks
-                             join p in db.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
+                var query = (from e in DatabaseAccess.DB.Pracowniks
+                             join p in DatabaseAccess.DB.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
                              from p in joinedEmpEmpty.DefaultIfEmpty()
-                             join r in db.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
+                             join r in DatabaseAccess.DB.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
                              from r in joinedResEmpty.DefaultIfEmpty()
                              where (r.Rezerwacja_ID == null) || (
-                                    (!((from rr in db.Rezerwacjas
-                                        join pp in db.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
+                                    (!((from rr in DatabaseAccess.DB.Rezerwacjas
+                                        join pp in DatabaseAccess.DB.pilotujes on rr.Rezerwacja_ID equals pp.Rezerwacja_Rezerwacja_ID
                                         where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null))
                                         select pp.Pracownik_Pracownik_ID).Contains(e.Pracownik_ID)))) || (r.Rezerwacja_ID == id)
                              select new
@@ -214,12 +211,12 @@ namespace Wypozyczalnia.Database
             }
             else
             {
-                var query = (from e in db.Pracowniks
-                             join p in db.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
+                var query = (from e in DatabaseAccess.DB.Pracowniks
+                             join p in DatabaseAccess.DB.pilotujes on e.Pracownik_ID equals p.Pracownik_Pracownik_ID into joinedEmpEmpty
                              from p in joinedEmpEmpty.DefaultIfEmpty()
-                             join r in db.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
+                             join r in DatabaseAccess.DB.Rezerwacjas on p.Rezerwacja_Rezerwacja_ID equals r.Rezerwacja_ID into joinedResEmpty
                              from r in joinedResEmpty.DefaultIfEmpty()
-                             where (r.Rezerwacja_ID == null) || (((from rr in db.Rezerwacjas
+                             where (r.Rezerwacja_ID == null) || (((from rr in DatabaseAccess.DB.Rezerwacjas
                                                                    where ((rr.Data_wypożyczenia > HireDate) && (rr.Data_wypożyczenia > DueDate)) ||
                                                                          ((rr.Data_zwrotu < HireDate) && (rr.Data_zwrotu < DueDate))
                                                                    select rr.Rezerwacja_ID).Contains(r.Rezerwacja_ID)) && r.Data_zwrotu != null) || (r.Rezerwacja_ID == id)
@@ -242,8 +239,8 @@ namespace Wypozyczalnia.Database
         /*Wyszukanie pojedynczego klienta*/
         public DataTable SelectSingleClient(int id)
         {
-            var query = from r in db.Rezerwacjas
-                        join c in db.Klients on r.Klient_Klient_ID equals c.Klient_ID
+            var query = from r in DatabaseAccess.DB.Rezerwacjas
+                        join c in DatabaseAccess.DB.Klients on r.Klient_Klient_ID equals c.Klient_ID
                         where r.Rezerwacja_ID == id
                         select new
                         {
@@ -259,9 +256,9 @@ namespace Wypozyczalnia.Database
         /*Wyszukanie pojedynczego statku*/
         public DataTable SelectSingleShip(int id)
         {
-            var query = from r in db.Rezerwacjas
-                        join s in db.Stateks on r.Klient_Klient_ID equals s.Statek_ID
-                        join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+            var query = from r in DatabaseAccess.DB.Rezerwacjas
+                        join s in DatabaseAccess.DB.Stateks on r.Klient_Klient_ID equals s.Statek_ID
+                        join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
                         where r.Rezerwacja_ID == id
                         select new
                         {
@@ -280,11 +277,11 @@ namespace Wypozyczalnia.Database
             DataTable dt;
             if (DueDate == null)
             {
-                var query = (from s in db.Stateks
-                             join r in db.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
+                var query = (from s in DatabaseAccess.DB.Stateks
+                             join r in DatabaseAccess.DB.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
                              from r in joinedShipsEmpty.DefaultIfEmpty()
-                             join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                             where (r.Rezerwacja_ID == null) || ((!(from rr in db.Rezerwacjas where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null)) select rr.Statek_Statek_ID).Contains(s.Statek_ID)))
+                             join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+                             where (r.Rezerwacja_ID == null) || ((!(from rr in DatabaseAccess.DB.Rezerwacjas where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null)) select rr.Statek_Statek_ID).Contains(s.Statek_ID)))
                              select new
                              {
                                  s.Statek_ID,
@@ -296,11 +293,11 @@ namespace Wypozyczalnia.Database
             }
             else
             {
-                var query = (from s in db.Stateks
-                             join r in db.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
+                var query = (from s in DatabaseAccess.DB.Stateks
+                             join r in DatabaseAccess.DB.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
                              from r in joinedShipsEmpty.DefaultIfEmpty()
-                             join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                             where (r.Rezerwacja_ID == null) || (((from rr in db.Rezerwacjas
+                             join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+                             where (r.Rezerwacja_ID == null) || (((from rr in DatabaseAccess.DB.Rezerwacjas
                                                                    where ((rr.Data_wypożyczenia > HireDate) && (rr.Data_wypożyczenia > DueDate)) ||
                                                                          ((rr.Data_zwrotu < HireDate) && (rr.Data_zwrotu < DueDate))
                                                                    select rr.Rezerwacja_ID).Contains(r.Rezerwacja_ID)) && r.Data_zwrotu != null)
@@ -323,11 +320,11 @@ namespace Wypozyczalnia.Database
             DataTable dt;
             if (DueDate == null)
             {
-                var query = (from s in db.Stateks
-                             join r in db.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
+                var query = (from s in DatabaseAccess.DB.Stateks
+                             join r in DatabaseAccess.DB.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
                              from r in joinedShipsEmpty.DefaultIfEmpty()
-                             join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                             where (r.Rezerwacja_ID == null) || ((!(from rr in db.Rezerwacjas where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null)) select rr.Statek_Statek_ID).Contains(s.Statek_ID))) || (r.Rezerwacja_ID == id)
+                             join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+                             where (r.Rezerwacja_ID == null) || ((!(from rr in DatabaseAccess.DB.Rezerwacjas where ((rr.Data_zwrotu > HireDate) || (rr.Data_wypożyczenia > HireDate) || (rr.Data_zwrotu == null)) select rr.Statek_Statek_ID).Contains(s.Statek_ID))) || (r.Rezerwacja_ID == id)
                              select new
                              {
                                  s.Statek_ID,
@@ -339,11 +336,11 @@ namespace Wypozyczalnia.Database
             }
             else
             {
-                var query = (from s in db.Stateks
-                             join r in db.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
+                var query = (from s in DatabaseAccess.DB.Stateks
+                             join r in DatabaseAccess.DB.Rezerwacjas on s.Statek_ID equals r.Statek_Statek_ID into joinedShipsEmpty
                              from r in joinedShipsEmpty.DefaultIfEmpty()
-                             join t in db.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
-                             where (r.Rezerwacja_ID == null) || (((from rr in db.Rezerwacjas
+                             join t in DatabaseAccess.DB.Typ_statkus on s.Typ_statku_Typ_statku_ID equals t.Typ_statku_ID
+                             where (r.Rezerwacja_ID == null) || (((from rr in DatabaseAccess.DB.Rezerwacjas
                                                                    where ((rr.Data_wypożyczenia > HireDate) && (rr.Data_wypożyczenia > DueDate)) ||
                                                                          ((rr.Data_zwrotu < HireDate) && (rr.Data_zwrotu < DueDate))
                                                                    select rr.Rezerwacja_ID).Contains(r.Rezerwacja_ID)) && r.Data_zwrotu != null) || (r.Rezerwacja_ID == id)
@@ -363,8 +360,8 @@ namespace Wypozyczalnia.Database
         /*Wyszukanie wszystkich klientow z wyjatkiem jednego*/
         public DataTable SelectAllWithoutSingle(int id)
         {
-            var query = from c in db.Klients
-                        join r in db.Rezerwacjas on c.Klient_ID equals r.Klient_Klient_ID into empty
+            var query = from c in DatabaseAccess.DB.Klients
+                        join r in DatabaseAccess.DB.Rezerwacjas on c.Klient_ID equals r.Klient_Klient_ID into empty
                         from r in empty.DefaultIfEmpty()
                         where (r.Rezerwacja_ID != id) || (r.Klient_Klient_ID == null)
                         select new
@@ -382,44 +379,44 @@ namespace Wypozyczalnia.Database
         /*wstawienie rezerwacji*/
         public decimal InsertReservation(Rezerwacja r)
         {
-            db.Rezerwacjas.InsertOnSubmit(r);
-            db.SubmitChanges();
+            DatabaseAccess.DB.Rezerwacjas.InsertOnSubmit(r);
+            DatabaseAccess.DB.SubmitChanges();
             return r.Rezerwacja_ID;
         }
 
         /*edycja rezerwacji*/
         public decimal EditReservation(Rezerwacja r)
         {
-            var record = db.Rezerwacjas.Single(reservation => reservation.Rezerwacja_ID == r.Rezerwacja_ID);
+            var record = DatabaseAccess.DB.Rezerwacjas.Single(reservation => reservation.Rezerwacja_ID == r.Rezerwacja_ID);
             record.Data_wypożyczenia = r.Data_wypożyczenia;
             record.Data_zwrotu = r.Data_zwrotu;
             record.Klient_Klient_ID = r.Klient_Klient_ID;
             record.Statek_Statek_ID = r.Statek_Statek_ID;
 
-            db.SubmitChanges();
+            DatabaseAccess.DB.SubmitChanges();
             return r.Rezerwacja_ID;
         }
 
         /*Wykasowanie pracownikow zwiazanych z rezerwacja*/
         public void DeleteReservtionEmployees(int id)
         {
-            var toRemove = from p in db.pilotujes
+            var toRemove = from p in DatabaseAccess.DB.pilotujes
                            where p.Rezerwacja_Rezerwacja_ID == id
                            select p;
 
             var elements = toRemove.ToList();
 
             foreach (var element in elements)
-                db.pilotujes.DeleteOnSubmit(element);
+                DatabaseAccess.DB.pilotujes.DeleteOnSubmit(element);
 
-            db.SubmitChanges();
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         /*Wstawienie pracownika powiązanego z rezerwcja*/
         public void InsertReservationEmployee(pilotuje p)
         {
-            db.pilotujes.InsertOnSubmit(p);
-            db.SubmitChanges();
+            DatabaseAccess.DB.pilotujes.InsertOnSubmit(p);
+            DatabaseAccess.DB.SubmitChanges();
         }
     }
 }

@@ -6,16 +6,13 @@ namespace Wypozyczalnia.Database
 {
     class QueriesOrder
     {
-        WypozyczalniaDataClassesDataContext db;
-
-        public QueriesOrder(WypozyczalniaDataClassesDataContext dbContext)
+        public QueriesOrder()
         {
-            db = dbContext;
         }
 
         public DataTable SelectAll()
         {
-            var query = from o in db.Zamówienies
+            var query = from o in DatabaseAccess.DB.Zamówienies
                         orderby o.Data_zamówienia ascending
                         select new
                         {
@@ -28,7 +25,7 @@ namespace Wypozyczalnia.Database
 
         public DataTable SelectOrdersByOrderDate(DateTime orderTime)
         {
-            var query = from o in db.Zamówienies
+            var query = from o in DatabaseAccess.DB.Zamówienies
                         where o.Data_zamówienia == orderTime
                         orderby o.Data_zamówienia ascending
                         select new
@@ -42,29 +39,29 @@ namespace Wypozyczalnia.Database
 
         public decimal Insert(Zamówienie order)
         {
-            db.Zamówienies.InsertOnSubmit(order);
-            db.SubmitChanges();
+            DatabaseAccess.DB.Zamówienies.InsertOnSubmit(order);
+            DatabaseAccess.DB.SubmitChanges();
             return order.Zamówienie_ID;
         }
 
         public void Edit(Zamówienie o)
         {
-            var record = db.Zamówienies.Single(order => order.Zamówienie_ID == o.Zamówienie_ID);
+            var record = DatabaseAccess.DB.Zamówienies.Single(order => order.Zamówienie_ID == o.Zamówienie_ID);
             record.Data_zamówienia = o.Data_zamówienia;
             record.Data_odbioru = o.Data_odbioru;
-            db.SubmitChanges();
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public void Delete(Zamówienie o)
         {
-            var record = db.Zamówienies.Single(order => order.Zamówienie_ID == o.Zamówienie_ID);
-            db.Zamówienies.DeleteOnSubmit(record);
-            db.SubmitChanges();
+            var record = DatabaseAccess.DB.Zamówienies.Single(order => order.Zamówienie_ID == o.Zamówienie_ID);
+            DatabaseAccess.DB.Zamówienies.DeleteOnSubmit(record);
+            DatabaseAccess.DB.SubmitChanges();
         }
 
         public DataTable SelectPartsByOrder(int orderId)
         {
-            var query = from p in db.Częśćs
+            var query = from p in DatabaseAccess.DB.Częśćs
                         where p.Zamówienie_Zamówienie_ID == orderId
                         select new
                         {
@@ -80,7 +77,7 @@ namespace Wypozyczalnia.Database
 
         public DataTable SelectPartsAvailableToOrder()
         {
-            var query = from p in db.Częśćs
+            var query = from p in DatabaseAccess.DB.Częśćs
                         where p.Status_części.Status == "Do zamówienia"
                         select new
                         {
