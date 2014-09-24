@@ -23,17 +23,6 @@ namespace Wypozyczalnia
 
         public void Login()
         {
-            LoginClassesDataContext dbin = new LoginClassesDataContext(
-                DatabaseSettings.CreateConnectionString(
-                "hania-laptop\\sqlexpress", "Wypozyczalnia",
-                "sa", "Admin1"
-                ));
-            Użytkownik u = new Użytkownik();
-            u.Nazwa = "Krysia";
-            u.Hasło = dbin.HashMD5("12345");
-            u.Uprawnienia_Uprawnienia_ID = 1;
-            dbin.Użytkowniks.InsertOnSubmit(u);
-            dbin.SubmitChanges();
             try
             {
                 string user = "LoginAccessor";
